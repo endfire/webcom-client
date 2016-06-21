@@ -1,66 +1,44 @@
-import React, { PropTypes, Component } from 'react';
-import Modal from '../../components/Modal';
-import Button from '../../components/Button';
+import React, { PropTypes, Children, cloneElement } from 'react';
+import { Modal } from 'reactstrap';
 
-class UIModal extends Component {
-  constructor() {
-    super();
+class UIModal extends React.Component {
+  constructor(props) {
+    super(props);
 
-    this.state = { open: false };
-    this.toggleModal = this.toggleModal.bind(this);
-    this.openModal = this.openModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.handleDocumentClick = this.handleDocumentClick.bind(this);
+    this.state = { isOpen: false };
+    this.toggle = this.toggle.bind(this);
   }
 
-  componentDidMount() {
-    document.addEventListener('click', this.handleDocumentClick);
+  toggle() {
+    this.setState({ isOpen: !this.state.isOpen });
   }
 
-  componentWillUnmount() {
-    document.removeListener('click', this.handleDocumentClick);
+  cloneWithToggle(element) {
+    return cloneElement(element, { toggle: this.toggle });
   }
 
-  toggleModal() {
-    return this.state.open
-      ? this.closeModal()
-      : this.openModal();
-  }
+  renderChildren() {
+    const { children } = this.props;
+    const { map, toArray } = Children;
 
-  closeModal() {
-    document.body.removeChild(this.backdrop);
-    this.setState({ open: false });
-  }
+    return map(toArray(children), child => {
+      if (child.props.hasToggle) {
+        return this.cloneWithToggle(child);
+      }
 
-  openModal() {
-    const backdrop = document.createElement('div');
-    backdrop.className = 'modal-backdrop fade in';
-    document.body.appendChild(backdrop);
-
-    this.backdrop = backdrop;
-    this.setState({ open: true });
-  }
-
-  handleDocumentClick(e) {
-    const { open } = this.state;
-
-    if (!open) return;
-
-    const { target } = e;
-
-    // TODO: Very hacky. Needs to only close if clicked outside `modal-dialog`
-    if (target.className === 'modal fade in') this.closeModal();
+      return child;
+    });
   }
 
   render() {
-    const { open } = this.state;
-    const { children, type, text, size } = this.props;
+    const { target, size } = this.props;
+    const { isOpen } = this.state;
 
     return (
       <div>
-        <Button type={type} text={text} size={size} onClick={this.toggleModal} />
-        <Modal open={open}>
-          {children}
+        <span onClick={this.toggle}>{target}</span>
+        <Modal isOpen={isOpen} size={size} toggle={this.toggle}>
+          {this.renderChildren()}
         </Modal>
       </div>
     );
@@ -69,8 +47,7 @@ class UIModal extends Component {
 
 UIModal.propTypes = {
   children: PropTypes.any,
-  type: PropTypes.string,
-  text: PropTypes.string,
+  target: PropTypes.any,
   size: PropTypes.string,
 };
 
