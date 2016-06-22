@@ -1,12 +1,6 @@
-export default (state = { data: [] }, action) => {
-  if (action.type === 'INCREMENT') {
-    return {
-      data: [
-        ...state.data,
-        action.label,
-      ],
-    };
-  }
+import { combineReducers } from 'redux';
+import session from './session';
 
-  return state;
-};
+export default combineReducers({
+  session,
+});

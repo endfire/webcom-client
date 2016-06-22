@@ -1,0 +1,26 @@
+.row {
+  display: flex;
+  flex: 1 100%;
+  flex-direction: row;
+  flex-wrap: row wrap;
+  margin: 8px 0px;
+  align-items: center;
+}
+
+.left {
+  flex-grow: 1;
+}
+
+.right {
+  flex-grow: 1;
+  text-align: right;
+}
+
+.item {
+  display: inline-block;
+  padding: 8px;
+
+  h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+  }
+}

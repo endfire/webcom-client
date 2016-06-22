@@ -1,0 +1,17 @@
+@import "bootstrap/scss/bootstrap.scss";
+
+.btn {
+  @include button-variant(white, $gray-dark, $gray-dark);
+
+  width: 38px;
+  height: 38px;
+  border-radius: 19px;
+  padding: 0;
+  display: flex;
+}
+
+.icon {
+  flex: 1;
+  left: auto;
+  right: auto;
+}
