@@ -46,8 +46,10 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "bootstrap": "^4.0.0-alpha.2",
     "classnames": "^2.2.5",
+    "jsonwebtoken": "^7.0.1",
     "lodash": "^4.13.1",
     "node-uuid": "^1.4.7",
     "normalizr": "^2.1.0",

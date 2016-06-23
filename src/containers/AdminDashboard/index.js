@@ -4,9 +4,7 @@ import Navbar from './containers/Navbar';
 const AdminDashboard = ({ children }) => (
   <div>
     <Navbar />
-    <div className="m-t-1">
-      {children}
-    </div>
+    {children}
   </div>
 );
 

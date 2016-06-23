@@ -1,26 +1,12 @@
-import React from 'react';
-import { Button } from 'reactstrap';
+import React, { PropTypes } from 'react';
 import DeleteButton from '../../../ui/DeleteButton';
 import ListView from '../../../components/ListView';
 import ListItem from '../../../components/ListItem';
+import AddBrandModal from './AddBrandModal';
 
-const brands = [{
-  id: 1,
-  name: 'Antennas',
-}, {
-  id: 2,
-  name: 'LED',
-}, {
-  id: 3,
-  name: 'Battery',
-}, {
-  id: 4,
-  name: 'IoT',
-}];
-
-const BrandList = () => (
-  <div>
-    <Button color="secondary">Create a new brand</Button>
+const BrandList = ({ brands }) => (
+  <div className="container m-t-1">
+    <AddBrandModal />
     <ListView>
       {brands.map(brand => {
         const text = `Are you sure to want to delete ${brand.name}?`;
@@ -45,5 +31,9 @@ const BrandList = () => (
     </ListView>
   </div>
 );
+
+BrandList.propTypes = {
+  brands: PropTypes.array,
+};
 
 export default BrandList;

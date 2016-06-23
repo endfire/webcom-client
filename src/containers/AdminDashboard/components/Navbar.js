@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
 import NavItem from '../../../components/NavItem';
 
 const Navbar = ({ shouldShowNavs, login, logout }) => {
@@ -31,9 +32,9 @@ const Navbar = ({ shouldShowNavs, login, logout }) => {
   }
 
   return (
-    <nav className="navbar navbar-light bg-faded">
-      <div classNameName="container">
-        <a className="navbar-brand" href="#">Webcom</a>
+    <nav className="navbar navbar-full navbar-light bg-faded">
+      <div className="container">
+        <Link to="admin" className="navbar-brand">Webcom</Link>
         {navs}
       </div>
     </nav>

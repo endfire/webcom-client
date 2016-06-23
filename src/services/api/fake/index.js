@@ -1,6 +1,6 @@
 import { v4 } from 'node-uuid';
 import { filter } from 'lodash';
-import mergeRelationships from './mergeRelationships';
+import { merge, hash, compare, verifyToken, createToken } from './helpers';
 import database from './database';
 import schemas from '../schemas';
 
@@ -13,7 +13,7 @@ export const create = (type, record) => {
 
   return delay(50).then(() => {
     const id = v4();
-    const merged = { ...record, ...mergeRelationships(type, record, database, schemas) };
+    const merged = { ...record, ...merge(type, record, database, schemas) };
     database[type][id] = record;
 
     return { id, ...merged };
@@ -29,7 +29,7 @@ export const update = (type, id, data) => {
     database[type][id] = { ...record, ...data };
     const merged = { ...record, ...data };
 
-    return { id, ...merged, ...mergeRelationships(type, merged, database, schemas) };
+    return { id, ...merged, ...merge(type, merged, database, schemas) };
   });
 };
 
@@ -50,7 +50,7 @@ export const fetch = (type, id) => {
 
   return delay(50).then(() => ({
     ...record,
-    ...mergeRelationships(type, record, database, schemas),
+    ...merge(type, record, database, schemas),
   }));
 };
 
@@ -64,7 +64,22 @@ export const find = (type, filters = {}) => {
     return filtered.map(record => ({
       id: record.id,
       ...record,
-      ...mergeRelationships(type, record, database, schemas),
+      ...merge(type, record, database, schemas),
     }));
   });
 };
+
+export const authSignup = (record) => {
+  const password = record.password;
+  const createUser = hashedPassword => create({ ...record, password: hashedPassword });
+
+  return hash(password).then(createUser);
+};
+
+export const authToken = (email, password) => {
+  const compareUserPassword = user => compare(password, user.password);
+
+  return find('user', { email }).then(compareUserPassword).then(createToken);
+};
+
+export const authVerify = verifyToken;

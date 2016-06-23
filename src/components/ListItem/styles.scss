@@ -5,6 +5,10 @@
   flex-wrap: row wrap;
   margin: 8px 0px;
   align-items: center;
+
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .left {

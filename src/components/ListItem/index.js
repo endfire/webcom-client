@@ -8,8 +8,8 @@ const ListItemWrapper = ({ item }) => (
   </div>
 );
 
-const ListItem = ({ icon, left, right }) => (
-  <div className={styles.row}>
+const ListItem = ({ icon, left, right, onClick }) => (
+  <div className={styles.row} onClick={onClick}>
     <div className={styles.icon}>
       <Icon name={icon} size="lg" />
     </div>
@@ -30,6 +30,7 @@ ListItem.propTypes = {
   icon: PropTypes.string,
   left: PropTypes.array,
   right: PropTypes.array,
+  onClick: PropTypes.func,
 };
 
 export default ListItem;

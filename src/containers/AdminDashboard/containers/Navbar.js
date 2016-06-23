@@ -1,5 +1,6 @@
-import Navbar from '../components/Navbar';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
+import Navbar from '../components/Navbar';
 
 const mapStateToProps = state => ({
   shouldShowNavs: state.session.isLoggedIn,
@@ -10,7 +11,7 @@ const mapDispatchToProps = dispatch => ({
   logout: () => dispatch({ type: 'LOGOUT' }),
 });
 
-export default connect(
+export default withRouter(connect(
   mapStateToProps,
   mapDispatchToProps
-)(Navbar);
+)(Navbar));

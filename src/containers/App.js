@@ -1,12 +1,9 @@
 import 'bootstrap/dist/css/bootstrap.css';
-
 import React, { PropTypes } from 'react';
-import DevTools from './DevTools';
 
 const App = ({ children }) => (
-  <div className="container">
+  <div>
     {children}
-    <DevTools />
   </div>
 );
 
