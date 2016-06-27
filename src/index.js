@@ -1,10 +1,9 @@
+import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
 import Root from './containers/Root';
-import configureStore from './configureStore';
+import store from './configureStore';
 import routes from './routes';
-
-const store = configureStore();
 
 render(
   <Root store={store} routes={routes} />,

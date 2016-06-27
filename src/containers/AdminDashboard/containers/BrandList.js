@@ -3,16 +3,16 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 const brands = [{
-  id: 1,
+  id: '1',
   name: 'Antennas',
 }, {
-  id: 2,
+  id: '2',
   name: 'LED',
 }, {
-  id: 3,
+  id: '3',
   name: 'Battery',
 }, {
-  id: 4,
+  id: '4',
   name: 'IoT',
 }];
 

@@ -1,11 +1,21 @@
-import React from 'react';
-import Navbar from './components/Navbar';
+import { connect } from 'react-redux';
+import Brand from './components/Brand';
 
-const Brand = ({ children }) => (
-  <div>
-    <Navbar />
-    {children}
-  </div>
-);
+const mapStateToProps = (state, ownProps) => ({
+  brand: state.store.entities.brands[ownProps.params.id],
+});
 
-export default Brand;
+const mapDispatchToProps = (dispatch) => ({
+  fetchBrand: (id) => dispatch({
+    type: 'FETCH_REQUEST',
+    payload: {
+      type: 'brand',
+      id,
+    },
+  }),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(Brand);

@@ -11,7 +11,7 @@ const notFoundError = (type, id) => new Error(`No record of type '${type}' with 
 export const create = (type, record) => {
   if (!(type in database)) throw invalidTypeError(type);
 
-  return delay(50).then(() => {
+  return delay(100).then(() => {
     const id = v4();
     const merged = { ...record, ...merge(type, record, database, schemas) };
     database[type][id] = record;
@@ -24,7 +24,7 @@ export const update = (type, id, data) => {
   if (!(type in database)) throw invalidTypeError(type);
   if (!(id in database[type])) throw notFoundError(type, id);
 
-  return delay(50).then(() => {
+  return delay(100).then(() => {
     const record = database[type][id];
     database[type][id] = { ...record, ...data };
     const merged = { ...record, ...data };
@@ -37,7 +37,7 @@ export const del = (type, id) => {
   if (!(type in database)) throw invalidTypeError(type);
   if (!(id in database[type])) throw notFoundError(type, id);
 
-  return delay(50).then(() => {
+  return delay(100).then(() => {
     delete database[type][id];
     return true;
   });
@@ -48,7 +48,7 @@ export const fetch = (type, id) => {
   if (!(id in database[type])) throw notFoundError(type, id);
   const record = { id, ...database[type][id] };
 
-  return delay(50).then(() => ({
+  return delay(100).then(() => ({
     ...record,
     ...merge(type, record, database, schemas),
   }));
@@ -57,7 +57,7 @@ export const fetch = (type, id) => {
 export const find = (type, filters = {}) => {
   if (!(type in database)) throw invalidTypeError(type);
 
-  return delay(50).then(() => {
+  return delay(100).then(() => {
     const records = Object.keys(database[type]).map(id => ({ id, ...database[type][id] }));
     const filtered = filter(records, filters);
 

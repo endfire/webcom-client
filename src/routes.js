@@ -1,5 +1,6 @@
 import App from './containers/App';
 import AdminDashboard from './containers/AdminDashboard';
+import Welcome from './containers/AdminDashboard/components/Welcome';
 import BrandList from './containers/AdminDashboard/containers/BrandList';
 import Brand from './containers/AdminDashboard/containers/Brand';
 import FormList from './containers/AdminDashboard/containers/Brand/containers/FormList';
@@ -15,9 +16,13 @@ const routes = {
   childRoutes: [
     {
       path: 'admin',
-      indexRoute: { component: BrandList },
+      indexRoute: { component: Welcome },
       component: AdminDashboard,
       childRoutes: [
+        {
+          path: 'brands',
+          component: BrandList,
+        },
         {
           path: 'brands/:id',
           indexRoute: { component: FormList },
@@ -26,6 +31,10 @@ const routes = {
         {
           path: 'brands/:id/:formId',
           component: FormPreview,
+        },
+        {
+          path: 'brands/:id/settings',
+          component: BrandSettings,
         },
         {
           path: 'companies',

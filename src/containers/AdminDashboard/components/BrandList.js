@@ -1,39 +1,37 @@
 import React, { PropTypes } from 'react';
-import DeleteButton from '../../../ui/DeleteButton';
+import { withRouter } from 'react-router';
 import ListView from '../../../components/ListView';
-import ListItem from '../../../components/ListItem';
+import BrandListItem from './BrandListItem';
 import AddBrandModal from './AddBrandModal';
+import classNames from 'classnames';
 
-const BrandList = ({ brands }) => (
-  <div className="container m-t-1">
-    <AddBrandModal />
-    <ListView>
-      {brands.map(brand => {
-        const text = `Are you sure to want to delete ${brand.name}?`;
+const BrandList = ({ brands, router }) => {
+  const classes = classNames('container', 'm-t-1');
 
-        const deleteButton = (
-          <DeleteButton
-            onSuccess={() => alert('Awwww boo')}
-            onCancel="close"
-            text={text}
-          />
-        );
+  return (
+    <div className={classes}>
+      <AddBrandModal />
+      <ListView>
+        {brands.map(brand => {
+          const { id } = brand;
+          const navigate = () => router.push(`/admin/brands/${id}`);
 
-        return (
-          <ListItem
-            key={brand.id}
-            icon="building"
-            left={[brand.name]}
-            right={[deleteButton]}
-          />
-        );
-      })}
-    </ListView>
-  </div>
-);
+          return (
+            <BrandListItem
+              key={id}
+              brand={brand}
+              navigate={navigate}
+            />
+          );
+        })}
+      </ListView>
+    </div>
+  );
+};
 
 BrandList.propTypes = {
   brands: PropTypes.array,
+  router: PropTypes.object,
 };
 
-export default BrandList;
+export default withRouter(BrandList);

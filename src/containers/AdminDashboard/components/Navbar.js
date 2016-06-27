@@ -9,7 +9,7 @@ const Navbar = ({ shouldShowNavs, login, logout }) => {
     navs = (
       <div>
         <ul className="nav navbar-nav">
-          <NavItem to="/admin">Brands</NavItem>
+          <NavItem to="/admin/brands/">Brands</NavItem>
           <NavItem to="/admin/companies">Companies</NavItem>
           <NavItem to="/admin/obg">OBG</NavItem>
           <NavItem to="/admin/users">Users</NavItem>
@@ -34,7 +34,7 @@ const Navbar = ({ shouldShowNavs, login, logout }) => {
   return (
     <nav className="navbar navbar-full navbar-light bg-faded">
       <div className="container">
-        <Link to="admin" className="navbar-brand">Webcom</Link>
+        <Link to="/admin" className="navbar-brand">Webcom</Link>
         {navs}
       </div>
     </nav>
