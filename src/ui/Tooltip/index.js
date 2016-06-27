@@ -1,8 +1,8 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 import { Tooltip } from 'reactstrap';
 import { v1 } from 'node-uuid';
 
-class UITooltip extends React.Component {
+class UITooltip extends Component {
   constructor(props) {
     super(props);
 

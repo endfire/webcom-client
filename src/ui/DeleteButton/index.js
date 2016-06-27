@@ -3,8 +3,8 @@ import DeleteButton from '../../components/DeleteButton';
 import DeleteModal from '../../components/DeleteModal';
 
 class UIDeleteButton extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = { isOpen: false };
     this.toggleModal = this.toggleModal.bind(this);

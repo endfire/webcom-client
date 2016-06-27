@@ -1,7 +1,7 @@
-import React, { PropTypes, Children, cloneElement } from 'react';
+import React, { PropTypes, Component, Children, cloneElement } from 'react';
 import { Modal } from 'reactstrap';
 
-class UIModal extends React.Component {
+class UIModal extends Component {
   constructor(props) {
     super(props);
 
