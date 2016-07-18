@@ -19,29 +19,35 @@ export default {
       email: true,
       description: true,
       password: true,
+      meta: true,
     },
     relationships: {
       listings: {
         hasMany: 'listing',
+        inverse: 'company',
       },
       ads: {
         hasMany: 'ad',
+        inverse: 'company',
       },
       people: {
         hasMany: 'person',
+        inverse: 'company',
       },
     },
   },
   listing: {
+    attributes: {
+      meta: true,
+    },
     relationships: {
       company: {
         belongsTo: 'company',
-      },
-      obg: {
-        belongsTo: 'obg',
+        inverse: 'listings',
       },
       categories: {
         hasMany: 'category',
+        inverse: 'listings',
       },
     },
   },
@@ -53,16 +59,16 @@ export default {
       start: true,
       end: true,
       priority: true,
+      meta: true,
     },
     relationships: {
       company: {
         belongsTo: 'company',
-      },
-      obg: {
-        belongsTo: 'obg',
+        inverse: 'ads',
       },
       categories: {
         hasMany: 'category',
+        inverse: 'ads',
       },
     },
   },
@@ -72,10 +78,12 @@ export default {
       email: true,
       phone: true,
       job: true,
+      meta: true,
     },
     relationships: {
       company: {
         belongsTo: 'company',
+        inverse: 'people',
       },
     },
   },
@@ -86,52 +94,52 @@ export default {
       background: true,
       text: true,
       secondary: true,
+      meta: true,
     },
     relationships: {
       forms: {
         hasMany: 'form',
+        inverse: 'brand',
+      },
+      obg: {
+        hasOne: 'obg',
+        inverse: 'brand',
       },
     },
   },
   obg: {
+    attributes: {
+      meta: true,
+    },
     relationships: {
       brand: {
         belongsTo: 'brand',
-      },
-      headings: {
-        hasMany: 'heading',
-      },
-    },
-  },
-  heading: {
-    attributes: {
-      name: true,
-    },
-    relationships: {
-      obg: {
-        belongsTo: 'obg',
+        inverse: 'obg',
       },
       categories: {
         hasMany: 'category',
+        inverse: 'obg',
       },
     },
   },
   category: {
     attributes: {
       name: true,
+      heading: true,
+      meta: true,
     },
     relationships: {
       obg: {
         belongsTo: 'obg',
-      },
-      heading: {
-        belongsTo: 'heading',
+        inverse: 'categories',
       },
       listings: {
         hasMany: 'listing',
+        inverse: 'categories',
       },
       ads: {
         hasMany: 'ad',
+        inverse: 'categories',
       },
     },
   },
@@ -139,10 +147,31 @@ export default {
     attributes: {
       name: true,
       published: true,
+      meta: true,
     },
     relationships: {
       brand: {
         belongsTo: 'brand',
+        inverse: 'forms',
+      },
+      fields: {
+        hasMany: 'field',
+        embedded: true,
+      },
+      data: {
+        hasMany: 'data',
+        inverse: 'form',
+      },
+    },
+  },
+  data: {
+    attributes: {
+      meta: true,
+    },
+    relationships: {
+      form: {
+        belongsTo: 'form',
+        inverse: 'data',
       },
       fields: {
         hasMany: 'field',
@@ -158,14 +187,6 @@ export default {
       type: true,
       value: true,
       priority: true,
-    },
-  },
-  data: {
-    relationships: {
-      fields: {
-        hasMany: 'field',
-        embedded: true,
-      },
     },
   },
 };
