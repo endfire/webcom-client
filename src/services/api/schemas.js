@@ -158,20 +158,20 @@ export default {
         hasMany: 'field',
         embedded: true,
       },
-      data: {
-        hasMany: 'data',
+      submissions: {
+        hasMany: 'submission',
         inverse: 'form',
       },
     },
   },
-  data: {
+  submission: {
     attributes: {
       meta: true,
     },
     relationships: {
       form: {
         belongsTo: 'form',
-        inverse: 'data',
+        inverse: 'submissions',
       },
       fields: {
         hasMany: 'field',
