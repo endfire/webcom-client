@@ -1,52 +1,71 @@
-import App from './containers/App';
-import AdminDashboard from './containers/AdminDashboard';
-import Welcome from './containers/AdminDashboard/components/Welcome';
-import BrandList from './containers/AdminDashboard/containers/BrandList';
-import Brand from './containers/AdminDashboard/containers/Brand';
-import FormList from './containers/AdminDashboard/containers/Brand/containers/FormList';
-import FormPreview from './containers/AdminDashboard/containers/Brand/containers/FormPreview';
-import BrandSettings from './containers/AdminDashboard/containers/Brand/containers/Settings';
-import CompanyList from './containers/AdminDashboard/containers/CompanyList';
-import OBGList from './containers/AdminDashboard/containers/OBGList';
-import UserList from './containers/AdminDashboard/containers/UserList';
+import { App, Welcome } from './components';
+import { Admin, Company } from './scenes';
+import { LoginAdmin, LoginCompany } from './scenes/Login/scenes';
+import { Brands, OBG, Users } from './scenes/Admin/scenes';
+import { Listings, People, Settings } from './scenes/Company/scenes';
+import { CompaniesAds, CompaniesAll } from './scenes/Admin/scenes/Companies/scenes';
 
 const routes = {
   path: '/',
   component: App,
   childRoutes: [
     {
+      path: 'admin-login',
+      component: LoginAdmin,
+    },
+    {
+      path: 'company-login',
+      component: LoginCompany,
+    },
+    {
       path: 'admin',
+      component: Admin,
       indexRoute: { component: Welcome },
-      component: AdminDashboard,
       childRoutes: [
         {
           path: 'brands',
-          component: BrandList,
-        },
-        {
-          path: 'brands/:id',
-          indexRoute: { component: FormList },
-          component: Brand,
-        },
-        {
-          path: 'brands/:id/:formId',
-          component: FormPreview,
-        },
-        {
-          path: 'brands/:id/settings',
-          component: BrandSettings,
+          component: Brands,
         },
         {
           path: 'companies',
-          component: CompanyList,
+          indexRoute: { onEnter: (nextState, replace) => replace('/admin/companies/all') },
+          childRoutes: [
+            {
+              path: 'all',
+              component: CompaniesAll,
+            },
+            {
+              path: 'ads',
+              component: CompaniesAds,
+            },
+          ],
         },
         {
           path: 'obg',
-          component: OBGList,
+          component: OBG,
         },
         {
           path: 'users',
-          component: UserList,
+          component: Users,
+        },
+      ],
+    },
+    {
+      path: 'company',
+      component: Company,
+      indexRoute: { component: Welcome },
+      childRoutes: [
+        {
+          path: 'listings',
+          component: Listings,
+        },
+        {
+          path: 'people',
+          component: People,
+        },
+        {
+          path: 'settings',
+          component: Settings,
         },
       ],
     },

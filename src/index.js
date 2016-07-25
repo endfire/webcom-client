@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import React from 'react';
 import { render } from 'react-dom';
-import Root from './containers/Root';
+import Root from './components/Root';
 import store from './configureStore';
 import routes from './routes';
 

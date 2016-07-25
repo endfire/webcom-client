@@ -1,3 +1,3 @@
-import * as fake from './fake';
+import temp from './store';
 
-export { fake as api };
+export { temp as api };
