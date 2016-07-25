@@ -4,6 +4,7 @@ import { LoginAdmin, LoginCompany } from './scenes/Login/scenes';
 import { Brands, OBG, Users } from './scenes/Admin/scenes';
 import { Listings, People, Settings } from './scenes/Company/scenes';
 import { CompaniesAds, CompaniesAll } from './scenes/Admin/scenes/Companies/scenes';
+import { BrandForms, BrandObg, BrandSettings } from './scenes/Admin/scenes/Brands/scenes';
 
 const routes = {
   path: '/',
@@ -25,6 +26,29 @@ const routes = {
         {
           path: 'brands',
           component: Brands,
+          childRoutes: [
+            {
+              path: 'brand/:id',
+              indexRoute: { onEnter: (nextState, replace) => {
+                const { id } = nextState.params;
+                replace(`/admin/brands/brand/${id}/forms`);
+              } },
+              childRoutes: [
+                {
+                  path: 'forms',
+                  component: BrandForms,
+                },
+                {
+                  path: 'settings',
+                  component: BrandSettings,
+                },
+                {
+                  path: 'obg',
+                  component: BrandObg,
+                },
+              ],
+            },
+          ],
         },
         {
           path: 'companies',
