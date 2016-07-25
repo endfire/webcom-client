@@ -1,6 +1,3 @@
-/* eslint-disable no-class-assign */
-/* eslint-disable react/prefer-stateless-function */
-/* eslint-disable no-useless-constructor */
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
@@ -44,7 +41,7 @@ class People extends Component {
         <Row>
           <Col size={{ xs: 4 }} align={{ xs: 'left' }}>
             <AddPersonModal /><br /><br /><br />
-            {people ? <List people={people} handleDelete={this.handleDelete} /> : 'Loading...'}
+            {people ? <List items={people} handleDelete={this.handleDelete} /> : 'Loading...'}
           </Col>
         </Row>
       </Container>

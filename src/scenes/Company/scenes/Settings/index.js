@@ -114,89 +114,91 @@ class Settings extends Component {
     const { handleSubmit, handleChange, handleCancel } = this;
 
     return (
-      <Container fluid>
+      <Container fluid><br />
         <form onSubmit={handleSubmit}>
           <Row>
-            <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
+            <Col size={{ xs: 4, lg: 1 }} align={{ xs: 'start' }}>
               <input type="submit" value="Save" />
             </Col>
-            <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
+            <Col size={{ xs: 4, lg: 1 }} align={{ xs: 'start' }}>
               <Button onClick={handleCancel}>Cancel</Button>
             </Col>
-          </Row>
+          </Row><br />
           <Row>
-            <label htmlFor="name">Name of Company</label><br />
-            <input
-              type="text"
-              id="name"
-              name="name"
-              onChange={handleChange}
-              value={this.state.name}
-            /><br /><br />
-            <label htmlFor="street">Street</label><br />
-            <input
-              type="text"
-              id="street"
-              name="street"
-              onChange={handleChange}
-              value={this.state.street}
-            /><br /><br />
-            <label htmlFor="city">City</label><br />
-            <input
-              type="text"
-              id="city"
-              name="city"
-              onChange={handleChange}
-              value={this.state.city}
-            /><br /><br />
-            <label htmlFor="state">State</label><br />
-            <input
-              type="text"
-              id="state"
-              name="state"
-              onChange={handleChange}
-              value={this.state.state}
-            /><br /><br />
-            <label htmlFor="zip">Zip</label><br />
-            <input
-              type="text"
-              id="zip"
-              name="zip"
-              onChange={handleChange}
-              value={this.state.zip}
-            /><br /><br />
-            <label htmlFor="phone">Phone Number</label><br />
-            <input
-              type="text"
-              id="phone"
-              name="phone"
-              onChange={handleChange}
-              value={this.state.phone}
-            /><br /><br />
-            <label htmlFor="url">URL</label><br />
-            <input
-              type="text"
-              id="url"
-              name="url"
-              onChange={handleChange}
-              value={this.state.url}
-            /><br /><br />
-            <label htmlFor="email">Email</label><br />
-            <input
-              type="text"
-              id="email"
-              name="email"
-              onChange={handleChange}
-              value={this.state.email}
-            /><br /><br />
-            <label htmlFor="description">Description</label><br />
-            <input
-              type="text"
-              id="description"
-              name="description"
-              onChange={handleChange}
-              value={this.state.description}
-            /><br /><br />
+            <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
+              <label htmlFor="name">Name of Company</label><br />
+              <input
+                type="text"
+                id="name"
+                name="name"
+                onChange={handleChange}
+                value={this.state.name}
+              /><br />
+              <label htmlFor="street">Street</label><br />
+              <input
+                type="text"
+                id="street"
+                name="street"
+                onChange={handleChange}
+                value={this.state.street}
+              /><br />
+              <label htmlFor="city">City</label><br />
+              <input
+                type="text"
+                id="city"
+                name="city"
+                onChange={handleChange}
+                value={this.state.city}
+              /><br />
+              <label htmlFor="state">State</label><br />
+              <input
+                type="text"
+                id="state"
+                name="state"
+                onChange={handleChange}
+                value={this.state.state}
+              /><br />
+              <label htmlFor="zip">Zip</label><br />
+              <input
+                type="text"
+                id="zip"
+                name="zip"
+                onChange={handleChange}
+                value={this.state.zip}
+              /><br />
+              <label htmlFor="phone">Phone Number</label><br />
+              <input
+                type="text"
+                id="phone"
+                name="phone"
+                onChange={handleChange}
+                value={this.state.phone}
+              /><br />
+              <label htmlFor="url">URL</label><br />
+              <input
+                type="text"
+                id="url"
+                name="url"
+                onChange={handleChange}
+                value={this.state.url}
+              /><br />
+              <label htmlFor="email">Email</label><br />
+              <input
+                type="text"
+                id="email"
+                name="email"
+                onChange={handleChange}
+                value={this.state.email}
+              /><br />
+              <label htmlFor="description">Description</label><br />
+              <input
+                type="text"
+                id="description"
+                name="description"
+                onChange={handleChange}
+                value={this.state.description}
+              />
+            </Col>
           </Row>
         </form>
       </Container>

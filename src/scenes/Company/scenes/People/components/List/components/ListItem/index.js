@@ -3,21 +3,21 @@ import React, { PropTypes } from 'react';
 import EditPersonModal from './components/EditPersonModal';
 import { Container, Row, Col, Button } from 'paintcan';
 
-const ListItem = ({ person, handleDelete }) => (
+const ListItem = ({ item, handleDelete }) => (
   <Container fluid>
     <Row>
       <Col size={{ lg: 6 }}>
-        <EditPersonModal person={person} />
+        <EditPersonModal person={item} />
       </Col>
       <Col size={{ lg: 6 }}>
-        <Button onClick={handleDelete.bind(this, person.id)}>Delete</Button>
+        <Button onClick={handleDelete.bind(this, item.id)}>Delete</Button>
       </Col>
     </Row>
   </Container>
 );
 
 ListItem.propTypes = {
-  person: PropTypes.object,
+  item: PropTypes.object,
   handleDelete: PropTypes.func,
 };
 

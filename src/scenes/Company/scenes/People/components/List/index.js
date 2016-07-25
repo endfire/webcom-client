@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react';
 import ListItem from './components/ListItem';
 
-const List = ({ people, handleDelete }) => {
-  const keys = Object.keys(people);
+const List = ({ items, handleDelete }) => {
+  const keys = Object.keys(items);
 
   return (<div>
     {keys.map(key => (<ListItem
       key={key}
-      person={people[key]}
+      item={items[key]}
       handleDelete={handleDelete}
     />)
     )}
@@ -15,7 +15,7 @@ const List = ({ people, handleDelete }) => {
 };
 
 List.propTypes = {
-  people: PropTypes.object,
+  items: PropTypes.object,
   handleDelete: PropTypes.func,
 };
 
