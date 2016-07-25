@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   devtool: 'source-map',
@@ -11,7 +11,7 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('bundle.css'),
+    // new ExtractTextPlugin('bundle.css'),
   ],
   module: {
     loaders: [
@@ -23,7 +23,8 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
+        // loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
+        loader: 'style!css',
       },
       {
         test: /\.scss$/,

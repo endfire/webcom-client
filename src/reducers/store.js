@@ -41,12 +41,20 @@ const init = {
     brands: {},
     categories: {},
     companies: {},
+    submissions: {},
+    fields: {},
     forms: {},
-    headings: {},
     listings: {},
-    obgs: {},
+    obg: {},
     people: {},
     users: {},
+  },
+  isLoading: {
+    CREATE: false,
+    FIND: false,
+    FETCH: false,
+    UPDATE: false,
+    DELETE: false,
   },
 };
 
@@ -61,43 +69,62 @@ const store = (state = init, action) => {
 
   switch (status) {
     case 'REQUEST': {
-      const requests = state.requests;
+      const { requests, isLoading } = state;
+      const { payload } = action;
 
       return {
         ...state,
         requests: {
           ...requests,
-          [verb]: requests[verb].concat(action.payload),
+          [verb]: requests[verb].concat(payload),
+        },
+        isLoading: {
+          ...isLoading,
+          [verb]: true,
         },
       };
     }
     case 'SUCCESS': {
-      const successes = state.successes;
+      const { successes, entities, isLoading } = state;
+      const { payload } = action;
 
-      const entities = {
-        ...state.entities,
-        ...action.payload.entities,
-      };
+      const entitiesObject = {};
+      Object.keys(payload.entities).forEach(field => {
+        entitiesObject[field] = {
+          ...entities[field],
+          ...payload.entities[field],
+        };
+      });
 
       return {
         ...state,
         entities: {
           ...entities,
+          ...entitiesObject,
         },
         successes: {
           ...successes,
-          [verb]: successes[verb].concat(action.payload),
+          [verb]: successes[verb].concat(payload),
+        },
+        isLoading: {
+          ...isLoading,
+          [verb]: false,
         },
       };
     }
     case 'ERROR': {
-      const errors = state.errors;
+      const { errors, isLoading } = state;
+      const { payload } = action;
 
       return {
         ...state,
         errors: {
           ...errors,
-          [verb]: errors[verb].concat(action.payload),
+          [verb]: errors[verb].concat(payload),
+        },
+        isLoading: {
+          ...isLoading,
+          [verb]: false,
         },
       };
     }
