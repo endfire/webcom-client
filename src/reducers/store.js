@@ -44,8 +44,6 @@ const init = {
     submissions: {},
     fields: {},
     forms: {},
-    listings: {},
-    obg: {},
     people: {},
     users: {},
   },
