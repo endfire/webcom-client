@@ -1,19 +1,17 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
-import { connect } from 'react-redux';
-import { UPDATE_REQUEST } from '../../../../../../../../../../actionTypes';
-import JobSelect from '../../../../../JobSelect';
+import JobSelect from '../JobSelect';
 
 const EditPersonModal = withModal(
-  ({ isOpen, openModal, person }) => (
+  ({ isOpen, openModal, item }) => (
     <Button active={isOpen} onClick={openModal} color="primary">
-      {person.name}
+      {item.name}
     </Button>
   ),
-  ({ closeModal, person, updatePerson, isUpdateLoading }) => (
+  ({ closeModal, item, updatePerson, isUpdateLoading }) => (
     <EditPersonDialog
       closeModal={closeModal}
-      person={person}
+      person={item}
       updatePerson={updatePerson}
       isUpdateLoading={isUpdateLoading}
     />
@@ -109,7 +107,7 @@ class EditPersonDialog extends Component {
                   handleJobSelect={handleJobSelect}
                   item={{ label: this.state.job }}
                 /><br /><br />
-                <input type="submit" value="Save Change" />
+                <Button type="submit">Save Change</Button>
               </form>
               <Button onClick={closeModal}>
                 Cancel
@@ -122,22 +120,6 @@ class EditPersonDialog extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  isUpdateLoading: state.store.isLoading.UPDATE,
-});
-
-// use bound action creators?
-const mapDispatchToProps = (dispatch) => ({
-  updatePerson: (id, data) => dispatch({
-    type: UPDATE_REQUEST,
-    payload: {
-      type: 'person',
-      id,
-      data,
-    },
-  }),
-});
-
 EditPersonDialog.propTypes = {
   closeModal: PropTypes.func,
   updatePerson: PropTypes.func,
@@ -145,7 +127,4 @@ EditPersonDialog.propTypes = {
   person: PropTypes.object,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(EditPersonModal);
+export default EditPersonModal;

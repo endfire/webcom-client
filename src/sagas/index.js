@@ -28,8 +28,8 @@ export function* watchFetchRequest() {
 }
 
 export function* find(action) {
-  const { type } = action.payload;
-  const records = yield api.find(type);
+  const { type, filters } = action.payload;
+  const records = yield api.find(type, filters);
   const payload = normalize(records, arrayOf(schemas[type]));
 
   yield put({ type: FIND_SUCCESS, payload });

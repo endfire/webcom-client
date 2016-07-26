@@ -118,7 +118,7 @@ class Settings extends Component {
         <form onSubmit={handleSubmit}>
           <Row>
             <Col size={{ xs: 4, lg: 1 }} align={{ xs: 'start' }}>
-              <input type="submit" value="Save" />
+              <Button type="submit">Save</Button>
             </Col>
             <Col size={{ xs: 4, lg: 1 }} align={{ xs: 'start' }}>
               <Button onClick={handleCancel}>Cancel</Button>

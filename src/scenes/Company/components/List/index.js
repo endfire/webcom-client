@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import ListItem from './components/ListItem';
 
-const List = ({ items, handleDelete }) => {
+const List = ({ items, handleDelete, children }) => {
   const keys = Object.keys(items);
 
   return (<div>
@@ -9,7 +9,7 @@ const List = ({ items, handleDelete }) => {
       key={key}
       item={items[key]}
       handleDelete={handleDelete}
-    />)
+    >{children}</ListItem>)
     )}
   </div>);
 };
@@ -17,6 +17,7 @@ const List = ({ items, handleDelete }) => {
 List.propTypes = {
   items: PropTypes.object,
   handleDelete: PropTypes.func,
+  children: PropTypes.any,
 };
 
 export default List;

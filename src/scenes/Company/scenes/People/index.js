@@ -1,9 +1,14 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
-import List from './components/List';
-import AddPersonModal from './components/AddPersonModal';
-import { FIND_REQUEST, DELETE_REQUEST } from '../../../../actionTypes';
+import List from '../../components/List';
+import { AddPersonModal, EditPersonModal } from './components';
+import {
+  FIND_REQUEST,
+  DELETE_REQUEST,
+  CREATE_REQUEST,
+  UPDATE_REQUEST,
+} from '../../../../actionTypes';
 
 class People extends Component {
   constructor(props) {
@@ -34,14 +39,25 @@ class People extends Component {
   }
 
   render() {
-    const { people } = this.props;
+    const { people, createPerson, isCreateLoading, updatePerson, isUpdateLoading } = this.props;
 
     return (
       <Container fluid><br />
         <Row>
           <Col size={{ xs: 4 }} align={{ xs: 'left' }}>
-            <AddPersonModal /><br /><br /><br />
-            {people ? <List items={people} handleDelete={this.handleDelete} /> : 'Loading...'}
+            <AddPersonModal
+              createPerson={createPerson}
+              isCreateLoading={isCreateLoading}
+            /><br /><br /><br />
+            {people
+              ? <List
+                items={people}
+                handleDelete={this.handleDelete}
+              ><EditPersonModal
+                updatePerson={updatePerson}
+                isUpdateLoading={isUpdateLoading}
+              /></List>
+              : 'Loading...'}
           </Col>
         </Row>
       </Container>
@@ -52,6 +68,8 @@ class People extends Component {
 const mapStateToProps = (state) => ({
   people: state.store.entities.people,
   isDeleteLoading: state.store.isLoading.DELETE,
+  isCreateLoading: state.store.isLoading.CREATE,
+  isUpdateLoading: state.store.isLoading.UPDATE,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -68,6 +86,26 @@ const mapDispatchToProps = (dispatch) => ({
       id,
     },
   }),
+  createPerson: (name, email, phone, job) => dispatch({
+    type: CREATE_REQUEST,
+    payload: {
+      type: 'person',
+      record: {
+        name,
+        email,
+        phone,
+        job,
+      },
+    },
+  }),
+  updatePerson: (id, data) => dispatch({
+    type: UPDATE_REQUEST,
+    payload: {
+      type: 'person',
+      id,
+      data,
+    },
+  }),
 });
 
 People.propTypes = {
@@ -75,6 +113,10 @@ People.propTypes = {
   findPeople: PropTypes.func,
   isDeleteLoading: PropTypes.bool,
   deletePerson: PropTypes.func,
+  isCreateLoading: PropTypes.bool,
+  createPerson: PropTypes.func,
+  isUpdateLoading: PropTypes.bool,
+  updatePerson: PropTypes.func,
 };
 
 export default connect(
