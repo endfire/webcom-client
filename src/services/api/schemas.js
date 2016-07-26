@@ -5,6 +5,7 @@ export default {
       email: true,
       password: true,
       role: true,
+      meta: true,
     },
   },
   company: {
@@ -23,8 +24,8 @@ export default {
     },
     relationships: {
       listings: {
-        hasMany: 'listing',
-        inverse: 'company',
+        hasMany: 'category',
+        inverse: 'listings',
       },
       ads: {
         hasMany: 'ad',
@@ -33,21 +34,6 @@ export default {
       people: {
         hasMany: 'person',
         inverse: 'company',
-      },
-    },
-  },
-  listing: {
-    attributes: {
-      meta: true,
-    },
-    relationships: {
-      company: {
-        belongsTo: 'company',
-        inverse: 'listings',
-      },
-      categories: {
-        hasMany: 'category',
-        inverse: 'listings',
       },
     },
   },
@@ -94,6 +80,7 @@ export default {
       background: true,
       text: true,
       secondary: true,
+      obg: true,
       meta: true,
     },
     relationships: {
@@ -101,24 +88,9 @@ export default {
         hasMany: 'form',
         inverse: 'brand',
       },
-      obg: {
-        hasOne: 'obg',
-        inverse: 'brand',
-      },
-    },
-  },
-  obg: {
-    attributes: {
-      meta: true,
-    },
-    relationships: {
-      brand: {
-        belongsTo: 'brand',
-        inverse: 'obg',
-      },
       categories: {
         hasMany: 'category',
-        inverse: 'obg',
+        inverse: 'brand',
       },
     },
   },
@@ -129,13 +101,13 @@ export default {
       meta: true,
     },
     relationships: {
-      obg: {
-        belongsTo: 'obg',
+      brand: {
+        belongsTo: 'brand',
         inverse: 'categories',
       },
       listings: {
-        hasMany: 'listing',
-        inverse: 'categories',
+        hasMany: 'company',
+        inverse: 'listings',
       },
       ads: {
         hasMany: 'ad',
