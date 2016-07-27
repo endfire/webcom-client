@@ -39,8 +39,8 @@ export default {
   },
   category: {
     1: {
-      name: 'Acid',
-      heading: 'Drug',
+      name: 'Cheeseburger',
+      heading: 'Food',
       meta: {
         archived: false,
       },
@@ -49,8 +49,8 @@ export default {
       ads: ['1', '3'],
     },
     2: {
-      name: 'Weed',
-      heading: 'Drug',
+      name: 'French Fries',
+      heading: 'Food',
       meta: {
         archived: false,
       },
@@ -59,8 +59,8 @@ export default {
       ads: ['1', '2'],
     },
     3: {
-      name: 'Alcohol',
-      heading: 'Drug',
+      name: 'Pepsi',
+      heading: 'Drink',
       meta: {
         archived: false,
       },

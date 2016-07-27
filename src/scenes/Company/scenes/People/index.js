@@ -24,7 +24,7 @@ class People extends Component {
 
   find() {
     const { findPeople } = this.props;
-    findPeople();
+    findPeople('1'); // FIXME: Need to access company ID via session
   }
 
   handleDelete(id) {
@@ -73,10 +73,13 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  findPeople: () => dispatch({
+  findPeople: (company) => dispatch({
     type: FIND_REQUEST,
     payload: {
       type: 'person',
+      filters: {
+        company,
+      },
     },
   }),
   deletePerson: (id) => dispatch({
