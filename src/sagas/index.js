@@ -13,7 +13,8 @@ import {
   UPDATE_SUCCESS,
   UPDATE_REQUEST,
   DELETE_SUCCESS,
-  DELETE_REQUEST } from '../actionTypes';
+  DELETE_REQUEST,
+} from '../actionTypes';
 
 export function* fetch(action) {
   const { type, id } = action.payload;
@@ -65,9 +66,8 @@ export function* watchUpdateRequest() {
 
 export function* del(action) {
   const { type, id } = action.payload;
-  const payload = yield api.del(type, id);
-  // payload = { deleted: true, id } OR { deleted: false }
-  // FIXME: modify state.store to handle deletion
+  const deletedRecord = yield api.del(type, id);
+  const payload = normalize(deletedRecord, schemas[type]);
 
   yield put({ type: DELETE_SUCCESS, payload });
 }
