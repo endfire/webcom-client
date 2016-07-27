@@ -28,14 +28,11 @@ class People extends Component {
   }
 
   handleDelete(id) {
-      // const { isDeleteLoading, deletePerson } = this.props;
-    const { isDeleteLoading } = this.props;
+    const { isDeleteLoading, deletePerson } = this.props;
 
     if (isDeleteLoading) return;
 
-    console.log(`Delete person ${id}`);
-    // FIXME: need to fix saga...
-    // deletePerson(id); // dispatch action
+    deletePerson(id);
   }
 
   render() {

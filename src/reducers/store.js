@@ -86,6 +86,30 @@ const store = (state = init, action) => {
       const { successes, entities, isLoading } = state;
       const { payload } = action;
 
+      if (verb === 'DELETE') {
+        // assuming the first key of the normalized entities is the deleted field...
+        const field = Object.keys(payload.entities)[0];
+        // assuming you can only delete one record at a time...
+        const key = Object.keys(payload.entities[field])[0];
+        const entitiesClone = Object.assign({}, entities);
+        delete entitiesClone[field][key];
+
+        return {
+          ...state,
+          entities: {
+            ...entitiesClone,
+          },
+          successes: {
+            ...successes,
+            [verb]: successes[verb].concat(payload),
+          },
+          isLoading: {
+            ...isLoading,
+            [verb]: false,
+          },
+        };
+      }
+
       const entitiesObject = {};
       Object.keys(payload.entities).forEach(field => {
         entitiesObject[field] = {
