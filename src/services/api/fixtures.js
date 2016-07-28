@@ -122,7 +122,7 @@ export default {
       url: 'swansong.com',
       email: 'swansong@gmail.com',
       description: 'Record label',
-      password: '$wansong',
+      password: '$wansong-secret',
       meta: {
         archived: false,
       },

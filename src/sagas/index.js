@@ -3,6 +3,7 @@ import { put } from 'redux-saga/effects';
 import { normalize, arrayOf } from 'normalizr';
 import { api } from '../services/api';
 import * as schemas from '../services/api/definitions';
+import store from '../configureStore';
 import {
   FETCH_SUCCESS,
   FETCH_REQUEST,
@@ -15,6 +16,26 @@ import {
   DELETE_SUCCESS,
   DELETE_REQUEST,
 } from '../actionTypes';
+
+// import selector --> getLoggedInCompany
+// using the selector in saga --> getLoggedInCompany(store.getState())
+//
+// need another selector to filter out entities (propably in mapStateToProps)
+
+export function* fetchCompany() {
+  const action = {
+    payload: {
+      type: 'company',
+      id: getLoggedInCompany(store.getState());
+    },
+  };
+
+  yield put({ type: FETCH_REQUEST, action})
+}
+
+export function* watchFetchCompanyRequest() {
+  yield* takeEvery(FETCH_COMPANY_REQUEST, fetchCompany);
+}
 
 export function* fetch(action) {
   const { type, id } = action.payload;
@@ -83,5 +104,6 @@ export default function* rootSaga() {
     watchCreateRequest(),
     watchUpdateRequest(),
     watchDeleteRequest(),
+    watchFetchCompanyRequest(),
   ];
 }
