@@ -9,7 +9,7 @@ const ListItem = ({ item, handleDelete, children }) => (
         {cloneElement(children, { item })}
       </Col>
       <Col size={{ lg: 6 }}>
-        <Button onClick={handleDelete.bind(this, item.id)}>Delete</Button>
+        <Button onClick={handleDelete.bind(this, item.get('id'))}>Delete</Button>
       </Col>
     </Row>
   </Container>

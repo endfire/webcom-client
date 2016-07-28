@@ -63,10 +63,10 @@ class People extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  people: state.store.entities.people,
-  isDeleteLoading: state.store.isLoading.DELETE,
-  isCreateLoading: state.store.isLoading.CREATE,
-  isUpdateLoading: state.store.isLoading.UPDATE,
+  people: state.store.getIn(['entities', 'people']),
+  isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
+  isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
+  isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -17,7 +17,7 @@ class Settings extends Component {
       url: '',
       email: '',
       description: '',
-      originalInput: {},
+      original: {},
       flag: true,
     };
 
@@ -34,7 +34,15 @@ class Settings extends Component {
   componentWillReceiveProps(nextProps) {
     if (!this.state.flag) return;
 
-    const { name, street, city, state, zip, phone, url, email, description } = nextProps.company;
+    const name = nextProps.company.get('name');
+    const street = nextProps.company.get('street');
+    const city = nextProps.company.get('city');
+    const state = nextProps.company.get('state');
+    const zip = nextProps.company.get('zip');
+    const phone = nextProps.company.get('phone');
+    const url = nextProps.company.get('url');
+    const email = nextProps.company.get('email');
+    const description = nextProps.company.get('description');
 
     this.setState({
       name,
@@ -90,7 +98,7 @@ class Settings extends Component {
 
     if (isUpdateLoading) return;
 
-    updateSettings(company.id, {
+    updateSettings(company.get('id'), {
       name,
       street,
       city,
@@ -207,8 +215,8 @@ class Settings extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isUpdateLoading: state.store.isLoading.UPDATE,
-  company: state.store.entities.companies['1'],
+  isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
+  company: state.store.getIn(['entities', 'companies', '1']),
   // FIXME: The id of the company will be obtained from the session/auth state (not hardcoded)
 });
 

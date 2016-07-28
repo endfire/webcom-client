@@ -5,7 +5,7 @@ import JobSelect from '../JobSelect';
 const EditPersonModal = withModal(
   ({ isOpen, openModal, item }) => (
     <Button active={isOpen} onClick={openModal} color="primary">
-      {item.name}
+      {item.get('name')}
     </Button>
   ),
   ({ closeModal, item, updatePerson, isUpdateLoading }) => (
@@ -23,10 +23,10 @@ class EditPersonDialog extends Component {
     super(props);
 
     this.state = {
-      name: props.person.name,
-      email: props.person.email,
-      phone: props.person.phone,
-      job: props.person.job,
+      name: props.person.get('name'),
+      email: props.person.get('email'),
+      phone: props.person.get('phone'),
+      job: props.person.get('job'),
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,7 +36,8 @@ class EditPersonDialog extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { isUpdateLoading, updatePerson, closeModal, person: { id } } = this.props;
+    const { isUpdateLoading, updatePerson, closeModal } = this.props;
+    const id = this.props.person.get('id');
     const { name, email, phone, job } = this.state;
 
     if (isUpdateLoading) return;
