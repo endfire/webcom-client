@@ -2,10 +2,14 @@ import init from './init';
 
 const getActionStatus = (action) => action.type.split('_')[1];
 const getActionVerb = (action) => action.type.split('_')[0];
+const allowedVerbs = ['CREATE', 'FIND', 'FETCH', 'UPDATE', 'DELETE'];
 
 const store = (state = init, action) => {
-  const status = getActionStatus(action);
   const verb = getActionVerb(action);
+
+  if (!allowedVerbs.includes(verb)) return state;
+
+  const status = getActionStatus(action);
   const { payload } = action;
 
   switch (status) {
