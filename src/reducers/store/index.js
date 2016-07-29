@@ -13,12 +13,11 @@ const store = (state = init, action) => {
   const { payload } = action;
 
   switch (status) {
-    case 'REQUEST': {
+    case 'REQUEST':
       return state
         .updateIn(['requests', verb], requests => requests.push(payload))
         .setIn(['isLoading', verb], true);
-    }
-    case 'SUCCESS': {
+    case 'SUCCESS':
       if (verb === 'DELETE') {
         // assuming the first key of the normalized entities is the deleted field...
         const field = Object.keys(payload.entities)[0];
@@ -35,12 +34,10 @@ const store = (state = init, action) => {
         .mergeDeepIn(['entities'], payload.entities)
         .updateIn(['successes', verb], successes => successes.push(payload))
         .setIn(['isLoading', verb], false);
-    }
-    case 'ERROR': {
+    case 'ERROR':
       return state
       .updateIn(['errors', verb], errors => errors.push(payload))
       .setIn(['isLoading', verb], false);
-    }
     default:
       return state;
   }
