@@ -14,17 +14,11 @@ class People extends Component {
   constructor(props) {
     super(props);
 
-    this.find = this.find.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
-    this.find();
-  }
-
-  find() {
-    const { findPeople } = this.props;
-    findPeople('1'); // FIXME: Need to access company ID via session
+    this.props.findPeople('1'); // FIXME: Need to access company ID via session
   }
 
   handleDelete(id) {
@@ -63,7 +57,11 @@ class People extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  people: state.store.getIn(['entities', 'people']),
+  people: state.store.getIn(['entities', 'people'])
+    .filter(val => {
+      if (!val.get('meta') || val.getIn(['meta', 'archived']) === true) return false;
+      return true;
+    }),
   isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
   isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
   isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
