@@ -1,6 +1,10 @@
-// session reducer
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
+// session & login reducer
+export const VERIFY_TOKEN = 'VERIFY_TOKEN';
+export const LOGIN_REQUEST = 'LOGIN_REQUEST';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGIN_FORM_CHANGE = 'LOGIN_FORM_CHANGE';
 
 // store reducer
 export const CREATE_REQUEST = 'CREATE_REQUEST';
@@ -24,5 +28,5 @@ export const UPDATE_FORM = 'UPDATE_FORM';
 export const UPDATE_FORM_SUCCESS = 'UPDATE_FORM_SUCCESS';
 export const INITIALIZE_FORM = 'INITIALIZE_FORM';
 export const INITIALIZE_FORM_SUCCESS = 'INITIALIZE_FORM_SUCCESS';
-export const CHANGE_CURRENT_FORM = 'CHANGE_CURRENT_FORM';
+export const CURRENT_FORM_CHANGE = 'CURRENT_FORM_CHANGE';
 export const REVERT_FORM = 'REVERT_FORM';

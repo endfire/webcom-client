@@ -4,7 +4,7 @@ import { Container, Row, Col, Button } from 'paintcan';
 import {
   UPDATE_FORM,
   INITIALIZE_FORM,
-  CHANGE_CURRENT_FORM,
+  CURRENT_FORM_CHANGE,
   REVERT_FORM,
 } from '../../../../actionTypes';
 
@@ -177,7 +177,7 @@ const mapDispatchToProps = (dispatch) => ({
     },
   }),
   changeCurrentForm: (payload) => dispatch({
-    type: CHANGE_CURRENT_FORM,
+    type: CURRENT_FORM_CHANGE,
     payload,
   }),
   revertForm: () => dispatch({
