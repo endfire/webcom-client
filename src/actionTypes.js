@@ -1,6 +1,8 @@
-export const INCREMENT = 'INCREMENT';
+// session reducer
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+
+// store reducer
 export const CREATE_REQUEST = 'CREATE_REQUEST';
 export const FIND_REQUEST = 'FIND_REQUEST';
 export const FETCH_REQUEST = 'FETCH_REQUEST';
@@ -16,3 +18,11 @@ export const FIND_SUCCESS = 'FIND_SUCCESS';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
 export const DELETE_SUCCESS = 'DELETE_SUCCESS';
+
+// form reducer
+export const UPDATE_FORM = 'UPDATE_FORM';
+export const UPDATE_FORM_SUCCESS = 'UPDATE_FORM_SUCCESS';
+export const INITIALIZE_FORM = 'INITIALIZE_FORM';
+export const INITIALIZE_FORM_SUCCESS = 'INITIALIZE_FORM_SUCCESS';
+export const CHANGE_CURRENT_FORM = 'CHANGE_CURRENT_FORM';
+export const REVERT_FORM = 'REVERT_FORM';
