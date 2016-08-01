@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddPersonModal, EditPersonModal } from './components';
+import { getNonDeletedPeople } from '../../../../selectors/company-people';
 import {
   FIND_REQUEST,
   DELETE_REQUEST,
@@ -57,11 +58,7 @@ class People extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  people: state.store.getIn(['entities', 'people'])
-    .filter(val => {
-      if (!val.get('meta') || val.getIn(['meta', 'archived']) === true) return false;
-      return true;
-    }),
+  people: getNonDeletedPeople(state),
   isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
   isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
   isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
