@@ -16,7 +16,7 @@ import {
   DELETE_REQUEST,
 } from '../actionTypes';
 
-export function* fetch(action) {
+function* fetch(action) {
   const { type, id } = action.payload;
   const record = yield api.fetch(type, id);
   const payload = normalize(record, schemaDef[type]);
@@ -28,7 +28,7 @@ export function* watchFetchRequest() {
   yield* takeEvery(FETCH_REQUEST, fetch);
 }
 
-export function* find(action) {
+function* find(action) {
   const { type, filters } = action.payload;
   const records = yield api.find(type, filters);
   const payload = normalize(records, arrayOf(schemaDef[type]));
@@ -40,7 +40,7 @@ export function* watchFindRequest() {
   yield* takeEvery(FIND_REQUEST, find);
 }
 
-export function* create(action) {
+function* create(action) {
   const { type, record } = action.payload;
   const createdRecord = yield api.create(type, record);
   const payload = normalize(createdRecord, schemaDef[type]);
@@ -52,7 +52,7 @@ export function* watchCreateRequest() {
   yield* takeEvery(CREATE_REQUEST, create);
 }
 
-export function* update(action) {
+function* update(action) {
   const { type, id, data } = action.payload;
   const updatedRecord = yield api.update(type, id, data);
   const payload = normalize(updatedRecord, schemaDef[type]);
@@ -64,7 +64,7 @@ export function* watchUpdateRequest() {
   yield* takeEvery(UPDATE_REQUEST, update);
 }
 
-export function* del(action) {
+function* del(action) {
   const { type, id } = action.payload;
   const deletedRecord = yield api.del(type, id);
   const payload = normalize(deletedRecord, schemaDef[type]);

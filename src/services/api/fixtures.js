@@ -1,4 +1,24 @@
 export default {
+  user: {
+    1: {
+      name: 'John Doe',
+      email: 'johndoe@gmail.com',
+      password: 'john-secret',
+      role: '10',
+      meta: {
+        archived: false,
+      },
+    },
+    2: {
+      name: 'Jane Doe',
+      email: 'janedoe@gmail.com',
+      password: 'jane-secret',
+      role: '20',
+      meta: {
+        archived: false,
+      },
+    },
+  },
   brand: {
     1: {
       name: 'Antenna',
@@ -122,7 +142,7 @@ export default {
       url: 'swansong.com',
       email: 'swansong@gmail.com',
       description: 'Record label',
-      password: '$wansong-secret',
+      password: 'swansong-secret',
       meta: {
         archived: false,
       },
@@ -132,15 +152,15 @@ export default {
     },
     2: {
       name: 'Google',
-      street: '444 Madison Avenue',
-      city: 'New York',
-      state: 'New York',
-      zip: '10022',
-      phone: '123-456-7890',
-      url: 'swansong.com',
-      email: 'swansong@gmail.com',
+      street: '1600 Amphitheatre Parkway',
+      city: 'Mountain View',
+      state: 'California',
+      zip: '94043',
+      phone: '650-253-0000',
+      url: 'google.com',
+      email: 'google@gmail.com',
       description: 'Search engine',
-      password: 'google123',
+      password: 'google-secret',
       meta: {
         archived: false,
       },

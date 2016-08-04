@@ -14,7 +14,7 @@ import {
   UPDATE_FORM,
 } from '../actionTypes';
 
-export function* initializeForm(action) {
+function* initializeForm(action) {
   const { type, id, field } = action.payload;
   const record = yield api.fetch(type, id);
   const payload = normalize(record, schemaDef[type]);
@@ -34,7 +34,7 @@ export function* watchInitializeFormRequest() {
   yield* takeEvery(INITIALIZE_FORM, initializeForm);
 }
 
-export function* updateForm(action) {
+function* updateForm(action) {
   const { type, id, data } = action.payload;
   const updatedRecord = yield api.update(type, id, data);
   const payload = normalize(updatedRecord, schemaDef[type]);

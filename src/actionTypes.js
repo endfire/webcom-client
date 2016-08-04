@@ -1,12 +1,13 @@
-// session & login reducer
+// session, login, logout
 export const VERIFY_TOKEN = 'VERIFY_TOKEN';
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
-export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGIN_FORM_CHANGE = 'LOGIN_FORM_CHANGE';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
-// store reducer
+// store
 export const CREATE_REQUEST = 'CREATE_REQUEST';
 export const FIND_REQUEST = 'FIND_REQUEST';
 export const FETCH_REQUEST = 'FETCH_REQUEST';
@@ -23,7 +24,7 @@ export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
 export const DELETE_SUCCESS = 'DELETE_SUCCESS';
 
-// form reducer
+// form
 export const UPDATE_FORM = 'UPDATE_FORM';
 export const UPDATE_FORM_SUCCESS = 'UPDATE_FORM_SUCCESS';
 export const INITIALIZE_FORM = 'INITIALIZE_FORM';

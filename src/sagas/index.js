@@ -11,7 +11,10 @@ import {
   watchUpdateFormRequest,
 } from './form';
 
-export default function* rootSaga() {
+import watchLoginRequest from './login';
+import watchLogoutRequest from './logout';
+
+export default function*() {
   yield [
     watchFetchRequest(),
     watchFindRequest(),
@@ -20,5 +23,7 @@ export default function* rootSaga() {
     watchDeleteRequest(),
     watchInitializeFormRequest(),
     watchUpdateFormRequest(),
+    watchLoginRequest(),
+    watchLogoutRequest(),
   ];
 }

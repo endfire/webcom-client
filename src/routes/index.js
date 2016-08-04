@@ -1,13 +1,20 @@
-import { App, Welcome } from './components';
-import { Admin, Company } from './scenes';
-import { LoginAdmin, LoginCompany } from './scenes/Login/scenes';
-import { Brands, OBG, Users } from './scenes/Admin/scenes';
-import { Listings, People, Settings } from './scenes/Company/scenes';
-import { CompaniesAds, CompaniesAll } from './scenes/Admin/scenes/Companies/scenes';
+import store from '../configureStore';
+import { api } from '../services/api';
+import checkAuth from './checkAuth';
+import requiresUserAuth from './requiresUserAuth';
+import requiresCompanyAuth from './requiresCompanyAuth';
 
-const routes = {
+import { App, Welcome } from '../components';
+import { Admin, Company } from '../scenes';
+import { LoginAdmin, LoginCompany } from '../scenes/Login/scenes';
+import { Brands, OBG, Users } from '../scenes/Admin/scenes';
+import { Listings, People, Settings } from '../scenes/Company/scenes';
+import { CompaniesAds, CompaniesAll } from '../scenes/Admin/scenes/Companies/scenes';
+
+export default {
   path: '/',
   component: App,
+  onEnter: checkAuth(store, api),
   childRoutes: [
     {
       path: 'admin-login',
@@ -19,7 +26,7 @@ const routes = {
     },
     {
       path: 'admin',
-      component: Admin,
+      component: requiresUserAuth(Admin),
       indexRoute: { component: Welcome },
       childRoutes: [
         {
@@ -52,7 +59,7 @@ const routes = {
     },
     {
       path: 'company',
-      component: Company,
+      component: requiresCompanyAuth(Company),
       indexRoute: { component: Welcome },
       childRoutes: [
         {
@@ -71,5 +78,3 @@ const routes = {
     },
   ],
 };
-
-export default routes;
