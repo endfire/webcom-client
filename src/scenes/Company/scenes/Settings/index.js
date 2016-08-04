@@ -1,124 +1,72 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'paintcan';
-import { FETCH_REQUEST, UPDATE_REQUEST } from '../../../../actionTypes';
+import { getLoggedInCompany } from '../../../../selectors/auth';
+import {
+  UPDATE_FORM,
+  INITIALIZE_FORM,
+  CURRENT_FORM_CHANGE,
+  REVERT_FORM,
+} from '../../../../actionTypes';
 
 class Settings extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      name: '',
-      street: '',
-      city: '',
-      state: '',
-      zip: '',
-      phone: '',
-      url: '',
-      email: '',
-      description: '',
-      originalInput: {},
-      flag: true,
-    };
-
-    this.fetch = this.fetch.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    this.fetch();
-  }
+    const { initializeForm, loggedInCompany } = this.props;
 
-  componentWillReceiveProps(nextProps) {
-    if (!this.state.flag) return;
-
-    const { name, street, city, state, zip, phone, url, email, description } = nextProps.company;
-
-    this.setState({
-      name,
-      street,
-      city,
-      state,
-      zip,
-      phone,
-      url,
-      email,
-      description,
-      flag: false,
-      original: {
-        name,
-        street,
-        city,
-        state,
-        zip,
-        phone,
-        url,
-        email,
-        description,
-      },
-    });
-  }
-
-  fetch() {
-    const { fetchCompany } = this.props;
-    fetchCompany('1'); // FIXME: Need to obtain id from state.session (auth)
+    initializeForm(loggedInCompany);
   }
 
   handleCancel() {
-    const { name, street, city, state, zip, phone, url, email, description } = this.state.original;
-
-    this.setState({
-      name,
-      street,
-      city,
-      state,
-      zip,
-      phone,
-      url,
-      email,
-      description,
-    });
+    this.props.revertForm();
   }
 
   handleSubmit(e) {
     e.preventDefault();
 
-    const { isUpdateLoading, updateSettings, company } = this.props;
-    const { name, street, city, state, zip, phone, url, email, description } = this.state;
+    const { isUpdateLoading, updateSettings, current, loggedInCompany } = this.props;
 
     if (isUpdateLoading) return;
 
-    updateSettings(company.id, {
-      name,
-      street,
-      city,
-      state,
-      zip,
-      phone,
-      url,
-      email,
-      description,
+    updateSettings(loggedInCompany, {
+      name: current.get('name'),
+      street: current.get('street'),
+      city: current.get('city'),
+      state: current.get('state'),
+      zip: current.get('zip'),
+      phone: current.get('phone'),
+      url: current.get('url'),
+      email: current.get('email'),
+      description: current.get('description'),
     });
-
-    this.setState({ flag: true });
   }
 
   handleChange(e) {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+
+    this.props.changeCurrentForm({
+      key: name,
+      value,
+    });
   }
 
   render() {
     const { handleSubmit, handleChange, handleCancel } = this;
+    const { current } = this.props;
 
     return (
       <Container fluid><br />
         <form onSubmit={handleSubmit}>
           <Row>
             <Col size={{ xs: 4, lg: 1 }} align={{ xs: 'start' }}>
-              <input type="submit" value="Save" />
+              <Button type="submit">Save</Button>
             </Col>
             <Col size={{ xs: 4, lg: 1 }} align={{ xs: 'start' }}>
               <Button onClick={handleCancel}>Cancel</Button>
@@ -132,7 +80,7 @@ class Settings extends Component {
                 id="name"
                 name="name"
                 onChange={handleChange}
-                value={this.state.name}
+                value={current.get('name')}
               /><br />
               <label htmlFor="street">Street</label><br />
               <input
@@ -140,7 +88,7 @@ class Settings extends Component {
                 id="street"
                 name="street"
                 onChange={handleChange}
-                value={this.state.street}
+                value={current.get('street')}
               /><br />
               <label htmlFor="city">City</label><br />
               <input
@@ -148,7 +96,7 @@ class Settings extends Component {
                 id="city"
                 name="city"
                 onChange={handleChange}
-                value={this.state.city}
+                value={current.get('city')}
               /><br />
               <label htmlFor="state">State</label><br />
               <input
@@ -156,7 +104,7 @@ class Settings extends Component {
                 id="state"
                 name="state"
                 onChange={handleChange}
-                value={this.state.state}
+                value={current.get('state')}
               /><br />
               <label htmlFor="zip">Zip</label><br />
               <input
@@ -164,7 +112,7 @@ class Settings extends Component {
                 id="zip"
                 name="zip"
                 onChange={handleChange}
-                value={this.state.zip}
+                value={current.get('zip')}
               /><br />
               <label htmlFor="phone">Phone Number</label><br />
               <input
@@ -172,7 +120,7 @@ class Settings extends Component {
                 id="phone"
                 name="phone"
                 onChange={handleChange}
-                value={this.state.phone}
+                value={current.get('phone')}
               /><br />
               <label htmlFor="url">URL</label><br />
               <input
@@ -180,7 +128,7 @@ class Settings extends Component {
                 id="url"
                 name="url"
                 onChange={handleChange}
-                value={this.state.url}
+                value={current.get('url')}
               /><br />
               <label htmlFor="email">Email</label><br />
               <input
@@ -188,7 +136,7 @@ class Settings extends Component {
                 id="email"
                 name="email"
                 onChange={handleChange}
-                value={this.state.email}
+                value={current.get('email')}
               /><br />
               <label htmlFor="description">Description</label><br />
               <input
@@ -196,7 +144,7 @@ class Settings extends Component {
                 id="description"
                 name="description"
                 onChange={handleChange}
-                value={this.state.description}
+                value={current.get('description')}
               />
             </Col>
           </Row>
@@ -207,34 +155,47 @@ class Settings extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isUpdateLoading: state.store.isLoading.UPDATE,
-  company: state.store.entities.companies['1'],
-  // FIXME: The id of the company will be obtained from the session/auth state (not hardcoded)
+  loggedInCompany: getLoggedInCompany(state),
+  isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
+  original: state.form.get('original'),
+  current: state.form.get('current'),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchCompany: (id) => dispatch({
-    type: FETCH_REQUEST,
-    payload: {
-      type: 'company',
-      id,
-    },
-  }),
   updateSettings: (id, data) => dispatch({
-    type: UPDATE_REQUEST,
+    type: UPDATE_FORM,
     payload: {
       type: 'company',
       id,
       data,
     },
   }),
+  initializeForm: (id) => dispatch({
+    type: INITIALIZE_FORM,
+    payload: {
+      type: 'company',
+      field: 'companies',
+      id,
+    },
+  }),
+  changeCurrentForm: (payload) => dispatch({
+    type: CURRENT_FORM_CHANGE,
+    payload,
+  }),
+  revertForm: () => dispatch({
+    type: REVERT_FORM,
+  }),
 });
 
 Settings.propTypes = {
+  loggedInCompany: PropTypes.string,
   isUpdateLoading: PropTypes.bool,
-  company: PropTypes.object,
-  fetchCompany: PropTypes.func,
+  original: PropTypes.object,
+  current: PropTypes.object,
   updateSettings: PropTypes.func,
+  initializeForm: PropTypes.func,
+  changeCurrentForm: PropTypes.func,
+  revertForm: PropTypes.func,
 };
 
 export default connect(

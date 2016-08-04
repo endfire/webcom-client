@@ -1,47 +1,58 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
-import List from './components/List';
-import AddPersonModal from './components/AddPersonModal';
-import { FIND_REQUEST, DELETE_REQUEST } from '../../../../actionTypes';
+import List from '../../components/List';
+import { AddPersonModal, EditPersonModal } from './components';
+import { getNonDeletedPeople } from '../../../../selectors/company-people';
+import { getLoggedInCompany } from '../../../../selectors/auth';
+import {
+  FIND_REQUEST,
+  DELETE_REQUEST,
+  CREATE_REQUEST,
+  UPDATE_REQUEST,
+} from '../../../../actionTypes';
 
 class People extends Component {
   constructor(props) {
     super(props);
 
-    this.find = this.find.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
-    this.find();
-  }
+    const { findPeople, loggedInCompany } = this.props;
 
-  find() {
-    const { findPeople } = this.props;
-    findPeople();
+    findPeople(loggedInCompany);
   }
 
   handleDelete(id) {
-      // const { isDeleteLoading, deletePerson } = this.props;
-    const { isDeleteLoading } = this.props;
+    const { isDeleteLoading, deletePerson } = this.props;
 
     if (isDeleteLoading) return;
 
-    console.log(`Delete person ${id}`);
-    // FIXME: need to fix saga...
-    // deletePerson(id); // dispatch action
+    deletePerson(id);
   }
 
   render() {
-    const { people } = this.props;
+    const { people, createPerson, isCreateLoading, updatePerson, isUpdateLoading } = this.props;
 
     return (
       <Container fluid><br />
         <Row>
           <Col size={{ xs: 4 }} align={{ xs: 'left' }}>
-            <AddPersonModal /><br /><br /><br />
-            {people ? <List items={people} handleDelete={this.handleDelete} /> : 'Loading...'}
+            <AddPersonModal
+              createPerson={createPerson}
+              isCreateLoading={isCreateLoading}
+            /><br /><br /><br />
+            {people
+              ? <List
+                items={people}
+                handleDelete={this.handleDelete}
+              ><EditPersonModal
+                updatePerson={updatePerson}
+                isUpdateLoading={isUpdateLoading}
+              /></List>
+              : 'Loading...'}
           </Col>
         </Row>
       </Container>
@@ -50,15 +61,21 @@ class People extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  people: state.store.entities.people,
-  isDeleteLoading: state.store.isLoading.DELETE,
+  people: getNonDeletedPeople(state),
+  loggedInCompany: getLoggedInCompany(state),
+  isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
+  isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
+  isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  findPeople: () => dispatch({
+  findPeople: (company) => dispatch({
     type: FIND_REQUEST,
     payload: {
       type: 'person',
+      filters: {
+        company,
+      },
     },
   }),
   deletePerson: (id) => dispatch({
@@ -68,13 +85,38 @@ const mapDispatchToProps = (dispatch) => ({
       id,
     },
   }),
+  createPerson: (name, email, phone, job) => dispatch({
+    type: CREATE_REQUEST,
+    payload: {
+      type: 'person',
+      record: {
+        name,
+        email,
+        phone,
+        job,
+      },
+    },
+  }),
+  updatePerson: (id, data) => dispatch({
+    type: UPDATE_REQUEST,
+    payload: {
+      type: 'person',
+      id,
+      data,
+    },
+  }),
 });
 
 People.propTypes = {
   people: PropTypes.object,
+  loggedInCompany: PropTypes.string,
   findPeople: PropTypes.func,
   isDeleteLoading: PropTypes.bool,
   deletePerson: PropTypes.func,
+  isCreateLoading: PropTypes.bool,
+  createPerson: PropTypes.func,
+  isUpdateLoading: PropTypes.bool,
+  updatePerson: PropTypes.func,
 };
 
 export default connect(

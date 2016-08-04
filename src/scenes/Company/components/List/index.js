@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react';
 import ListItem from './components/ListItem';
 
-const List = ({ items, handleDelete }) => {
-  const keys = Object.keys(items);
+const List = ({ items, handleDelete, children }) => {
+  const keys = items.keySeq();
 
   return (<div>
     {keys.map(key => (<ListItem
       key={key}
-      item={items[key]}
+      item={items.get(key)}
       handleDelete={handleDelete}
-    />)
+    >{children}</ListItem>)
     )}
   </div>);
 };
@@ -17,6 +17,7 @@ const List = ({ items, handleDelete }) => {
 List.propTypes = {
   items: PropTypes.object,
   handleDelete: PropTypes.func,
+  children: PropTypes.any,
 };
 
 export default List;

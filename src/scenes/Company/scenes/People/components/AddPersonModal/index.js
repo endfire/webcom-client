@@ -1,7 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
-import { connect } from 'react-redux';
-import { CREATE_REQUEST } from '../../../../../../actionTypes';
 import JobSelect from '../JobSelect';
 
 const AddPersonModal = withModal(
@@ -30,23 +28,24 @@ class AddPersonDialog extends Component {
       job: '',
     };
 
-    this.submitHandler = this.submitHandler.bind(this);
-    this.jobSelectHandler = this.jobSelectHandler.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleJobSelect = this.handleJobSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  submitHandler(e) {
+  handleSubmit(e) {
     e.preventDefault();
+
     const { isCreateLoading, createPerson, closeModal } = this.props;
+    const { name, email, phone, job } = this.state;
 
     if (isCreateLoading) return;
 
-    const { name, email, phone, job } = this.state;
     createPerson(name, email, phone, job);
     closeModal();
   }
 
-  jobSelectHandler(item) {
+  handleJobSelect(item) {
     this.setState({ job: item.label });
   }
 
@@ -56,7 +55,7 @@ class AddPersonDialog extends Component {
   }
 
   render() {
-    const { submitHandler, handleChange, jobSelectHandler } = this;
+    const { handleSubmit, handleChange, handleJobSelect } = this;
     const { closeModal } = this.props;
 
     return (
@@ -65,7 +64,7 @@ class AddPersonDialog extends Component {
           <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
             <Card>
               <h3>Add new person</h3>
-              <form onSubmit={submitHandler}>
+              <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Name</label><br />
                 <input
                   type="text"
@@ -98,8 +97,8 @@ class AddPersonDialog extends Component {
                   hidden
                   value={this.state.job}
                 />
-                <JobSelect jobSelectHandler={jobSelectHandler} /><br /><br />
-                <input type="submit" value="Save Change" />
+                <JobSelect handleJobSelect={handleJobSelect} /><br /><br />
+                <Button type="submit">Save Change</Button>
               </form>
               <Button onClick={closeModal}>
                 Cancel
@@ -112,32 +111,10 @@ class AddPersonDialog extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  isCreateLoading: state.store.isLoading.CREATE,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  createPerson: (name, email, phone, job) => dispatch({
-    type: CREATE_REQUEST,
-    payload: {
-      type: 'person',
-      record: {
-        name,
-        email,
-        phone,
-        job,
-      },
-    },
-  }),
-});
-
 AddPersonDialog.propTypes = {
   closeModal: PropTypes.func,
   createPerson: PropTypes.func,
   isCreateLoading: PropTypes.bool,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(AddPersonModal);
+export default AddPersonModal;

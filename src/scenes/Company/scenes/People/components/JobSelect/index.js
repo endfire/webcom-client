@@ -33,7 +33,7 @@ const JobSelect = withSelect(
       {item ? item.label : 'Select a job'}
     </Button>
   ),
-  ({ onSelect, jobSelectHandler }) => (
+  ({ onSelect, hideSelect, handleJobSelect }) => (
     <Card>
       <ul>
         {jobOptions.map(item => (
@@ -41,7 +41,8 @@ const JobSelect = withSelect(
             key={item.id}
             onClick={() => {
               onSelect(item);
-              jobSelectHandler(item);
+              hideSelect();
+              handleJobSelect(item);
             }}
           >
             {item.label}
