@@ -4,7 +4,7 @@ const getActionStatus = (action) => action.type.split('_')[1];
 const getActionVerb = (action) => action.type.split('_')[0];
 const allowedVerbs = ['CREATE', 'FIND', 'FETCH', 'UPDATE', 'DELETE'];
 
-const store = (state = init, action) => {
+export default (state = init, action) => {
   const verb = getActionVerb(action);
 
   if (!allowedVerbs.includes(verb)) return state;
@@ -17,6 +17,7 @@ const store = (state = init, action) => {
       return state
         .updateIn(['requests', verb], requests => requests.push(payload))
         .setIn(['isLoading', verb], true);
+
     case 'SUCCESS':
       if (verb === 'DELETE') {
         // assuming the first key of the normalized entities is the deleted field...
@@ -34,13 +35,13 @@ const store = (state = init, action) => {
         .mergeDeepIn(['entities'], payload.entities)
         .updateIn(['successes', verb], successes => successes.push(payload))
         .setIn(['isLoading', verb], false);
+
     case 'ERROR':
       return state
-      .updateIn(['errors', verb], errors => errors.push(payload))
-      .setIn(['isLoading', verb], false);
+        .updateIn(['errors', verb], errors => errors.push(payload))
+        .setIn(['isLoading', verb], false);
+
     default:
       return state;
   }
 };
-
-export default store;

@@ -4,6 +4,7 @@ import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddPersonModal, EditPersonModal } from './components';
 import { getNonDeletedPeople } from '../../../../selectors/company-people';
+import { getLoggedInCompany } from '../../../../selectors/auth';
 import {
   FIND_REQUEST,
   DELETE_REQUEST,
@@ -19,7 +20,9 @@ class People extends Component {
   }
 
   componentDidMount() {
-    this.props.findPeople('1'); // FIXME: Need to access company ID via session
+    const { findPeople, loggedInCompany } = this.props;
+
+    findPeople(loggedInCompany);
   }
 
   handleDelete(id) {
@@ -59,6 +62,7 @@ class People extends Component {
 
 const mapStateToProps = (state) => ({
   people: getNonDeletedPeople(state),
+  loggedInCompany: getLoggedInCompany(state),
   isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
   isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
   isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
@@ -105,6 +109,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 People.propTypes = {
   people: PropTypes.object,
+  loggedInCompany: PropTypes.string,
   findPeople: PropTypes.func,
   isDeleteLoading: PropTypes.bool,
   deletePerson: PropTypes.func,

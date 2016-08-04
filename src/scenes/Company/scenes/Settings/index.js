@@ -1,10 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'paintcan';
+import { getLoggedInCompany } from '../../../../selectors/auth';
 import {
   UPDATE_FORM,
   INITIALIZE_FORM,
-  CHANGE_CURRENT_FORM,
+  CURRENT_FORM_CHANGE,
   REVERT_FORM,
 } from '../../../../actionTypes';
 
@@ -18,8 +19,9 @@ class Settings extends Component {
   }
 
   componentDidMount() {
-    // FIXME: Need to obtain id from state.session (auth)
-    this.props.initializeForm('1');
+    const { initializeForm, loggedInCompany } = this.props;
+
+    initializeForm(loggedInCompany);
   }
 
   handleCancel() {
@@ -29,12 +31,11 @@ class Settings extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const { isUpdateLoading, updateSettings, current } = this.props;
+    const { isUpdateLoading, updateSettings, current, loggedInCompany } = this.props;
 
     if (isUpdateLoading) return;
 
-    // FIXME: Need to obtain id from state.session (auth)
-    updateSettings('1', {
+    updateSettings(loggedInCompany, {
       name: current.get('name'),
       street: current.get('street'),
       city: current.get('city'),
@@ -154,6 +155,7 @@ class Settings extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  loggedInCompany: getLoggedInCompany(state),
   isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
   original: state.form.get('original'),
   current: state.form.get('current'),
@@ -177,7 +179,7 @@ const mapDispatchToProps = (dispatch) => ({
     },
   }),
   changeCurrentForm: (payload) => dispatch({
-    type: CHANGE_CURRENT_FORM,
+    type: CURRENT_FORM_CHANGE,
     payload,
   }),
   revertForm: () => dispatch({
@@ -186,6 +188,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Settings.propTypes = {
+  loggedInCompany: PropTypes.string,
   isUpdateLoading: PropTypes.bool,
   original: PropTypes.object,
   current: PropTypes.object,

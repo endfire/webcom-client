@@ -2,7 +2,7 @@ import { Map } from 'immutable';
 import {
   INITIALIZE_FORM_SUCCESS,
   UPDATE_FORM_SUCCESS,
-  CHANGE_CURRENT_FORM,
+  CURRENT_FORM_CHANGE,
   REVERT_FORM,
 } from '../actionTypes';
 
@@ -12,20 +12,23 @@ const init = Map({
 });
 
 export default (state = init, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+
+  switch (type) {
     case INITIALIZE_FORM_SUCCESS:
       return state
-        .set('original', action.payload)
-        .set('current', action.payload);
+        .set('original', payload)
+        .set('current', payload);
+
     case UPDATE_FORM_SUCCESS:
-      return state
-        .set('original', state.get('current'));
-    case CHANGE_CURRENT_FORM:
-      return state
-        .setIn(['current', action.payload.key], action.payload.value);
+      return state.set('original', state.get('current'));
+
+    case CURRENT_FORM_CHANGE:
+      return state.setIn(['current', payload.key], payload.value);
+
     case REVERT_FORM:
-      return state
-        .set('current', state.get('original'));
+      return state.set('current', state.get('original'));
+
     default:
       return state;
   }

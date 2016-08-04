@@ -1,25 +1,34 @@
-import { LOGIN, LOGOUT } from '../actionTypes';
+import { Map } from 'immutable';
+import {
+  VERIFY_TOKEN,
+  LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
+} from '../actionTypes';
 
-const init = {
-  isLoggedIn: false,
-  userId: '',
-  token: '',
-};
+const init = Map({
+  id: '',
+  field: '',
+});
 
 export default (state = init, action) => {
-  switch (action.type) {
-    case LOGIN:
-      return {
-        isLoggedIn: true,
-        userId: 'test',
-        token: 'test',
-      };
-    case LOGOUT:
-      return {
-        isLoggedIn: false,
-        userId: '',
-        token: '',
-      };
+  const { type, payload } = action;
+
+  switch (type) {
+    case VERIFY_TOKEN:
+      return state
+        .set('id', payload.id)
+        .set('field', payload.field);
+
+    case LOGIN_SUCCESS:
+      return state
+        .set('id', payload.id)
+        .set('field', payload.field);
+
+    case LOGOUT_SUCCESS:
+      return state
+        .set('field', '')
+        .set('id', '');
+
     default:
       return state;
   }
