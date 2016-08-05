@@ -1,36 +1,26 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
-import List from './components/List';
-import AddUserModal from './components/AddUserModal';
+import { List, AddUserModal } from './components';
 import { FIND_REQUEST, DELETE_REQUEST } from '../../../../actionTypes';
 
 class Users extends Component {
   constructor(props) {
     super(props);
 
-    this.find = this.find.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
-    this.find();
-  }
-
-  find() {
-    const { findUsers } = this.props;
-    findUsers();
+    this.props.findUsers();
   }
 
   handleDelete(id) {
-      // const { isDeleteLoading, deleteUser } = this.props;
-    const { isDeleteLoading } = this.props;
+    const { isDeleteLoading, deleteUser } = this.props;
 
     if (isDeleteLoading) return;
 
-    console.log(`Delete user ${id}`);
-    // FIXME: need to fix saga...
-    // deleteUser(id); // dispatch action
+    deleteUser(id);
   }
 
   render() {
@@ -39,7 +29,7 @@ class Users extends Component {
     return (
       <Container fluid><br />
         <Row>
-          <Col size={{ xs: 4 }} align={{ xs: 'left' }}>
+          <Col>
             <AddUserModal /><br /><br /><br />
             {users ? <List items={users} handleDelete={this.handleDelete} /> : 'Loading...'}
           </Col>
@@ -50,8 +40,8 @@ class Users extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  users: state.store.entities.users,
-  isDeleteLoading: state.store.isLoading.DELETE,
+  users: state.store.getIn(['entities', 'users']),
+  isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -72,8 +62,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 Users.propTypes = {
   users: PropTypes.object,
-  findUsers: PropTypes.func,
   isDeleteLoading: PropTypes.bool,
+  findUsers: PropTypes.func,
   deleteUser: PropTypes.func,
 };
 

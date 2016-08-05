@@ -97,7 +97,7 @@ class AddUserDialog extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isCreateLoading: state.store.isLoading.CREATE,
+  isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
 });
 
 const mapDispatchToProps = (dispatch) => ({

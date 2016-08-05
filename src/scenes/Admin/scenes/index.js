@@ -1,6 +1,6 @@
-import Brands from './Brands';
+import Brand from './Brand';
+import BrandsAll from './BrandsAll';
 import Companies from './Companies';
-import OBG from './OBG';
 import Users from './Users';
 
-export { Brands, Companies, OBG, Users };
+export { Brand, BrandsAll, Companies, Users };

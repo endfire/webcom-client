@@ -23,9 +23,6 @@ const Admin = ({ children, logoutRequest }) => {
             <Link to="/admin/companies">Companies</Link>
           </Col>
           <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
-            <Link to="/admin/obg">OBG</Link>
-          </Col>
-          <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
             <Link to="/admin/users">Users</Link>
           </Col>
           <Col size={{ xs: 6 }} align={{ xs: 'center' }}>
