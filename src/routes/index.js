@@ -7,9 +7,11 @@ import requiresCompanyAuth from './requiresCompanyAuth';
 import { App, Welcome } from '../components';
 import { Admin, Company } from '../scenes';
 import { LoginAdmin, LoginCompany } from '../scenes/Login/scenes';
-import { Brands, OBG, Users } from '../scenes/Admin/scenes';
 import { Listings, People, Settings } from '../scenes/Company/scenes';
+
+import { Brand, BrandsAll, Companies, Users } from '../scenes/Admin/scenes';
 import { CompaniesAds, CompaniesAll } from '../scenes/Admin/scenes/Companies/scenes';
+import { BrandForms, BrandOBG, BrandSettings } from '../scenes/Admin/scenes/Brand/scenes';
 
 export default {
   path: '/',
@@ -31,10 +33,32 @@ export default {
       childRoutes: [
         {
           path: 'brands',
-          component: Brands,
+          indexRoute: { component: BrandsAll },
+        },
+        {
+          path: 'brands/:id',
+          component: Brand,
+          indexRoute: {
+            onEnter: ({ params }, replace) => replace(`/admin/brands/${params.id}/forms`),
+          },
+          childRoutes: [
+            {
+              path: 'settings',
+              component: BrandSettings,
+            },
+            {
+              path: 'forms',
+              component: BrandForms,
+            },
+            {
+              path: 'obg',
+              component: BrandOBG,
+            },
+          ],
         },
         {
           path: 'companies',
+          component: Companies,
           indexRoute: { onEnter: (nextState, replace) => replace('/admin/companies/all') },
           childRoutes: [
             {
@@ -46,10 +70,6 @@ export default {
               component: CompaniesAds,
             },
           ],
-        },
-        {
-          path: 'obg',
-          component: OBG,
         },
         {
           path: 'users',
