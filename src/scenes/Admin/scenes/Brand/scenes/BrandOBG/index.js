@@ -1,7 +1,7 @@
 import React from 'react';
 
-const OBG = () => (
-  <p>OBG here</p>
+const BrandOBG = () => (
+  <p>BrandOBG</p>
 );
 
-export default OBG;
+export default BrandOBG;
