@@ -31,6 +31,7 @@ export default {
         archived: false,
       },
       categories: ['1', '3'],
+      forms: ['1', '2'],
     },
     2: {
       name: 'Battery',
@@ -43,6 +44,7 @@ export default {
         archived: false,
       },
       categories: ['2'],
+      forms: ['3'],
     },
     3: {
       name: 'LED',
@@ -55,6 +57,7 @@ export default {
         archived: false,
       },
       categories: [],
+      forms: ['4'],
     },
   },
   category: {
@@ -208,6 +211,57 @@ export default {
       },
       company: '2',
       categories: ['1', '3'],
+    },
+  },
+  form: {
+    1: {
+      name: 'Get listed for OBG',
+      published: true,
+      meta: {
+        archived: false,
+      },
+      brand: '1',
+      fields: [],
+      submissions: ['1'],
+    },
+    2: {
+      name: 'Sponsor and exhibitor contract',
+      published: false,
+      meta: {
+        archived: false,
+      },
+      brand: '1',
+      fields: [],
+      submissions: [],
+    },
+    3: {
+      name: 'Order directory',
+      published: true,
+      meta: {
+        archived: false,
+      },
+      brand: '2',
+      fields: [],
+      submissions: [],
+    },
+    4: {
+      name: 'Order CD-ROM mailing list',
+      published: true,
+      meta: {
+        archived: false,
+      },
+      brand: '3',
+      fields: [],
+      submissions: [],
+    },
+  },
+  submission: {
+    1: {
+      meta: {
+        archived: false,
+      },
+      form: '1',
+      fields: [],
     },
   },
 };

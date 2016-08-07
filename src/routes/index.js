@@ -12,6 +12,7 @@ import { Listings, People, Settings } from '../scenes/Company/scenes';
 import { Brand, BrandsAll, Companies, Users } from '../scenes/Admin/scenes';
 import { CompaniesAds, CompaniesAll } from '../scenes/Admin/scenes/Companies/scenes';
 import { BrandForms, BrandOBG, BrandSettings } from '../scenes/Admin/scenes/Brand/scenes';
+import { BrandForm } from '../scenes/Admin/scenes/Brand/scenes/BrandForms/scenes';
 
 export default {
   path: '/',
@@ -36,10 +37,10 @@ export default {
           indexRoute: { component: BrandsAll },
         },
         {
-          path: 'brands/:id',
+          path: 'brands/:brandID',
           component: Brand,
           indexRoute: {
-            onEnter: ({ params }, replace) => replace(`/admin/brands/${params.id}/forms`),
+            onEnter: ({ params }, replace) => replace(`/admin/brands/${params.brandID}/forms`),
           },
           childRoutes: [
             {
@@ -49,6 +50,10 @@ export default {
             {
               path: 'forms',
               component: BrandForms,
+            },
+            {
+              path: 'forms/:formID',
+              component: BrandForm,
             },
             {
               path: 'obg',
