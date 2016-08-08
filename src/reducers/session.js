@@ -7,7 +7,7 @@ import {
 
 const init = Map({
   id: '',
-  field: '',
+  type: '',
 });
 
 export default (state = init, action) => {
@@ -17,17 +17,17 @@ export default (state = init, action) => {
     case VERIFY_TOKEN:
       return state
         .set('id', payload.id)
-        .set('field', payload.field);
+        .set('type', payload.type);
 
     case LOGIN_SUCCESS:
       return state
         .set('id', payload.id)
-        .set('field', payload.field);
+        .set('type', payload.type);
 
     case LOGOUT_SUCCESS:
       return state
-        .set('field', '')
-        .set('id', '');
+        .set('id', '')
+        .set('type', '');
 
     default:
       return state;

@@ -21,21 +21,23 @@ function* loginRequest(action) {
     if (!allowedPaths.includes(path)) throw new Error();
 
     if (path === '/admin') {
-      const { user, token } = yield api.authToken(email, password);
+      const response = yield api.authenticate('token', 'user', { email, password });
+      console.log(response);
+      const { user, token } = response;
       const payload = normalize(user, userSchema);
 
       yield put({ type: FETCH_SUCCESS, payload });
-      yield put({ type: LOGIN_SUCCESS, payload: { id: user.id, field: 'user' } });
+      yield put({ type: LOGIN_SUCCESS, payload: { id: user.id, type: 'user' } });
 
       localStorage.token = token;
       localStorage.id = user.id;
       localStorage.userOrCompany = 'user';
     } else {
-      const { company, token } = yield api.authToken(email, password);
+      const { company, token } = yield api.auth('token', 'company', { email, password });
       const payload = normalize(company, companySchema);
 
       yield put({ type: FETCH_SUCCESS, payload });
-      yield put({ type: LOGIN_SUCCESS, payload: { id: company.id, field: 'company' } });
+      yield put({ type: LOGIN_SUCCESS, payload: { id: company.id, type: 'company' } });
 
       localStorage.token = token;
       localStorage.id = company.id;

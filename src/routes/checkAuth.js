@@ -1,9 +1,7 @@
-import { normalize } from 'normalizr';
-import { user as userSchema, company as companySchema } from '../services/api/definitions';
 import { isUserAuthenticated, isCompanyAuthenticated } from '../selectors/auth';
 import {
   VERIFY_TOKEN,
-  FETCH_SUCCESS,
+  FETCH_REQUEST,
 } from '../actionTypes';
 
 export default (store, api) => (nextState, replace, callback) => {
@@ -13,33 +11,47 @@ export default (store, api) => (nextState, replace, callback) => {
 
   if (!token || isUserAuthenticated(state) || isCompanyAuthenticated(state)) return done();
 
-  const userOrCompany = localStorage.userOrCompany;
+  const { userOrCompany, id } = localStorage;
 
-  const dispatchTokenAndFetch = (entity) => {
+  const dispatchTokenAndFetch = (obj) => {
+    if (!obj.verified) throw new Error('Not verified');
+
     if (userOrCompany === 'user') {
       store.dispatch({
         type: VERIFY_TOKEN,
-        payload: { id: entity.id, field: 'user' },
+        payload: {
+          type: 'user',
+          id,
+        },
       });
 
       store.dispatch({
-        type: FETCH_SUCCESS,
-        payload: normalize(entity, userSchema),
+        type: FETCH_REQUEST,
+        payload: {
+          type: 'user',
+          id,
+        },
       });
     } else {
       store.dispatch({
         type: VERIFY_TOKEN,
-        payload: { id: entity.id, field: 'company' },
+        payload: {
+          type: 'company',
+          id,
+        },
       });
 
       store.dispatch({
-        type: FETCH_SUCCESS,
-        payload: normalize(entity, companySchema),
+        type: FETCH_REQUEST,
+        payload: {
+          type: 'company',
+          id,
+        },
       });
     }
   };
 
-  return api.authVerify(token)
+  return api.verify(token)
     .then(dispatchTokenAndFetch)
     .then(() => {
       const nextPath = nextState.location.pathname;
