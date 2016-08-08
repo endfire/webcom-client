@@ -18,7 +18,8 @@ import {
 
 function* fetch(action) {
   const { type, id } = action.payload;
-  const record = yield api.fetch(type, id);
+  const token = localStorage.token;
+  const record = yield api.fetch(token, type, id);
   const payload = normalize(record, schemaDef[type]);
 
   yield put({ type: FETCH_SUCCESS, payload });
@@ -30,7 +31,8 @@ export function* watchFetchRequest() {
 
 function* find(action) {
   const { type, filters } = action.payload;
-  const records = yield api.find(type, filters);
+  const token = localStorage.token;
+  const records = yield api.find(token, type, filters);
   const payload = normalize(records, arrayOf(schemaDef[type]));
 
   yield put({ type: FIND_SUCCESS, payload });
@@ -42,7 +44,8 @@ export function* watchFindRequest() {
 
 function* create(action) {
   const { type, record } = action.payload;
-  const createdRecord = yield api.create(type, record);
+  const token = localStorage.token;
+  const createdRecord = yield api.create(token, type, record);
   const payload = normalize(createdRecord, schemaDef[type]);
 
   yield put({ type: CREATE_SUCCESS, payload });
@@ -54,7 +57,8 @@ export function* watchCreateRequest() {
 
 function* update(action) {
   const { type, id, data } = action.payload;
-  const updatedRecord = yield api.update(type, id, data);
+  const token = localStorage.token;
+  const updatedRecord = yield api.update(token, type, id, data);
   const payload = normalize(updatedRecord, schemaDef[type]);
 
   yield put({ type: UPDATE_SUCCESS, payload });
@@ -66,7 +70,8 @@ export function* watchUpdateRequest() {
 
 function* del(action) {
   const { type, id } = action.payload;
-  const deletedRecord = yield api.del(type, id);
+  const token = localStorage.token;
+  const deletedRecord = yield api.archive(token, type, id);
   const payload = normalize(deletedRecord, schemaDef[type]);
 
   yield put({ type: DELETE_SUCCESS, payload });

@@ -16,7 +16,8 @@ import {
 
 function* initializeForm(action) {
   const { type, id, field } = action.payload;
-  const record = yield api.fetch(type, id);
+  const token = localStorage.token;
+  const record = yield api.fetch(token, type, id);
   const payload = normalize(record, schemaDef[type]);
 
   yield put({ type: FETCH_SUCCESS, payload });
@@ -36,7 +37,8 @@ export function* watchInitializeFormRequest() {
 
 function* updateForm(action) {
   const { type, id, data } = action.payload;
-  const updatedRecord = yield api.update(type, id, data);
+  const token = localStorage.token;
+  const updatedRecord = yield api.update(token, type, id, data);
   const payload = normalize(updatedRecord, schemaDef[type]);
 
   yield put({ type: UPDATE_SUCCESS, payload });
