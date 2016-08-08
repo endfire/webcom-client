@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 const getStore = (state) => state.store;
 const getSessionID = (state) => state.session.get('id');
-const getSessionField = (state) => state.session.get('field');
+const getSessionType = (state) => state.session.get('type');
 
 export const getLoggedInUser = createSelector(
   [getSessionID, getStore],
@@ -15,11 +15,11 @@ export const getLoggedInCompany = createSelector(
 );
 
 export const isUserAuthenticated = createSelector(
-  [getSessionID, getSessionField],
-  (sessionID, sessionField) => sessionField === 'user' && !!sessionID
+  [getSessionID, getSessionType],
+  (sessionID, sessionType) => sessionType === 'user' && !!sessionID
 );
 
 export const isCompanyAuthenticated = createSelector(
-  [getSessionID, getSessionField],
-  (sessionID, sessionField) => sessionField === 'company' && !!sessionID
+  [getSessionID, getSessionType],
+  (sessionID, sessionType) => sessionType === 'company' && !!sessionID
 );

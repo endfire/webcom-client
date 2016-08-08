@@ -27,7 +27,7 @@ function* loginRequest(action) {
       const payload = normalize(user, userSchema);
 
       yield put({ type: FETCH_SUCCESS, payload });
-      yield put({ type: LOGIN_SUCCESS, payload: { id: user.id, field: 'user' } });
+      yield put({ type: LOGIN_SUCCESS, payload: { id: user.id, type: 'user' } });
 
       localStorage.token = token;
       localStorage.id = user.id;
@@ -37,7 +37,7 @@ function* loginRequest(action) {
       const payload = normalize(company, companySchema);
 
       yield put({ type: FETCH_SUCCESS, payload });
-      yield put({ type: LOGIN_SUCCESS, payload: { id: company.id, field: 'company' } });
+      yield put({ type: LOGIN_SUCCESS, payload: { id: company.id, type: 'company' } });
 
       localStorage.token = token;
       localStorage.id = company.id;
