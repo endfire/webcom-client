@@ -4,12 +4,7 @@ import { normalize } from 'normalizr';
 import { api } from '../services/api';
 import { user as userSchema, company as companySchema } from '../services/api/definitions';
 import { browserHistory } from 'react-router';
-import {
-  LOGIN_REQUEST,
-  LOGIN_SUCCESS,
-  LOGIN_ERROR,
-  FETCH_SUCCESS,
-} from '../actionTypes';
+import * as types from 'constants/actionTypes';
 
 const forwardTo = (path) => browserHistory.push(path);
 const allowedPaths = ['/admin', '/company'];
@@ -24,8 +19,8 @@ function* loginRequest(action) {
       const { user, token } = yield api.authToken(email, password);
       const payload = normalize(user, userSchema);
 
-      yield put({ type: FETCH_SUCCESS, payload });
-      yield put({ type: LOGIN_SUCCESS, payload: { id: user.id, field: 'user' } });
+      yield put({ type: types.FETCH_SUCCESS, payload });
+      yield put({ type: types.LOGIN_SUCCESS, payload: { id: user.id, field: 'user' } });
 
       localStorage.token = token;
       localStorage.id = user.id;
@@ -34,8 +29,8 @@ function* loginRequest(action) {
       const { company, token } = yield api.authToken(email, password);
       const payload = normalize(company, companySchema);
 
-      yield put({ type: FETCH_SUCCESS, payload });
-      yield put({ type: LOGIN_SUCCESS, payload: { id: company.id, field: 'company' } });
+      yield put({ type: types.FETCH_SUCCESS, payload });
+      yield put({ type: types.LOGIN_SUCCESS, payload: { id: company.id, field: 'company' } });
 
       localStorage.token = token;
       localStorage.id = company.id;
@@ -44,10 +39,26 @@ function* loginRequest(action) {
 
     forwardTo(path);
   } catch (e) {
-    yield put({ type: LOGIN_ERROR, payload: e, error: true });
+    yield put({ type: types.LOGIN_ERROR, payload: e, error: true });
   }
 }
 
-export default function*() {
-  yield* takeEvery(LOGIN_REQUEST, loginRequest);
+export function* watchLoginRequest() {
+  yield* takeEvery(types.LOGIN_REQUEST, loginRequest);
+}
+
+function* logoutRequest(action) {
+  const path = action.payload;
+
+  yield put({ type: types.LOGOUT_SUCCESS });
+
+  localStorage.token = null;
+  localStorage.id = null;
+  localStorage.userOrCompany = null;
+
+  forwardTo(path);
+}
+
+export function* watchLogoutRequest() {
+  yield* takeEvery(types.LOGOUT_REQUEST, logoutRequest);
 }
