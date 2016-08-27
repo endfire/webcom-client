@@ -14,12 +14,12 @@ export const getLoggedInCompany = createSelector(
   (sessionID, store) => store.getIn(['entities', 'companies', sessionID])
 );
 
-export const isUserAuthenticated = createSelector(
+export const getIsUserAuthenticated = createSelector(
   [getSessionID, getSessionField],
   (sessionID, sessionField) => sessionField === 'user' && !!sessionID
 );
 
-export const isCompanyAuthenticated = createSelector(
+export const getIsCompanyAuthenticated = createSelector(
   [getSessionID, getSessionField],
   (sessionID, sessionField) => sessionField === 'company' && !!sessionID
 );

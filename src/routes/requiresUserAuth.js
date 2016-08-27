@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import { isUserAuthenticated } from '../selectors/auth';
+import { getIsUserAuthenticated } from '../selectors/auth';
 
 export default function requiresAuth(WrappedComponent) {
   class UserAuthenticatedComponent extends Component {
@@ -30,7 +30,7 @@ export default function requiresAuth(WrappedComponent) {
   }
 
   const mapStateToProps = (state) => ({
-    isUserAuthenticated: isUserAuthenticated(state),
+    isUserAuthenticated: getIsUserAuthenticated(state),
   });
 
   UserAuthenticatedComponent.propTypes = {

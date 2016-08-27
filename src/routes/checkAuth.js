@@ -1,6 +1,6 @@
 import { normalize } from 'normalizr';
 import { user as userSchema, company as companySchema } from '../services/api/definitions';
-import { isUserAuthenticated, isCompanyAuthenticated } from '../selectors/auth';
+import { getIsUserAuthenticated, getIsCompanyAuthenticated } from '../selectors/auth';
 import * as types from 'constants/actionTypes';
 
 export default (store, api) => (nextState, replace, callback) => {
@@ -8,7 +8,7 @@ export default (store, api) => (nextState, replace, callback) => {
   const token = localStorage.token;
   const done = () => callback();
 
-  if (!token || isUserAuthenticated(state) || isCompanyAuthenticated(state)) return done();
+  if (!token || getIsUserAuthenticated(state) || getIsCompanyAuthenticated(state)) return done();
 
   const userOrCompany = localStorage.userOrCompany;
 
@@ -41,11 +41,11 @@ export default (store, api) => (nextState, replace, callback) => {
     .then(() => {
       const nextPath = nextState.location.pathname;
 
-      if (nextPath === '/admin-login' && isUserAuthenticated(store.getState())) {
+      if (nextPath === '/admin-login' && getIsUserAuthenticated(store.getState())) {
         replace('/admin');
       }
 
-      if (nextPath === '/company-login' && isCompanyAuthenticated(store.getState())) {
+      if (nextPath === '/company-login' && getIsCompanyAuthenticated(store.getState())) {
         replace('/company');
       }
 
