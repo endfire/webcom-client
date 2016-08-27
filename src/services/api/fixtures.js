@@ -4,7 +4,7 @@ export default {
       name: 'John Doe',
       email: 'johndoe@gmail.com',
       password: 'john-secret',
-      role: '10',
+      role: '1',
       meta: {
         archived: false,
       },
@@ -13,7 +13,16 @@ export default {
       name: 'Jane Doe',
       email: 'janedoe@gmail.com',
       password: 'jane-secret',
-      role: '20',
+      role: '2',
+      meta: {
+        archived: false,
+      },
+    },
+    3: {
+      name: 'Joe Doe',
+      email: 'joedoe@gmail.com',
+      password: 'joe-secret',
+      role: '3',
       meta: {
         archived: false,
       },
