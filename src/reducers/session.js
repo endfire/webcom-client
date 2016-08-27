@@ -2,7 +2,6 @@ import { Map } from 'immutable';
 import {
   VERIFY_TOKEN,
   LOGIN_SUCCESS,
-  LOGOUT_SUCCESS,
 } from '../actionTypes';
 
 const init = Map({
@@ -23,11 +22,6 @@ export default (state = init, action) => {
       return state
         .set('id', payload.id)
         .set('field', payload.field);
-
-    case LOGOUT_SUCCESS:
-      return state
-        .set('field', '')
-        .set('id', '');
 
     default:
       return state;
