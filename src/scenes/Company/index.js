@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'paintcan';
 import { Link } from 'react-router';
-import { LOGOUT_REQUEST } from '../../actionTypes';
+import * as types from 'constants/actionTypes';
 
 const Company = ({ children, logoutRequest }) => {
   const handleLogout = () => {
@@ -38,7 +38,7 @@ const Company = ({ children, logoutRequest }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   logoutRequest: () => dispatch({
-    type: LOGOUT_REQUEST,
+    type: types.LOGOUT_REQUEST,
     payload: '/company-login',
   }),
 });

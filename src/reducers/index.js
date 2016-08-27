@@ -4,7 +4,7 @@ import session from './session';
 import login from './login';
 import store from './store';
 import form from './form';
-import { LOGOUT_SUCCESS } from '../actionTypes';
+import * as types from 'constants/actionTypes';
 
 const appReducer = combineReducers({
   session,
@@ -14,7 +14,7 @@ const appReducer = combineReducers({
 });
 
 export default (state, action) => {
-  if (action.type === LOGOUT_SUCCESS) {
+  if (action.type === types.LOGOUT_SUCCESS) {
     state = undefined;
   }
 

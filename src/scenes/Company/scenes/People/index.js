@@ -3,14 +3,9 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddPersonModal, EditPersonModal } from './components';
-import { getNonDeletedPeople } from '../../../../selectors/company-people';
-import { getLoggedInCompany } from '../../../../selectors/auth';
-import {
-  FIND_REQUEST,
-  DELETE_REQUEST,
-  CREATE_REQUEST,
-  UPDATE_REQUEST,
-} from '../../../../actionTypes';
+import { getNonDeletedPeople } from 'selectors/company-people';
+import { getLoggedInCompany } from 'selectors/auth';
+import * as types from 'constants/actionTypes';
 
 class People extends Component {
   constructor(props) {
@@ -70,7 +65,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   findPeople: (company) => dispatch({
-    type: FIND_REQUEST,
+    type: types.FIND_REQUEST,
     payload: {
       type: 'person',
       filters: {
@@ -79,14 +74,14 @@ const mapDispatchToProps = (dispatch) => ({
     },
   }),
   deletePerson: (id) => dispatch({
-    type: DELETE_REQUEST,
+    type: types.DELETE_REQUEST,
     payload: {
       type: 'person',
       id,
     },
   }),
   createPerson: (name, email, phone, job) => dispatch({
-    type: CREATE_REQUEST,
+    type: types.CREATE_REQUEST,
     payload: {
       type: 'person',
       record: {
@@ -98,7 +93,7 @@ const mapDispatchToProps = (dispatch) => ({
     },
   }),
   updatePerson: (id, data) => dispatch({
-    type: UPDATE_REQUEST,
+    type: types.UPDATE_REQUEST,
     payload: {
       type: 'person',
       id,

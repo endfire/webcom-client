@@ -2,11 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import { AddBrandModal, List } from './components';
-import {
-  FIND_REQUEST,
-  DELETE_REQUEST,
-  CREATE_REQUEST,
-} from '../../../../actionTypes';
+import * as types from 'constants/actionTypes';
 
 class Brands extends Component {
   constructor(props) {
@@ -33,7 +29,7 @@ class Brands extends Component {
     return (
       <Container fluid><br />
         <Row>
-          <Col size={{ xs: 4 }} align={{ xs: 'left' }}>
+          <Col size={{ xs: 4 }} align={{ xs: 'start' }}>
             <AddBrandModal
               createBrand={createBrand}
               isCreateLoading={isCreateLoading}
@@ -59,20 +55,20 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   findBrands: () => dispatch({
-    type: FIND_REQUEST,
+    type: types.FIND_REQUEST,
     payload: {
       type: 'brand',
     },
   }),
   deleteBrand: (id) => dispatch({
-    type: DELETE_REQUEST,
+    type: types.DELETE_REQUEST,
     payload: {
       type: 'brand',
       id,
     },
   }),
   createBrand: (name) => dispatch({
-    type: CREATE_REQUEST,
+    type: types.CREATE_REQUEST,
     payload: {
       type: 'brand',
       record: {

@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import { List, AddUserModal } from './components';
-import { FIND_REQUEST, DELETE_REQUEST } from '../../../../actionTypes';
+import * as types from 'constants/actionTypes';
 
 class Users extends Component {
   constructor(props) {
@@ -46,13 +46,13 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   findUsers: () => dispatch({
-    type: FIND_REQUEST,
+    type: types.FIND_REQUEST,
     payload: {
       type: 'user',
     },
   }),
   deleteUser: (id) => dispatch({
-    type: DELETE_REQUEST,
+    type: types.DELETE_REQUEST,
     payload: {
       type: 'user',
       id,

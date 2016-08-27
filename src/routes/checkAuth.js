@@ -1,10 +1,7 @@
 import { normalize } from 'normalizr';
 import { user as userSchema, company as companySchema } from '../services/api/definitions';
 import { isUserAuthenticated, isCompanyAuthenticated } from '../selectors/auth';
-import {
-  VERIFY_TOKEN,
-  FETCH_SUCCESS,
-} from '../actionTypes';
+import * as types from 'constants/actionTypes';
 
 export default (store, api) => (nextState, replace, callback) => {
   const state = store.getState();
@@ -18,22 +15,22 @@ export default (store, api) => (nextState, replace, callback) => {
   const dispatchTokenAndFetch = (entity) => {
     if (userOrCompany === 'user') {
       store.dispatch({
-        type: VERIFY_TOKEN,
+        type: types.VERIFY_TOKEN,
         payload: { id: entity.id, field: 'user' },
       });
 
       store.dispatch({
-        type: FETCH_SUCCESS,
+        type: types.FETCH_SUCCESS,
         payload: normalize(entity, userSchema),
       });
     } else {
       store.dispatch({
-        type: VERIFY_TOKEN,
+        type: types.VERIFY_TOKEN,
         payload: { id: entity.id, field: 'company' },
       });
 
       store.dispatch({
-        type: FETCH_SUCCESS,
+        type: types.FETCH_SUCCESS,
         payload: normalize(entity, companySchema),
       });
     }
