@@ -18,9 +18,14 @@ function* loginRequest(action) {
     if (path === '/admin') {
       const { user, token } = yield api.authToken(email, password);
       const payload = normalize(user, userSchema);
+      const payloadUser = {
+        id: user.id,
+        field: 'user',
+        role: user.role,
+      };
 
       yield put({ type: types.FETCH_SUCCESS, payload });
-      yield put({ type: types.LOGIN_SUCCESS, payload: { id: user.id, field: 'user' } });
+      yield put({ type: types.LOGIN_SUCCESS, payload: payloadUser });
 
       localStorage.token = token;
       localStorage.id = user.id;

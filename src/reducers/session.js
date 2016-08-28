@@ -4,6 +4,7 @@ import * as types from 'constants/actionTypes';
 const init = Map({
   id: '',
   field: '',
+  role: '',
 });
 
 export default (state = init, action) => {
@@ -13,12 +14,14 @@ export default (state = init, action) => {
     case types.VERIFY_TOKEN:
       return state
         .set('id', payload.id)
-        .set('field', payload.field);
+        .set('field', payload.field)
+        .set('role', payload.role);
 
     case types.LOGIN_SUCCESS:
       return state
         .set('id', payload.id)
-        .set('field', payload.field);
+        .set('field', payload.field)
+        .set('role', payload.role);
 
     default:
       return state;

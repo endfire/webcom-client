@@ -16,7 +16,7 @@ export default (store, api) => (nextState, replace, callback) => {
     if (userOrCompany === 'user') {
       store.dispatch({
         type: types.VERIFY_TOKEN,
-        payload: { id: entity.id, field: 'user' },
+        payload: { id: entity.id, field: 'user', role: entity.role },
       });
 
       store.dispatch({
