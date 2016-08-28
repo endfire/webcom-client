@@ -23,6 +23,7 @@ export const FIND_SUCCESS = 'FIND_SUCCESS';
 export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const UPDATE_SUCCESS = 'UPDATE_SUCCESS';
 export const DELETE_SUCCESS = 'DELETE_SUCCESS';
+export const SYNC_STORE = 'SYNC_STORE';
 
 // form
 export const INITIALIZE_FORM = 'INITIALIZE_FORM';
