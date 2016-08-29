@@ -13,6 +13,11 @@ export const getCanUserAddUsers = createSelector(
   (userRole) => userRole === '1' || userRole === '2'
 );
 
+export const getCanUserAccessOBG = createSelector(
+  [getUserRole],
+  (userRole) => userRole === '1' || userRole === '2'
+);
+
 export const getCurrentBrandForms = (brandID) => (
   createSelector(
     [getForms],

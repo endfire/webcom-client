@@ -1,8 +1,10 @@
 import store from '../configureStore';
 import { api } from '../services/api';
+
 import checkAuth from './checkAuth';
 import requiresUserAuth from './requiresUserAuth';
 import requiresCompanyAuth from './requiresCompanyAuth';
+import canAccessOBG from './canAccessOBG';
 
 import { App, Welcome } from '../components';
 import { Admin, Company } from '../scenes';
@@ -58,6 +60,9 @@ export default {
             {
               path: 'obg',
               component: BrandOBG,
+              indexRoute: {
+                onEnter: canAccessOBG(store),
+              },
             },
           ],
         },
