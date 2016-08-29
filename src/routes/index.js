@@ -1,20 +1,20 @@
-import store from '../configureStore';
-import { api } from '../services/api';
+import store from 'configureStore';
+import { api } from 'services/api';
 
 import checkAuth from './checkAuth';
 import requiresUserAuth from './requiresUserAuth';
 import requiresCompanyAuth from './requiresCompanyAuth';
 import canAccessOBG from './canAccessOBG';
 
-import { App, Welcome } from '../components';
-import { Admin, Company } from '../scenes';
-import { LoginAdmin, LoginCompany } from '../scenes/Login/scenes';
-import { Listings, People, Settings } from '../scenes/Company/scenes';
+import { App, Welcome } from 'components';
+import { Admin, Company } from 'scenes';
+import { LoginAdmin, LoginCompany } from 'scenes/Login/scenes';
+import { Listings, People, Settings } from 'scenes/Company/scenes';
 
-import { Brand, BrandsAll, Companies, Users } from '../scenes/Admin/scenes';
-import { CompaniesAds, CompaniesAll } from '../scenes/Admin/scenes/Companies/scenes';
-import { BrandForms, BrandOBG, BrandSettings } from '../scenes/Admin/scenes/Brand/scenes';
-import { BrandForm } from '../scenes/Admin/scenes/Brand/scenes/BrandForms/scenes';
+import { Brand, BrandsAll, Companies, Users } from 'scenes/Admin/scenes';
+import { CompaniesAds, CompaniesAll } from 'scenes/Admin/scenes/Companies/scenes';
+import { BrandForms, BrandOBG, BrandSettings } from 'scenes/Admin/scenes/Brand/scenes';
+import { BrandForm } from 'scenes/Admin/scenes/Brand/scenes/BrandForms/scenes';
 
 export default {
   path: '/',

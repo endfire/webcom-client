@@ -1,8 +1,8 @@
 import { takeEvery } from 'redux-saga';
 import { put } from 'redux-saga/effects';
 import { normalize } from 'normalizr';
-import { api } from '../services/api';
-import { user as userSchema, company as companySchema } from '../services/api/definitions';
+import { api } from 'services/api';
+import { user as userSchema, company as companySchema } from 'services/api/definitions';
 import { browserHistory } from 'react-router';
 import * as types from 'constants/actionTypes';
 
