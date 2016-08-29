@@ -12,12 +12,13 @@ export default (state = init, action) => {
 
   switch (type) {
     case types.INITIALIZE_FORM: {
-      const { form, initialValues, validation } = payload;
+      const { form, initialValues, validation, recordID } = payload;
       const values = mapInitialValuesToValues(initialValues, validation);
 
       return state
         .setIn([form, 'initial'], values)
-        .setIn([form, 'current'], values);
+        .setIn([form, 'current'], values)
+        .setIn([form, 'recordID'], recordID);
     }
 
     case types.REVERT_FORM: {

@@ -1,7 +1,7 @@
 import * as types from 'constants/actionTypes';
 import missingRequiredParamError from './missingRequiredParamError';
 
-export const initializeForm = (form, initialValues = {}, validation = {}) => {
+export const initializeForm = (form, initialValues = {}, validation = {}, recordID = '') => {
   const type = types.INITIALIZE_FORM;
 
   if (!form) throw missingRequiredParamError(type, 'form');
@@ -12,6 +12,7 @@ export const initializeForm = (form, initialValues = {}, validation = {}) => {
       form,
       initialValues,
       validation,
+      recordID,
     },
   };
 };

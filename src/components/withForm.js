@@ -13,6 +13,7 @@ export default ({
   form = v4(),
   initialValues = {},
   validation = {},
+  recordID = '',
 }) => (WrappedComponent) => {
   class Form extends Component {
     static propTypes = {
@@ -38,7 +39,7 @@ export default ({
   });
 
   const mapDispatchToProps = (dispatch, ownProps) => ({
-    initialize: () => dispatch(initializeForm(form, initialValues, validation)),
+    initialize: () => dispatch(initializeForm(form, initialValues, validation, recordID)),
     revert: () => dispatch(revertForm(form)),
     handleChange: (name, value) => dispatch(changeForm(form, name, value, validation)),
 
