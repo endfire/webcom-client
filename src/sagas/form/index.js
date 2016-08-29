@@ -13,3 +13,11 @@ function* submitForm(action) {
 export function* watchSubmitFormRequest() {
   yield* takeEvery(types.SUBMIT_FORM_REQUEST, submitForm);
 }
+
+export {
+  default as watchBrandSettingsFormSubmit,
+} from './submissions/submitBrandSettingsForm';
+
+export {
+  default as watchCompanySettingsFormSubmit,
+} from './submissions/submitCompanySettingsForm';

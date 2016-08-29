@@ -67,7 +67,8 @@
     "redux-logger": "^2.6.1",
     "redux-saga": "^0.10.5",
     "redux-slider-monitor": "^1.0.6",
-    "reselect": "^2.5.3"
+    "reselect": "^2.5.3",
+    "validator": "^5.5.0"
   },
   "ava": {
     "files": [
