@@ -70,7 +70,7 @@ export function* watchUpdateRequest() {
 
 function* del(action) {
   const { type, id, typePlural } = action.payload;
-  const deletedRecord = yield api.del(type, id);
+  const deletedRecord = yield api.archive(type, id);
 
   try {
     yield put({ type: types.DELETE_SUCCESS, payload: action.payload });

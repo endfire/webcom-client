@@ -1,3 +1,7 @@
-import temp from './store';
+import Sdk from './sdk';
 
-export { temp as api };
+const api = new Sdk({
+  host: 'http://localhost:4200',
+});
+
+export { api };

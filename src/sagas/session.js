@@ -16,7 +16,7 @@ function* loginRequest(action) {
     if (!allowedPaths.includes(path)) throw new Error();
 
     if (path === '/admin') {
-      const { user, token } = yield api.authToken(email, password);
+      const { user, token } = yield api.authenticate('token', 'user', { email, password });
       const payload = normalize(user, userSchema);
       const payloadUser = {
         id: user.id,
@@ -31,14 +31,14 @@ function* loginRequest(action) {
       localStorage.id = user.id;
       localStorage.userOrCompany = 'user';
     } else {
-      const { company, token } = yield api.authToken(email, password);
-      const payload = normalize(company, companySchema);
+      const { user, token } = yield api.authenticate('token', 'company', { email, password });
+      const payload = normalize(user, companySchema);
 
       yield put({ type: types.FETCH_SUCCESS, payload });
-      yield put({ type: types.LOGIN_SUCCESS, payload: { id: company.id, field: 'company' } });
+      yield put({ type: types.LOGIN_SUCCESS, payload: { id: user.id, field: 'company' } });
 
       localStorage.token = token;
-      localStorage.id = company.id;
+      localStorage.id = user.id;
       localStorage.userOrCompany = 'company';
     }
 
