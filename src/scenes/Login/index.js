@@ -1,10 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'paintcan';
-import {
-  LOGIN_FORM_CHANGE,
-  LOGIN_REQUEST,
-} from '../../actionTypes';
+import * as types from 'constants/actionTypes';
 
 const Login = ({
   path,
@@ -81,11 +78,11 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   changeLoginForm: (payload) => dispatch({
-    type: LOGIN_FORM_CHANGE,
+    type: types.LOGIN_FORM_CHANGE,
     payload,
   }),
   loginRequest: (payload) => dispatch({
-    type: LOGIN_REQUEST,
+    type: types.LOGIN_REQUEST,
     payload,
   }),
 });

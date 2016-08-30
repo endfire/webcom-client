@@ -1,29 +1,13 @@
-import {
-  watchFetchRequest,
-  watchFindRequest,
-  watchCreateRequest,
-  watchUpdateRequest,
-  watchDeleteRequest,
-} from './store';
+import * as storeSagas from './store';
+import * as formSagas from './form';
+import * as sessionSagas from './session';
 
-import {
-  watchInitializeFormRequest,
-  watchUpdateFormRequest,
-} from './form';
-
-import watchLoginRequest from './login';
-import watchLogoutRequest from './logout';
+const mapImportsToArray = (imports) => Object.keys(imports).map(key => imports[key]());
 
 export default function*() {
   yield [
-    watchFetchRequest(),
-    watchFindRequest(),
-    watchCreateRequest(),
-    watchUpdateRequest(),
-    watchDeleteRequest(),
-    watchInitializeFormRequest(),
-    watchUpdateFormRequest(),
-    watchLoginRequest(),
-    watchLogoutRequest(),
+    ...mapImportsToArray(storeSagas),
+    ...mapImportsToArray(formSagas),
+    ...mapImportsToArray(sessionSagas),
   ];
 }

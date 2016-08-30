@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import { isCompanyAuthenticated } from '../selectors/auth';
+import { getIsCompanyAuthenticated } from '../selectors/auth';
 
 export default function requiresAuth(WrappedComponent) {
   class CompanyAuthenticatedComponent extends Component {
@@ -30,7 +30,7 @@ export default function requiresAuth(WrappedComponent) {
   }
 
   const mapStateToProps = (state) => ({
-    isCompanyAuthenticated: isCompanyAuthenticated(state),
+    isCompanyAuthenticated: getIsCompanyAuthenticated(state),
   });
 
   CompanyAuthenticatedComponent.propTypes = {

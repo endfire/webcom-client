@@ -9,6 +9,12 @@ module.exports = {
     path: `${__dirname}/build`,
     filename: 'bundle.js',
   },
+  resolve: {
+    extensions: ['', '.js', '.jsx'],
+    root: [
+      path.resolve(__dirname, './src'),
+    ],
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     // new ExtractTextPlugin('bundle.css'),

@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
 import { connect } from 'react-redux';
-import { CREATE_REQUEST } from '../../../../../../actionTypes';
+import * as actions from 'actions/store';
 
 const AddUserModal = withModal(
   ({ isOpen, openModal }) => (
@@ -97,21 +97,15 @@ class AddUserDialog extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  isCreateLoading: state.store.isLoading.CREATE,
+  isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createUser: (name, email, role) => dispatch({
-    type: CREATE_REQUEST,
-    payload: {
-      type: 'user',
-      record: {
-        name,
-        email,
-        role,
-      },
-    },
-  }),
+  createUser: (name, email, role) => dispatch(actions.createRecord('user', {
+    name,
+    email,
+    role,
+  })),
 });
 
 AddUserDialog.propTypes = {

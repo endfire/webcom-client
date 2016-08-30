@@ -1,15 +1,20 @@
-import store from '../configureStore';
-import { api } from '../services/api';
+import store from 'configureStore';
+import { api } from 'services/api';
+
 import checkAuth from './checkAuth';
 import requiresUserAuth from './requiresUserAuth';
 import requiresCompanyAuth from './requiresCompanyAuth';
+import canAccessOBG from './canAccessOBG';
 
-import { App, Welcome } from '../components';
-import { Admin, Company } from '../scenes';
-import { LoginAdmin, LoginCompany } from '../scenes/Login/scenes';
-import { Brands, OBG, Users } from '../scenes/Admin/scenes';
-import { Listings, People, Settings } from '../scenes/Company/scenes';
-import { CompaniesAds, CompaniesAll } from '../scenes/Admin/scenes/Companies/scenes';
+import { App, Welcome } from 'components';
+import { Admin, Company } from 'scenes';
+import { LoginAdmin, LoginCompany } from 'scenes/Login/scenes';
+import { Listings, People, Settings } from 'scenes/Company/scenes';
+
+import { Brand, BrandsAll, Companies, Users } from 'scenes/Admin/scenes';
+import { CompaniesAds, CompaniesAll } from 'scenes/Admin/scenes/Companies/scenes';
+import { BrandForms, BrandOBG, BrandSettings } from 'scenes/Admin/scenes/Brand/scenes';
+import { BrandForm } from 'scenes/Admin/scenes/Brand/scenes/BrandForms/scenes';
 
 export default {
   path: '/',
@@ -31,10 +36,39 @@ export default {
       childRoutes: [
         {
           path: 'brands',
-          component: Brands,
+          indexRoute: { component: BrandsAll },
+        },
+        {
+          path: 'brands/:brandID',
+          component: Brand,
+          indexRoute: {
+            onEnter: ({ params }, replace) => replace(`/admin/brands/${params.brandID}/forms`),
+          },
+          childRoutes: [
+            {
+              path: 'settings',
+              component: BrandSettings,
+            },
+            {
+              path: 'forms',
+              component: BrandForms,
+            },
+            {
+              path: 'forms/:formID',
+              component: BrandForm,
+            },
+            {
+              path: 'obg',
+              component: BrandOBG,
+              indexRoute: {
+                onEnter: canAccessOBG(store),
+              },
+            },
+          ],
         },
         {
           path: 'companies',
+          component: Companies,
           indexRoute: { onEnter: (nextState, replace) => replace('/admin/companies/all') },
           childRoutes: [
             {
@@ -46,10 +80,6 @@ export default {
               component: CompaniesAds,
             },
           ],
-        },
-        {
-          path: 'obg',
-          component: OBG,
         },
         {
           path: 'users',

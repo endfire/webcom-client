@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'paintcan';
 import { Link } from 'react-router';
-import { LOGOUT_REQUEST } from '../../actionTypes';
+import * as types from 'constants/actionTypes';
 
 const Admin = ({ children, logoutRequest }) => {
   const handleLogout = () => {
@@ -23,9 +23,6 @@ const Admin = ({ children, logoutRequest }) => {
             <Link to="/admin/companies">Companies</Link>
           </Col>
           <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
-            <Link to="/admin/obg">OBG</Link>
-          </Col>
-          <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
             <Link to="/admin/users">Users</Link>
           </Col>
           <Col size={{ xs: 6 }} align={{ xs: 'center' }}>
@@ -41,7 +38,7 @@ const Admin = ({ children, logoutRequest }) => {
 
 const mapDispatchToProps = (dispatch) => ({
   logoutRequest: () => dispatch({
-    type: LOGOUT_REQUEST,
+    type: types.LOGOUT_REQUEST,
     payload: '/admin-login',
   }),
 });

@@ -153,12 +153,10 @@ export default {
   },
   field: {
     attributes: {
-      section: true,
       label: true,
       placeholder: true,
       type: true,
       value: true,
-      priority: true,
     },
   },
 };
