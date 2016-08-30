@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col, Button } from 'paintcan';
+import { getCurrentForm } from 'selectors/adminBrands';
 import * as actions from 'actions/store';
 
 class BrandForm extends Component {
@@ -61,7 +62,7 @@ class BrandForm extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  form: state.store.getIn(['entities', 'forms', ownProps.params.formID]),
+  form: getCurrentForm(ownProps.params.formID)(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

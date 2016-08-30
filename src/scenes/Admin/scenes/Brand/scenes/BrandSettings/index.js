@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { getFormError } from 'selectors/form';
-import { getCurrentBrand } from 'selectors/admin';
+import { getCurrentBrand } from 'selectors/adminBrands';
 import { AuthErrorCard } from 'components';
 import withBrandSettings from './withBrandSettings';
 

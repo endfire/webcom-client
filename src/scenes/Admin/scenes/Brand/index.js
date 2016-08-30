@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import { Link } from 'react-router';
+import { getCurrentBrand } from 'selectors/adminBrands';
 import * as actions from 'actions/store';
 
 class Brand extends Component {
@@ -40,7 +41,7 @@ class Brand extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  brand: state.store.getIn(['entities', 'brands', ownProps.params.brandID]),
+  brand: getCurrentBrand(ownProps.params.brandID)(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

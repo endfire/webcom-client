@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import { AddBrandModal, List } from './components';
 import { getCanUserDelete } from 'selectors/admin';
+import { getBrands } from 'selectors/adminBrands';
+import { getIsDeleteLoading, getIsCreateLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
 
 class Brands extends Component {
@@ -50,10 +52,10 @@ class Brands extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  brands: state.store.getIn(['entities', 'brands']),
-  isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
-  isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
+  brands: getBrands(state),
   canUserDelete: getCanUserDelete(state),
+  isDeleteLoading: getIsDeleteLoading(state),
+  isCreateLoading: getIsCreateLoading(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

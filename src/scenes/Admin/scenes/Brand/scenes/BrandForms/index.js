@@ -2,7 +2,9 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import { AddFormModal, List } from './components';
-import { getCanUserDelete, getCurrentBrandForms } from 'selectors/admin';
+import { getCanUserDelete } from 'selectors/admin';
+import { getCurrentBrandForms } from 'selectors/adminBrands';
+import { getIsDeleteLoading, getIsCreateLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
 
 class BrandForms extends Component {
@@ -54,18 +56,14 @@ class BrandForms extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   forms: getCurrentBrandForms(ownProps.params.brandID)(state),
-  isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
-  isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
+  isDeleteLoading: getIsDeleteLoading(state),
+  isCreateLoading: getIsCreateLoading(state),
   canUserDelete: getCanUserDelete(state),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   deleteForm: (id) => dispatch(actions.deleteRecord('form', 'forms', id)),
-  findForms: (brandID) => dispatch(actions.findRecords('form', {
-    brand: {
-      id: brandID,
-    },
-  })),
+  findForms: (brandID) => dispatch(actions.findRecords('form', { brand: brandID })),
   createForm: (name) => dispatch(actions.createRecord('form', {
     name,
     published: false,
