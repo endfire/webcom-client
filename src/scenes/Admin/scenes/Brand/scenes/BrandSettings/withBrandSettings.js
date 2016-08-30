@@ -14,39 +14,39 @@ const BrandSettingsForm = ({
 }) => (
   <form onSubmit={handleSubmit}>
     <fieldset>
-      <label htmlFor="name">Name of brand</label>
+      <label htmlFor="name">Name of brand</label><br />
       <input
         id="name"
         type="text"
         placeholder="Antennas"
         value={values ? values.getIn(['name', 'value']) : ''}
         onChange={(e) => handleChange('name', e.target.value)}
-      />
-      <label htmlFor="image">Image URL</label>
+      /><br />
+      <label htmlFor="image">Image URL</label><br />
       <input
         id="image"
         type="text"
         placeholder="http://url.com/some/path"
         value={values ? values.getIn(['image', 'value']) : ''}
         onChange={(e) => handleChange('image', e.target.value)}
-      />
-      <label htmlFor="background">Background color (hexadecimal)</label>
+      /><br />
+      <label htmlFor="background">Background color (hexadecimal)</label><br />
       <input
         id="background"
         type="text"
         placeholder="#123456"
         value={values ? values.getIn(['background', 'value']) : ''}
         onChange={(e) => handleChange('background', e.target.value)}
-      />
-      <label htmlFor="text">Text color (hexadecimal)</label>
+      /><br />
+      <label htmlFor="text">Text color (hexadecimal)</label><br />
       <input
         id="text"
         type="text"
         placeholder="#123456"
         value={values ? values.getIn(['text', 'value']) : ''}
         onChange={(e) => handleChange('text', e.target.value)}
-      />
-      <label htmlFor="secondary">Secondary color (hexadecimal)</label>
+      /><br />
+      <label htmlFor="secondary">Secondary color (hexadecimal)</label><br />
       <input
         id="secondary"
         type="text"

@@ -2,8 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import { AddFormModal, List } from './components';
-import { getCurrentBrandForms } from 'selectors/admin-brand-forms';
-import * as types from 'constants/actionTypes';
+import { getCanUserDelete, getCurrentBrandForms } from 'selectors/admin';
+import * as actions from 'actions/store';
 
 class BrandForms extends Component {
   constructor(props) {
@@ -19,15 +19,15 @@ class BrandForms extends Component {
   }
 
   handleDelete(id) {
-    const { isDeleteLoading, deleteForm } = this.props;
+    const { isDeleteLoading, deleteForm, canUserDelete } = this.props;
 
-    if (isDeleteLoading) return;
+    if (isDeleteLoading || !canUserDelete) return;
 
     deleteForm(id);
   }
 
   render() {
-    const { forms, createForm, isCreateLoading, params: { brandID } } = this.props;
+    const { forms, createForm, isCreateLoading, canUserDelete, params: { brandID } } = this.props;
 
     return (
       <Container fluid><br />
@@ -42,6 +42,7 @@ class BrandForms extends Component {
               items={forms}
               brandID={brandID}
               handleDelete={this.handleDelete}
+              canUserDelete={canUserDelete}
             />
             : 'Loading...'}
           </Col>
@@ -55,41 +56,29 @@ const mapStateToProps = (state, ownProps) => ({
   forms: getCurrentBrandForms(ownProps.params.brandID)(state),
   isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
   isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
+  canUserDelete: getCanUserDelete(state),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  findForms: (brand) => dispatch({
-    type: types.FIND_REQUEST,
-    payload: {
-      type: 'form',
-      filters: {
-        brand,
-      },
+  deleteForm: (id) => dispatch(actions.deleteRecord('form', 'forms', id)),
+  findForms: (brandID) => dispatch(actions.findRecords('form', {
+    brand: {
+      id: brandID,
     },
-  }),
-  deleteForm: (id) => dispatch({
-    type: types.DELETE_REQUEST,
-    payload: {
-      type: 'form',
-      id,
-    },
-  }),
-  createForm: (name) => dispatch({
-    type: types.CREATE_REQUEST,
-    payload: {
-      type: 'form',
-      record: {
-        name,
-        brand: ownProps.params.brandID,
-        // template
-      },
-    },
-  }),
+  })),
+  createForm: (name) => dispatch(actions.createRecord('form', {
+    name,
+    published: false,
+    brand: ownProps.params.brandID,
+    fields: [],
+    submissions: [],
+  })),
 });
 
 BrandForms.propTypes = {
   params: PropTypes.object,
   forms: PropTypes.object,
+  canUserDelete: PropTypes.bool,
   isDeleteLoading: PropTypes.bool,
   isCreateLoading: PropTypes.bool,
   findForms: PropTypes.func,

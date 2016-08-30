@@ -2,7 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import { List, AddUserModal } from './components';
-import * as types from 'constants/actionTypes';
+import { getCanUserDelete, getCanUserAddUsers } from 'selectors/admin';
+import * as actions from 'actions/store';
 
 class Users extends Component {
   constructor(props) {
@@ -16,22 +17,31 @@ class Users extends Component {
   }
 
   handleDelete(id) {
-    const { isDeleteLoading, deleteUser } = this.props;
+    const { isDeleteLoading, deleteUser, canUserDelete } = this.props;
 
-    if (isDeleteLoading) return;
+    if (isDeleteLoading || !canUserDelete) return;
 
     deleteUser(id);
   }
 
   render() {
-    const { users } = this.props;
+    const { users, canUserDelete, canUserAddUsers } = this.props;
+
+    const list = (
+      <List
+        items={users}
+        handleDelete={this.handleDelete}
+        canUserDelete={canUserDelete}
+      />
+    );
 
     return (
       <Container fluid><br />
         <Row>
           <Col>
-            <AddUserModal /><br /><br /><br />
-            {users ? <List items={users} handleDelete={this.handleDelete} /> : 'Loading...'}
+            {canUserAddUsers && <AddUserModal />}
+            <br /><br /><br />
+            {users ? list : 'Loading...'}
           </Col>
         </Row>
       </Container>
@@ -42,26 +52,19 @@ class Users extends Component {
 const mapStateToProps = (state) => ({
   users: state.store.getIn(['entities', 'users']),
   isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
+  canUserDelete: getCanUserDelete(state),
+  canUserAddUsers: getCanUserAddUsers(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  findUsers: () => dispatch({
-    type: types.FIND_REQUEST,
-    payload: {
-      type: 'user',
-    },
-  }),
-  deleteUser: (id) => dispatch({
-    type: types.DELETE_REQUEST,
-    payload: {
-      type: 'user',
-      id,
-    },
-  }),
+  findUsers: () => dispatch(actions.findRecords('user')),
+  deleteUser: (id) => dispatch(actions.deleteRecord('user', 'users', id)),
 });
 
 Users.propTypes = {
   users: PropTypes.object,
+  canUserDelete: PropTypes.bool,
+  canUserAddUsers: PropTypes.bool,
   isDeleteLoading: PropTypes.bool,
   findUsers: PropTypes.func,
   deleteUser: PropTypes.func,

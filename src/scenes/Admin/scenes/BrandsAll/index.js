@@ -2,7 +2,8 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import { AddBrandModal, List } from './components';
-import * as types from 'constants/actionTypes';
+import { getCanUserDelete } from 'selectors/admin';
+import * as actions from 'actions/store';
 
 class Brands extends Component {
   constructor(props) {
@@ -16,15 +17,15 @@ class Brands extends Component {
   }
 
   handleDelete(id) {
-    const { isDeleteLoading, deleteBrand } = this.props;
+    const { isDeleteLoading, deleteBrand, canUserDelete } = this.props;
 
-    if (isDeleteLoading) return;
+    if (isDeleteLoading || !canUserDelete) return;
 
     deleteBrand(id);
   }
 
   render() {
-    const { brands, createBrand, isCreateLoading } = this.props;
+    const { brands, createBrand, isCreateLoading, canUserDelete } = this.props;
 
     return (
       <Container fluid><br />
@@ -38,6 +39,7 @@ class Brands extends Component {
             ? <List
               items={brands}
               handleDelete={this.handleDelete}
+              canUserDelete={canUserDelete}
             />
             : 'Loading...'}
           </Col>
@@ -51,36 +53,23 @@ const mapStateToProps = (state) => ({
   brands: state.store.getIn(['entities', 'brands']),
   isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
   isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
+  canUserDelete: getCanUserDelete(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  findBrands: () => dispatch({
-    type: types.FIND_REQUEST,
-    payload: {
-      type: 'brand',
-    },
-  }),
-  deleteBrand: (id) => dispatch({
-    type: types.DELETE_REQUEST,
-    payload: {
-      type: 'brand',
-      id,
-    },
-  }),
-  createBrand: (name) => dispatch({
-    type: types.CREATE_REQUEST,
-    payload: {
-      type: 'brand',
-      record: {
-        name,
-        // image
-      },
-    },
-  }),
+  findBrands: () => dispatch(actions.findRecords('brand')),
+  deleteBrand: (id) => dispatch(actions.deleteRecord('brand', 'brands', id)),
+  createBrand: (name, image) => dispatch(actions.createRecord('brand', {
+    name,
+    image,
+    forms: [],
+    categories: [],
+  })),
 });
 
 Brands.propTypes = {
   brands: PropTypes.object,
+  canUserDelete: PropTypes.bool,
   isDeleteLoading: PropTypes.bool,
   isCreateLoading: PropTypes.bool,
   findBrands: PropTypes.func,

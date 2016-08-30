@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import { Link } from 'react-router';
-import * as types from 'constants/actionTypes';
+import * as actions from 'actions/store';
 
 class Brand extends Component {
   componentDidMount() {
@@ -44,13 +44,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchBrand: (id) => dispatch({
-    type: types.FETCH_REQUEST,
-    payload: {
-      type: 'brand',
-      id,
-    },
-  }),
+  fetchBrand: (id) => dispatch(actions.fetchRecord('brand', id)),
 });
 
 Brand.propTypes = {

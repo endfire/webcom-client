@@ -1,21 +1,16 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { PropTypes } from 'react';
 import { Container, Row, Col } from 'paintcan';
+import { Link } from 'react-router';
 import { DeleteModal } from 'scenes/components';
 
-const ListItem = ({ item, handleDelete, canUserDelete }) => (
+const ListItem = ({ item, brandID, handleDelete, canUserDelete }) => (
   <Container fluid>
     <Row>
-      <Col size={{ xs: 2 }} align={{ xs: 'start' }}>
-        {item.get('name')}
+      <Col size={{ lg: 6 }}>
+        <Link to={`/admin/brands/${brandID}/forms/${item.get('id')}`}>{item.get('name')}</Link>
       </Col>
-      <Col size={{ xs: 2 }} align={{ xs: 'start' }}>
-        Role: {item.get('role')}
-      </Col>
-      <Col size={{ xs: 4 }} align={{ xs: 'end' }}>
-        Email: {item.get('email')}
-      </Col>
-      <Col size={{ xs: 4 }} align={{ xs: 'end' }}>
+      <Col size={{ lg: 6 }}>
         {canUserDelete && <DeleteModal handleDelete={handleDelete.bind(this, item.get('id'))} />}
       </Col>
     </Row>
@@ -24,6 +19,7 @@ const ListItem = ({ item, handleDelete, canUserDelete }) => (
 
 ListItem.propTypes = {
   item: PropTypes.object,
+  brandID: PropTypes.string,
   handleDelete: PropTypes.func,
   canUserDelete: PropTypes.bool,
 };

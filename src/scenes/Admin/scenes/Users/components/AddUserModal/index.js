@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
 import { connect } from 'react-redux';
-import * as types from 'constants/actionTypes';
+import * as actions from 'actions/store';
 
 const AddUserModal = withModal(
   ({ isOpen, openModal }) => (
@@ -101,17 +101,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createUser: (name, email, role) => dispatch({
-    type: types.CREATE_REQUEST,
-    payload: {
-      type: 'user',
-      record: {
-        name,
-        email,
-        role,
-      },
-    },
-  }),
+  createUser: (name, email, role) => dispatch(actions.createRecord('user', {
+    name,
+    email,
+    role,
+  })),
 });
 
 AddUserDialog.propTypes = {

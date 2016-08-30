@@ -1,28 +1,27 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
 
-const AddBrandModal = withModal(
+const AddFormModal = withModal(
   ({ isOpen, openModal }) => (
     <Button active={isOpen} onClick={openModal} color="primary">
-      Add a new brand
+      Create a new form
     </Button>
   ),
-  ({ closeModal, createBrand, isCreateLoading }) => (
-    <AddBrandDialog
+  ({ closeModal, createForm, isCreateLoading }) => (
+    <AddFormDialog
       closeModal={closeModal}
-      createBrand={createBrand}
+      createForm={createForm}
       isCreateLoading={isCreateLoading}
     />
   ),
 );
 
-class AddBrandDialog extends Component {
+class AddFormDialog extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       name: '',
-      image: '',
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -32,12 +31,12 @@ class AddBrandDialog extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const { isCreateLoading, createBrand, closeModal } = this.props;
-    const { name, image } = this.state;
+    const { isCreateLoading, createForm, closeModal } = this.props;
+    const { name } = this.state;
 
     if (isCreateLoading) return;
 
-    createBrand(name, image);
+    createForm(name);
     closeModal();
   }
 
@@ -55,7 +54,7 @@ class AddBrandDialog extends Component {
         <Row align={{ xs: 'center' }}>
           <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
             <Card>
-              <h3>Add new brand</h3>
+              <h3>Add new form</h3>
               <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Name</label><br />
                 <input
@@ -64,14 +63,6 @@ class AddBrandDialog extends Component {
                   name="name"
                   onChange={handleChange}
                   value={this.state.name}
-                /><br />
-                <label htmlFor="image">Image URL</label><br />
-                <input
-                  type="text"
-                  id="image"
-                  name="image"
-                  onChange={handleChange}
-                  value={this.state.image}
                 /><br />
                 <Button type="submit">Save Change</Button>
               </form>
@@ -86,10 +77,10 @@ class AddBrandDialog extends Component {
   }
 }
 
-AddBrandDialog.propTypes = {
+AddFormDialog.propTypes = {
   closeModal: PropTypes.func,
-  createBrand: PropTypes.func,
+  createForm: PropTypes.func,
   isCreateLoading: PropTypes.bool,
 };
 
-export default AddBrandModal;
+export default AddFormModal;

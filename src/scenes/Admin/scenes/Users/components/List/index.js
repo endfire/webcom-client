@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import ListItem from './components/ListItem';
 
-const List = ({ items, handleDelete }) => {
+const List = ({ items, handleDelete, canUserDelete }) => {
   const keys = items.keySeq();
 
   return (<div>
@@ -9,6 +9,7 @@ const List = ({ items, handleDelete }) => {
       key={key}
       item={items.get(key)}
       handleDelete={handleDelete}
+      canUserDelete={canUserDelete}
     />)
     )}
   </div>);
@@ -17,6 +18,7 @@ const List = ({ items, handleDelete }) => {
 List.propTypes = {
   items: PropTypes.object,
   handleDelete: PropTypes.func,
+  canUserDelete: PropTypes.bool,
 };
 
 export default List;
