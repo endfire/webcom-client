@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
+import { Button, ButtonGroup, withModal } from 'paintcan';
+import { ModalDialog } from 'components';
 
 const AddBrandModal = withModal(
   ({ isOpen, openModal }) => (
@@ -51,37 +52,40 @@ class AddBrandDialog extends Component {
     const { closeModal } = this.props;
 
     return (
-      <Container fluid>
-        <Row align={{ xs: 'center' }}>
-          <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
-            <Card>
-              <h3>Add new brand</h3>
-              <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Name</label><br />
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  onChange={handleChange}
-                  value={this.state.name}
-                /><br />
-                <label htmlFor="image">Image URL</label><br />
-                <input
-                  type="text"
-                  id="image"
-                  name="image"
-                  onChange={handleChange}
-                  value={this.state.image}
-                /><br />
-                <Button type="submit">Save Change</Button>
-              </form>
-              <Button onClick={closeModal}>
+      <ModalDialog title="Add a new brand" size="sm" closeModal={closeModal}>
+        <form onSubmit={handleSubmit}>
+          <fieldset>
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              onChange={handleChange}
+              value={this.state.name}
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="image">Image URL</label>
+            <input
+              type="text"
+              id="image"
+              name="image"
+              onChange={handleChange}
+              value={this.state.image}
+            />
+          </fieldset>
+          <fieldset>
+            <ButtonGroup spaced>
+              <Button onClick={closeModal} color="danger">
                 Cancel
               </Button>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+              <Button type="submit" color="primary">
+                Save Change
+              </Button>
+            </ButtonGroup>
+          </fieldset>
+        </form>
+      </ModalDialog>
     );
   }
 }

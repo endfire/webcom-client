@@ -1,0 +1,39 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  background: #3B75AA;
+}
+
+.navbar-nav {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navbar-brand {
+  font-size: 1.2em;
+}
+
+.navbar-item {
+  display: inline;
+
+  &:not(:last-child) {
+    margin-right: 1rem;
+  }
+}
+
+.navbar-link {
+  color: white;
+  text-decoration: none;
+
+  &:hover {
+    color: transparentize(white, 0.2);
+  }
+}

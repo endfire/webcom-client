@@ -1,7 +1,8 @@
 import React, { PropTypes, Component } from 'react';
-import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
+import { Button, ButtonGroup, withModal } from 'paintcan';
 import { connect } from 'react-redux';
 import * as actions from 'actions/store';
+import { ModalDialog } from 'components';
 
 const AddUserModal = withModal(
   ({ isOpen, openModal }) => (
@@ -53,45 +54,50 @@ class AddUserDialog extends Component {
     const { closeModal } = this.props;
 
     return (
-      <Container fluid>
-        <Row align={{ xs: 'center' }}>
-          <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
-            <Card>
-              <h3>Add new user</h3>
-              <form onSubmit={submitHandler}>
-                <label htmlFor="name">Name</label><br />
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  onChange={handleChange}
-                  value={this.state.name}
-                /><br />
-                <label htmlFor="email">Email</label><br />
-                <input
-                  type="text"
-                  id="email"
-                  name="email"
-                  onChange={handleChange}
-                  value={this.state.email}
-                /><br />
-                <label htmlFor="role">Role</label><br />
-                <input
-                  type="text"
-                  id="role"
-                  name="role"
-                  onChange={handleChange}
-                  value={this.state.role}
-                /><br />
-                <input type="submit" value="Save Change" />
-              </form>
-              <Button onClick={closeModal}>
+      <ModalDialog title="Add a new user" size="sm" closeModal={closeModal}>
+        <form onSubmit={submitHandler}>
+          <fieldset>
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              onChange={handleChange}
+              value={this.state.name}
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="email">Email</label>
+            <input
+              type="text"
+              id="email"
+              name="email"
+              onChange={handleChange}
+              value={this.state.email}
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="role">Role</label>
+            <input
+              type="text"
+              id="role"
+              name="role"
+              onChange={handleChange}
+              value={this.state.role}
+            />
+          </fieldset>
+          <fieldset>
+            <ButtonGroup spaced>
+              <Button onClick={closeModal} color="danger">
                 Cancel
               </Button>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+              <Button type="submit" color="primary">
+                Save
+              </Button>
+            </ButtonGroup>
+          </fieldset>
+        </form>
+      </ModalDialog>
     );
   }
 }

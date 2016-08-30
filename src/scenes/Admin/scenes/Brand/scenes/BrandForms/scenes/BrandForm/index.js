@@ -66,12 +66,14 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   fetchForm: (id) => dispatch(actions.fetchRecord('form', id)),
+  fetchPayment: (id) => dispatch(actions.fetchRecord('payment', id)),
 });
 
 BrandForm.propTypes = {
   params: PropTypes.object,
   form: PropTypes.object,
   fetchForm: PropTypes.func,
+  fetchPayment: PropTypes.func,
 };
 
 export default connect(
