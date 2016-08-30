@@ -36,7 +36,7 @@ export default (store, api) => (nextState, replace, callback) => {
     }
   };
 
-  return api.authVerify(token)
+  return api.verify(userOrCompany)
     .then(dispatchTokenAndFetch)
     .then(() => {
       const nextPath = nextState.location.pathname;
