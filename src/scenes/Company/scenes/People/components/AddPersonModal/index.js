@@ -8,11 +8,12 @@ const AddPersonModal = withModal(
       Add a new person
     </Button>
   ),
-  ({ closeModal, createPerson, isCreateLoading }) => (
+  ({ closeModal, createPerson, isCreateLoading, companyID }) => (
     <AddPersonDialog
       closeModal={closeModal}
       createPerson={createPerson}
       isCreateLoading={isCreateLoading}
+      companyID={companyID}
     />
   ),
 );
@@ -36,12 +37,12 @@ class AddPersonDialog extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const { isCreateLoading, createPerson, closeModal } = this.props;
+    const { isCreateLoading, createPerson, closeModal, companyID } = this.props;
     const { name, email, phone, job } = this.state;
 
     if (isCreateLoading) return;
 
-    createPerson(name, email, phone, job);
+    createPerson(name, email, phone, job, companyID);
     closeModal();
   }
 
@@ -115,6 +116,7 @@ AddPersonDialog.propTypes = {
   closeModal: PropTypes.func,
   createPerson: PropTypes.func,
   isCreateLoading: PropTypes.bool,
+  companyID: PropTypes.string,
 };
 
 export default AddPersonModal;

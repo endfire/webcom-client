@@ -3,9 +3,8 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddPersonModal, EditPersonModal } from './components';
-import { getNonDeletedPeople } from 'selectors/company-people';
-import { getLoggedInCompany } from 'selectors/auth';
-import * as types from 'constants/actionTypes';
+import { getSessionID, getNonDeletedPeople } from 'selectors/company';
+import * as actions from 'actions/store';
 
 class People extends Component {
   constructor(props) {
@@ -15,9 +14,9 @@ class People extends Component {
   }
 
   componentDidMount() {
-    const { findPeople, loggedInCompany } = this.props;
+    const { findPeople, companyID } = this.props;
 
-    findPeople(loggedInCompany);
+    findPeople(companyID);
   }
 
   handleDelete(id) {
@@ -29,7 +28,14 @@ class People extends Component {
   }
 
   render() {
-    const { people, createPerson, isCreateLoading, updatePerson, isUpdateLoading } = this.props;
+    const {
+      people,
+      createPerson,
+      isCreateLoading,
+      updatePerson,
+      isUpdateLoading,
+      companyID,
+    } = this.props;
 
     return (
       <Container fluid><br />
@@ -38,6 +44,7 @@ class People extends Component {
             <AddPersonModal
               createPerson={createPerson}
               isCreateLoading={isCreateLoading}
+              companyID={companyID}
             /><br /><br /><br />
             {people
               ? <List
@@ -55,56 +62,34 @@ class People extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  people: getNonDeletedPeople(state),
-  loggedInCompany: getLoggedInCompany(state),
+const mapStateToProps = (state, ownProps) => ({
+  companyID: getSessionID(state),
+  people: getNonDeletedPeople(ownProps.companyID)(state),
   isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
   isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
   isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  findPeople: (company) => dispatch({
-    type: types.FIND_REQUEST,
-    payload: {
-      type: 'person',
-      filters: {
-        company,
-      },
+  updatePerson: (id, data) => dispatch(actions.updateRecord('person', id, data)),
+  deletePerson: (id) => dispatch(actions.deleteRecord('person', 'people', id)),
+  findPeople: (companyID) => dispatch(actions.findRecords('person', {
+    company: {
+      id: companyID,
     },
-  }),
-  deletePerson: (id) => dispatch({
-    type: types.DELETE_REQUEST,
-    payload: {
-      type: 'person',
-      id,
-    },
-  }),
-  createPerson: (name, email, phone, job) => dispatch({
-    type: types.CREATE_REQUEST,
-    payload: {
-      type: 'person',
-      record: {
-        name,
-        email,
-        phone,
-        job,
-      },
-    },
-  }),
-  updatePerson: (id, data) => dispatch({
-    type: types.UPDATE_REQUEST,
-    payload: {
-      type: 'person',
-      id,
-      data,
-    },
-  }),
+  })),
+  createPerson: (name, email, phone, job, companyID) => dispatch(actions.createRecord('person', {
+    name,
+    email,
+    phone,
+    job,
+    company: companyID,
+  })),
 });
 
 People.propTypes = {
   people: PropTypes.object,
-  loggedInCompany: PropTypes.string,
+  companyID: PropTypes.string,
   findPeople: PropTypes.func,
   isDeleteLoading: PropTypes.bool,
   deletePerson: PropTypes.func,

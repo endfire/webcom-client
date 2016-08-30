@@ -13,71 +13,71 @@ const CompanySettingsForm = ({
 }) => (
   <form onSubmit={handleSubmit}>
     <fieldset>
-      <label htmlFor="name">Name of company</label>
+      <label htmlFor="name">Name of company</label><br />
       <input
         id="name"
         type="text"
         placeholder="Company, Inc."
         value={values ? values.getIn(['name', 'value']) : ''}
         onChange={(e) => handleChange('name', e.target.value)}
-      />
-      <label htmlFor="street">Street</label>
+      /><br />
+      <label htmlFor="street">Street</label><br />
       <input
         id="street"
         type="text"
         placeholder="123 Maple Street"
         value={values ? values.getIn(['street', 'value']) : ''}
         onChange={(e) => handleChange('street', e.target.value)}
-      />
-      <label htmlFor="city">City</label>
+      /><br />
+      <label htmlFor="city">City</label><br />
       <input
         id="city"
         type="text"
         placeholder="Denver"
         value={values ? values.getIn(['city', 'value']) : ''}
         onChange={(e) => handleChange('city', e.target.value)}
-      />
-      <label htmlFor="state">State</label>
+      /><br />
+      <label htmlFor="state">State</label><br />
       <input
         id="state"
         type="state"
         placeholder="Colorado"
         value={values ? values.getIn(['state', 'value']) : ''}
         onChange={(e) => handleChange('state', e.target.value)}
-      />
-      <label htmlFor="zip">Zip Code</label>
+      /><br />
+      <label htmlFor="zip">Zip Code</label><br />
       <input
         id="zip"
         type="text"
         placeholder="80123"
         value={values ? values.getIn(['zip', 'value']) : ''}
         onChange={(e) => handleChange('zip', e.target.value)}
-      />
-      <label htmlFor="phone">Phone Number</label>
+      /><br />
+      <label htmlFor="phone">Phone Number</label><br />
       <input
         id="phone"
         type="text"
         placeholder="123-456-7890"
         value={values ? values.getIn(['phone', 'value']) : ''}
         onChange={(e) => handleChange('phone', e.target.value)}
-      />
-      <label htmlFor="url">URL</label>
+      /><br />
+      <label htmlFor="url">URL</label><br />
       <input
         id="url"
         type="text"
         placeholder="https://company.com"
         value={values ? values.getIn(['url', 'value']) : ''}
         onChange={(e) => handleChange('url', e.target.value)}
-      />
-      <label htmlFor="email">Email</label>
+      /><br />
+      <label htmlFor="email">Email</label><br />
       <input
         id="email"
         type="text"
         placeholder="company@domain.com"
         value={values ? values.getIn(['email', 'value']) : ''}
         onChange={(e) => handleChange('email', e.target.value)}
-      />
-      <label htmlFor="description">Description</label>
+      /><br />
+      <label htmlFor="description">Description</label><br />
       <input
         id="description"
         type="text"

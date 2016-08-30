@@ -8,9 +8,13 @@ const getPeople = createSelector(
 
 export const getSessionID = (state) => state.session.get('id');
 
-export const getNonDeletedPeople = createSelector(
-  [getPeople],
-  (people) => people.filter(val => val.get('meta') && !val.getIn(['meta', 'archived']))
+export const getNonDeletedPeople = (companyID) => (
+  createSelector(
+    [getPeople],
+    (people) => people.filter(val => (
+      val.get('meta') && !val.getIn(['meta', 'archived'])) && val.get('company') === companyID
+    )
+  )
 );
 
 export const getLoggedInCompany = createSelector(
