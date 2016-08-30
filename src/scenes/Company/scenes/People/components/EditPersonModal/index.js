@@ -36,6 +36,7 @@ class EditPersonDialog extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+
     const { isUpdateLoading, updatePerson, closeModal } = this.props;
     const id = this.props.person.get('id');
     const { name, email, phone, job } = this.state;
@@ -65,12 +66,11 @@ class EditPersonDialog extends Component {
     const { person, closeModal } = this.props;
 
     return (
-      // this could be a presentational component that is a sibling in this 'components' folder
       <Container fluid>
         <Row align={{ xs: 'center' }}>
           <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
             <Card>
-              <h3>Edit {person.name}</h3>
+              <h3>Edit {person.get('name')}</h3>
               <form onSubmit={handleSubmit}>
                 <label htmlFor="name">Name</label>
                 <input

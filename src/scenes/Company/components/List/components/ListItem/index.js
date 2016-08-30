@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { PropTypes, cloneElement } from 'react';
-import { Container, Row, Col, Button } from 'paintcan';
+import { Container, Row, Col } from 'paintcan';
+import { DeleteModal } from 'scenes/components';
 
 const ListItem = ({ item, handleDelete, children }) => (
   <Container fluid>
@@ -9,7 +10,7 @@ const ListItem = ({ item, handleDelete, children }) => (
         {cloneElement(children, { item })}
       </Col>
       <Col size={{ lg: 6 }}>
-        <Button onClick={handleDelete.bind(this, item.get('id'))}>Delete</Button>
+        <DeleteModal handleDelete={handleDelete.bind(this, item.get('id'))} />
       </Col>
     </Row>
   </Container>
