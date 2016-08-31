@@ -1,5 +1,7 @@
 const webpack = require('webpack');
 const path = require('path');
+const precss = require('precss');
+const autoprefixer = require('autoprefixer');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
@@ -36,7 +38,7 @@ module.exports = {
         test: /\.scss$/,
         loaders: [
           'style?sourceMap',
-          'css?modules&importLoaders=1&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
+          'css?modules&importLoaders=1&camelCase&localIdentName=[path]___[name]__[local]___[hash:base64:5]',
           'resolve-url',
           'sass?sourceMap&includePaths[]=node_modules',
         ],
@@ -50,6 +52,12 @@ module.exports = {
         loader: 'file-loader',
       },
     ],
+  },
+  sassLoader: {
+    includePaths: [path.resolve(__dirname, './src')],
+  },
+  postcss() {
+    return [precss, autoprefixer];
   },
   devServer: {
     host: 'localhost',

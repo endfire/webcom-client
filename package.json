@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/endfire/webcom-client#readme",
   "devDependencies": {
+    "autoprefixer": "^6.4.0",
     "ava": "^0.15.2",
     "babel-core": "^6.9.1",
     "babel-eslint": "^6.0.4",
@@ -36,6 +37,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.9.0",
     "node-sass": "^3.8.0",
+    "precss": "^1.4.0",
     "react-hot-loader": "^1.3.0",
     "redux-devtools": "^3.3.1",
     "redux-devtools-dock-monitor": "^1.1.1",
