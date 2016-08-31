@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddPersonModal, EditPersonModal } from './components';
-import { getSessionID, getNonDeletedPeople } from 'selectors/company';
+import { getSessionID } from 'selectors/company';
 import * as actions from 'actions/store';
 
 class People extends Component {
@@ -62,9 +62,9 @@ class People extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   companyID: getSessionID(state),
-  people: getNonDeletedPeople(ownProps.companyID)(state),
+  people: state.store.getIn(['entities', 'people']),
   isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
   isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
   isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
@@ -74,9 +74,7 @@ const mapDispatchToProps = (dispatch) => ({
   updatePerson: (id, data) => dispatch(actions.updateRecord('person', id, data)),
   deletePerson: (id) => dispatch(actions.deleteRecord('person', 'people', id)),
   findPeople: (companyID) => dispatch(actions.findRecords('person', {
-    company: {
-      id: companyID,
-    },
+    company: companyID,
   })),
   createPerson: (name, email, phone, job, companyID) => dispatch(actions.createRecord('person', {
     name,

@@ -62,9 +62,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   deleteForm: (id) => dispatch(actions.deleteRecord('form', 'forms', id)),
   findForms: (brandID) => dispatch(actions.findRecords('form', {
-    brand: {
-      id: brandID,
-    },
+    brand: brandID,
   })),
   createForm: (name) => dispatch(actions.createRecord('form', {
     name,
