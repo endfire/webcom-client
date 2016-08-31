@@ -7,6 +7,12 @@ export const LOGIN_FORM_CHANGE = 'LOGIN_FORM_CHANGE';
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 
+// signup
+export const SIGNUP_FORM_CHANGE = 'SIGNUP_FORM_CHANGE';
+export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const SIGNUP_ERROR = 'SIGNUP_ERROR';
+
 // store
 export const CREATE_REQUEST = 'CREATE_REQUEST';
 export const FIND_REQUEST = 'FIND_REQUEST';

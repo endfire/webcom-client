@@ -7,7 +7,7 @@ import requiresCompanyAuth from './requiresCompanyAuth';
 import canAccessOBG from './canAccessOBG';
 
 import { App, Welcome } from 'components';
-import { Admin, Company } from 'scenes';
+import { Admin, Company, Signup } from 'scenes';
 import { LoginAdmin, LoginCompany } from 'scenes/Login/scenes';
 import { Listings, People, Settings } from 'scenes/Company/scenes';
 
@@ -28,6 +28,10 @@ export default {
     {
       path: 'company-login',
       component: LoginCompany,
+    },
+    {
+      path: 'signup',
+      component: Signup,
     },
     {
       path: 'admin',
