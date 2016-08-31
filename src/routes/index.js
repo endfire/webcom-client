@@ -11,8 +11,14 @@ import { Admin, Company, Signup } from 'scenes';
 import { LoginAdmin, LoginCompany } from 'scenes/Login/scenes';
 import { Listings, People, Settings } from 'scenes/Company/scenes';
 
-import { Brand, BrandsAll, Companies, Users } from 'scenes/Admin/scenes';
-import { CompaniesAds, CompaniesAll } from 'scenes/Admin/scenes/Companies/scenes';
+import { Brand, BrandsAll, CompanyOne, CompaniesAll, Users } from 'scenes/Admin/scenes';
+import {
+  CompanyListings,
+  CompanyAds,
+  CompanyPeople,
+  CompanyInfo,
+} from 'scenes/Admin/scenes/CompanyOne/scenes';
+
 import { BrandForms, BrandOBG, BrandSettings } from 'scenes/Admin/scenes/Brand/scenes';
 import { BrandForm } from 'scenes/Admin/scenes/Brand/scenes/BrandForms/scenes';
 
@@ -72,16 +78,31 @@ export default {
         },
         {
           path: 'companies',
-          component: Companies,
-          indexRoute: { onEnter: (nextState, replace) => replace('/admin/companies/all') },
+          indexRoute: { component: CompaniesAll },
+        },
+        {
+          path: 'companies/:companyID',
+          component: CompanyOne,
+          indexRoute: {
+            onEnter: ({ params }, replace) =>
+              replace(`/admin/companies/${params.companyID}/listings`),
+          },
           childRoutes: [
             {
-              path: 'all',
-              component: CompaniesAll,
+              path: 'listings',
+              component: CompanyListings,
             },
             {
               path: 'ads',
-              component: CompaniesAds,
+              component: CompanyAds,
+            },
+            {
+              path: 'people',
+              component: CompanyPeople,
+            },
+            {
+              path: 'info',
+              component: CompanyInfo,
             },
           ],
         },
