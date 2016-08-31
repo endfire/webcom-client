@@ -5,7 +5,7 @@ import * as types from 'constants/actionTypes';
 
 const getActionStatus = (action) => action.type.split('_')[1];
 const getActionVerb = (action) => action.type.split('_')[0];
-const allowedVerbs = ['CREATE', 'FIND', 'FETCH', 'UPDATE', 'DELETE'];
+const allowedVerbs = ['CREATE', 'FIND', 'FETCH', 'RELATED', 'UPDATE', 'DELETE'];
 
 export default (state = init, action) => {
   const status = getActionStatus(action);

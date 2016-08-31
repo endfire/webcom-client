@@ -20,6 +20,22 @@ export function* watchFetchRequest() {
   yield* takeEvery(types.FETCH_REQUEST, fetch);
 }
 
+function* fetchRelated(action) {
+  const { type, id, field } = action.payload;
+  const records = yield api.fetchRelated(type, id, field);
+
+  try {
+    yield put({ type: types.RELATED_SUCCESS, payload: action.payload });
+    yield put(syncStore(type, records));
+  } catch (e) {
+    yield put({ type: types.RELATED_ERROR, payload: e, error: true });
+  }
+}
+
+export function* watchFetchRelatedRequest() {
+  yield* takeEvery(types.RELATED_REQUEST, fetchRelated);
+}
+
 function* find(action) {
   const { type, filters } = action.payload;
   const records = yield api.find(type, filters);
@@ -70,7 +86,7 @@ export function* watchUpdateRequest() {
 
 function* del(action) {
   const { type, id, typePlural } = action.payload;
-  const deletedRecord = yield api.del(type, id);
+  const deletedRecord = yield api.archive(type, id);
 
   try {
     yield put({ type: types.DELETE_SUCCESS, payload: action.payload });

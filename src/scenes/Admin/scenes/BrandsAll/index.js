@@ -1,11 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'paintcan';
 import { AddBrandModal, List } from './components';
 import { getCanUserDelete } from 'selectors/admin';
 import { getBrands } from 'selectors/adminBrands';
 import { getIsDeleteLoading, getIsCreateLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
+import styles from './styles.scss';
 
 class Brands extends Component {
   constructor(props) {
@@ -30,13 +30,14 @@ class Brands extends Component {
     const { brands, createBrand, isCreateLoading, canUserDelete } = this.props;
 
     return (
-      <Container fluid><br />
-        <Row>
-          <Col size={{ xs: 4 }} align={{ xs: 'start' }}>
-            <AddBrandModal
-              createBrand={createBrand}
-              isCreateLoading={isCreateLoading}
-            /><br /><br /><br />
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <AddBrandModal
+            createBrand={createBrand}
+            isCreateLoading={isCreateLoading}
+          />
+        </div>
+        <div className={styles.container}>
           {brands
             ? <List
               items={brands}
@@ -44,9 +45,8 @@ class Brands extends Component {
               canUserDelete={canUserDelete}
             />
             : 'Loading...'}
-          </Col>
-        </Row>
-      </Container>
+        </div>
+      </div>
     );
   }
 }

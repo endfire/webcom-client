@@ -1,10 +1,13 @@
 import React, { PropTypes, Component } from 'react';
-import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
+import { Button, withModal } from 'paintcan';
+import { Icon } from 'react-fa';
+import cx from 'classnames';
+import styles from './styles.scss';
 
 const DeleteModal = withModal(
-  ({ isOpen, openModal }) => (
-    <Button active={isOpen} onClick={openModal} color="danger">
-      Delete
+  ({ isOpen, openModal, size }) => (
+    <Button active={isOpen} onClick={openModal} color="danger" size={size || 'md'}>
+      <Icon name="close" /> Delete
     </Button>
   ),
   ({ closeModal, handleDelete }) => (
@@ -31,21 +34,30 @@ class DeleteDialog extends Component {
 
   render() {
     return (
-      <Container fluid>
-        <Row align={{ xs: 'center' }}>
-          <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
-            <Card>
-              <h3>Delete this item?</h3>
-              <Button onClick={this.handleClick}>
-                Delete
-              </Button>
-              <Button onClick={this.props.closeModal}>
-                Cancel
-              </Button>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+      <div className={styles.wrapper}>
+        <div className={styles.trash}>
+          <Icon name="trash" size="3x" />
+          <span className={styles.trashMessage}>
+            Are you sure you want to delete this?
+          </span>
+        </div>
+        <div className={styles.buttons}>
+          <button
+            className={cx(styles.button, styles.confirm)}
+            type="button"
+            onClick={this.handleClick}
+          >
+            Yes
+          </button>
+          <button
+            className={cx(styles.button, styles.cancel)}
+            type="button"
+            onClick={this.props.closeModal}
+          >
+            No
+          </button>
+        </div>
+      </div>
     );
   }
 }

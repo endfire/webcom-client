@@ -1,0 +1,53 @@
+$blue: #0982E9;
+$red: #E64B42;
+$green: #35CF51;
+$dark: #32384A;
+$navy: #14364C;
+
+$lightest: #FAFAFB;
+$lighter: lighten($dark, 50%);
+$light: lighten($dark, 20%);
+
+.wrapper {
+  background: $navy;
+}
+
+.signup {
+  color: #FFF;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+
+  a {
+    color: #FFF;
+    font-size: 0.85rem;
+  }
+
+  input {
+    background: transparent;
+    padding-left: 0;
+    border: 0;
+    border-radius: 0;
+    border-bottom: 1px solid transparentize(white, 0.75);
+    color: white;
+    transition: 0.5s ease-in-out;
+
+    &:focus {
+      border-bottom: 1px solid transparentize(white, 0.5);
+    }
+  }
+
+  fieldset {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.brand {
+  font-weight: bold;
+  font-size: 1.5rem !important;
+}
+
+.marketing {
+  color: transparentize(white, 0.5);
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}

@@ -1,11 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'paintcan';
 import { AddFormModal, List } from './components';
 import { getCanUserDelete } from 'selectors/admin';
 import { getCurrentBrandForms } from 'selectors/adminBrands';
 import { getIsDeleteLoading, getIsCreateLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
+import styles from './styles.scss';
 
 class BrandForms extends Component {
   constructor(props) {
@@ -32,13 +32,14 @@ class BrandForms extends Component {
     const { forms, createForm, isCreateLoading, canUserDelete, params: { brandID } } = this.props;
 
     return (
-      <Container fluid><br />
-        <Row>
-          <Col align={{ xs: 'start' }}>
-            <AddFormModal
-              createForm={createForm}
-              isCreateLoading={isCreateLoading}
-            /><br /><br /><br />
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <AddFormModal
+            createForm={createForm}
+            isCreateLoading={isCreateLoading}
+          />
+        </div>
+        <div className={styles.container}>
           {forms
             ? <List
               items={forms}
@@ -47,9 +48,8 @@ class BrandForms extends Component {
               canUserDelete={canUserDelete}
             />
             : 'Loading...'}
-          </Col>
-        </Row>
-      </Container>
+        </div>
+      </div>
     );
   }
 }
@@ -70,6 +70,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     brand: ownProps.params.brandID,
     fields: [],
     submissions: [],
+    createdOn: Date.now(),
   })),
 });
 

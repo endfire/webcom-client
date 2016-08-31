@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddPersonModal, EditPersonModal } from './components';
-import { getSessionID, getNonDeletedPeople } from 'selectors/company';
+import { getSessionID } from 'selectors/company';
 import { getIsDeleteLoading, getIsCreateLoading, getIsUpdateLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
 
@@ -63,9 +63,9 @@ class People extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   companyID: getSessionID(state),
-  people: getNonDeletedPeople(ownProps.companyID)(state),
+  people: state.store.getIn(['entities', 'people']),
   isDeleteLoading: getIsDeleteLoading(state),
   isCreateLoading: getIsCreateLoading(state),
   isUpdateLoading: getIsUpdateLoading(state),

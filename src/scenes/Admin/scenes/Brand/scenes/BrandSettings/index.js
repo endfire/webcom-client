@@ -4,12 +4,14 @@ import { getFormError } from 'selectors/form';
 import { getCurrentBrand } from 'selectors/adminBrands';
 import { AuthErrorCard } from 'components';
 import withBrandSettings from './withBrandSettings';
+import styles from './settings.scss';
 
 const BrandSettings = ({ brand, error }) => {
   const BrandSettingsForm = withBrandSettings(brand);
 
   return (
-    <div>
+    <div className={styles.wrapper}>
+      <h3>Settings</h3>
       {error && <AuthErrorCard message={error.message} />}
       <BrandSettingsForm />
     </div>

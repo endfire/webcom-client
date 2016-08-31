@@ -21,7 +21,9 @@ const BrandSettingsForm = ({
         placeholder="Antennas"
         value={values ? values.getIn(['name', 'value']) : ''}
         onChange={(e) => handleChange('name', e.target.value)}
-      /><br />
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="image">Image URL</label><br />
       <input
         id="image"
@@ -29,7 +31,9 @@ const BrandSettingsForm = ({
         placeholder="http://url.com/some/path"
         value={values ? values.getIn(['image', 'value']) : ''}
         onChange={(e) => handleChange('image', e.target.value)}
-      /><br />
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="background">Background color (hexadecimal)</label><br />
       <input
         id="background"
@@ -37,7 +41,9 @@ const BrandSettingsForm = ({
         placeholder="#123456"
         value={values ? values.getIn(['background', 'value']) : ''}
         onChange={(e) => handleChange('background', e.target.value)}
-      /><br />
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="text">Text color (hexadecimal)</label><br />
       <input
         id="text"
@@ -45,7 +51,9 @@ const BrandSettingsForm = ({
         placeholder="#123456"
         value={values ? values.getIn(['text', 'value']) : ''}
         onChange={(e) => handleChange('text', e.target.value)}
-      /><br />
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="secondary">Secondary color (hexadecimal)</label><br />
       <input
         id="secondary"
@@ -55,14 +63,16 @@ const BrandSettingsForm = ({
         onChange={(e) => handleChange('secondary', e.target.value)}
       />
     </fieldset>
-    <ButtonGroup spaced>
-      <Button type="submit" color="primary" loading={isSubmitting}>
-        Submit
-      </Button>
-      <Button type="button" color="danger" onClick={revert}>
-        Cancel
-      </Button>
-    </ButtonGroup>
+    <fieldset>
+      <ButtonGroup spaced>
+        <Button type="submit" color="primary" loading={isSubmitting}>
+          Submit
+        </Button>
+        <Button type="button" color="danger" onClick={revert}>
+          Cancel
+        </Button>
+      </ButtonGroup>
+    </fieldset>
   </form>
 );
 

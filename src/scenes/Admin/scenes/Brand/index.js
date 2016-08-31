@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'paintcan';
+import { Icon } from 'react-fa';
+import cx from 'classnames';
 import { Link } from 'react-router';
 import { getCurrentBrand } from 'selectors/adminBrands';
 import * as actions from 'actions/store';
+import styles from './brand.scss';
 
 class Brand extends Component {
   componentDidMount() {
@@ -12,27 +14,55 @@ class Brand extends Component {
     fetchBrand(brandID);
   }
 
+  renderSpinner() {
+    return (
+      <span>
+        Loading <Icon name="spinner" spin />
+      </span>
+    );
+  }
+
   render() {
     const { children, brand, params: { brandID } } = this.props;
 
     return (
       <div>
-        <Container fluid style={{ backgroundColor: 'yellow' }}>
-          <Row>
-            <Col size={{ xs: 2 }} align={{ xs: 'center' }}>
-              {brand ? brand.get('name') : 'Loading...'}
-            </Col>
-            <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
-              <Link to={`/admin/brands/${brandID}/forms`}>Forms</Link>
-            </Col>
-            <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
-              <Link to={`/admin/brands/${brandID}/OBG`}>OBG</Link>
-            </Col>
-            <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
-              <Link to={`/admin/brands/${brandID}/settings`}>Settings</Link>
-            </Col>
-          </Row>
-        </Container>
+        <div className={styles.navbar}>
+          <nav className={styles.navbarNav}>
+            <ul className={styles.navbarList}>
+              <li className={cx(styles.navbarItem, styles.navbarBrand)}>
+                {brand ? brand.get('name') : this.renderSpinner()}
+              </li>
+              <li className={styles.navbarItem}>
+                <Link
+                  className={styles.navbarLink}
+                  activeClassName={styles.isActive}
+                  to={`/admin/brands/${brandID}/forms`}
+                >
+                  Forms
+                </Link>
+              </li>
+              <li className={styles.navbarItem}>
+                <Link
+                  className={styles.navbarLink}
+                  activeClassName={styles.isActive}
+                  to={`/admin/brands/${brandID}/OBG`}
+                >
+                  OBG
+                </Link>
+              </li>
+              <li className={styles.navbarItem}>
+                <Link
+                  className={styles.navbarLink}
+                  activeClassName={styles.isActive}
+                  to={`/admin/brands/${brandID}/settings`}
+                >
+                  Settings
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
 
         {children}
       </div>

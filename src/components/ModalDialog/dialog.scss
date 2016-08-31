@@ -1,0 +1,44 @@
+$dark: #32384A;
+
+.wrapper {
+  border-radius: 0.25rem;
+  box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.1);
+  background: white;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.close {
+  cursor: pointer;
+  color: transparentize($dark, 0.5);
+
+  &:hover {
+    color: $dark;
+  }
+}
+
+.body {
+  padding: 1rem;
+}
+
+.sm {
+  max-width: 400px;
+}
+
+.md {
+  max-width: 640px;
+}
+
+.lg {
+  max-width: 960px;
+}

@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Button } from 'paintcan';
+import { Icon } from 'react-fa';
+import { Button } from 'paintcan';
 import * as types from 'constants/actionTypes';
+import styles from './login.scss';
 
 const Login = ({
   path,
@@ -34,39 +36,56 @@ const Login = ({
   };
 
   return (
-    <Container fluid>
-      <Row align={{ xs: 'center' }}><h3>{children} Login</h3></Row>
-      <form onSubmit={handleSubmit}>
-        <Row align={{ xs: 'center' }}>
-          <Col size={{ xs: 4 }}>
-            <label htmlFor="email">Email</label>
+    <div className={styles.wrapper}>
+      <div className={styles.container}>
+        <h3 className={styles.heading}>{children} Login</h3>
+        <form className={styles.form} onSubmit={handleSubmit}>
+          {isLoginInvalid && (
+            <div className={styles.error}>
+              Invalid email/password combination
+            </div>
+          )}
+          <input style={{ display: 'none' }} type="text" name="fakeusernameremembered" />
+          <input style={{ display: 'none' }} type="password" name="fakepasswordremembered" />
+          <fieldset className={styles.formGroup}>
+            <label className={styles.formLabel} htmlFor="email">
+              <span>Email</span>
+              <Icon name="envelope" />
+            </label>
             <input
+              autoFocus
               type="text"
               id="email"
               name="email"
+              placeholder="john@doe.com"
               onChange={handleChange}
               value={loginForm.get('email')}
-            /><br />
-            <label htmlFor="password">Password</label>
+              className={styles.formInput}
+            />
+          </fieldset>
+          <fieldset className={styles.formGroup}>
+            <label className={styles.formLabel} htmlFor="password">
+              <span>Password</span>
+              <Icon name="lock" />
+            </label>
             <input
-              type="text"
+              type="password"
               id="password"
               name="password"
+              placeholder="Password"
               onChange={handleChange}
               value={loginForm.get('password')}
-            /><br />
-          </Col>
-        </Row>
-        <Row align={{ xs: 'center' }}>
-          <Col size={{ xs: 4 }}>
-            <Button type="submit">Login</Button>
-          </Col>
-        </Row>
-      </form><br />
-      {isLoginInvalid
-        ? <Row align={{ xs: 'center' }}><div>Invalid email/password combination</div></Row>
-        : null}
-    </Container>
+              className={styles.formInput}
+            />
+          </fieldset>
+          <fieldset className={styles.formGroup}>
+            <Button type="submit" block loading={isLoginLoading}>
+              Login
+            </Button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
   );
 };
 
