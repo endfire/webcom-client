@@ -58,6 +58,7 @@
     "node-uuid": "^1.4.7",
     "normalizr": "^2.1.0",
     "paintcan": "0.0.17",
+    "precss": "^1.4.0",
     "qs": "^6.2.1",
     "react": "^15.2.0",
     "react-addons-transition-group": "^15.1.0",
