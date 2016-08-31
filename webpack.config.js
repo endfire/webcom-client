@@ -30,6 +30,10 @@ module.exports = {
         loaders: ['react-hot', 'babel'],
       },
       {
+        test: /\.json$/,
+        loader: 'json',
+      },
+      {
         test: /\.css$/,
         // loader: ExtractTextPlugin.extract('style-loader', 'css-loader'),
         loader: 'style!css',

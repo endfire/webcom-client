@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, ButtonGroup, withModal } from 'paintcan';
 import { ModalDialog } from 'components';
+import * as templates from 'data/templates';
 
 const AddFormModal = withModal(
   ({ isOpen, openModal }) => (
@@ -50,6 +51,11 @@ class AddFormDialog extends Component {
     const { handleSubmit, handleChange } = this;
     const { closeModal } = this.props;
 
+    const options = Object.keys(templates)
+      .map(template => ([templates[template].id, templates[template].name]))
+      .concat([['', 'Select a form template']])
+      .reverse();
+
     return (
       <ModalDialog title="Add a form" size="sm" closeModal={closeModal}>
         <form onSubmit={handleSubmit}>
@@ -61,17 +67,16 @@ class AddFormDialog extends Component {
               name="name"
               onChange={handleChange}
               value={this.state.name}
+              placeholder="Order a directory form"
             />
           </fieldset>
           <fieldset>
             <label htmlFor="template">Template</label>
-            <input
-              type="text"
-              id="template"
-              name="template"
-              onChange={handleChange}
-              value={this.state.template}
-            />
+            <select name="template" onChange={handleChange}>
+              {options.map(([value, label]) =>
+                <option key={value} value={value}>{label}</option>
+              )}
+            </select>
           </fieldset>
           <fieldset>
             <ButtonGroup spaced>

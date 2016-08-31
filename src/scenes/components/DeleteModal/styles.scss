@@ -1,0 +1,61 @@
+.wrapper {
+  max-width: 300px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 6rem;
+  color: white;
+}
+
+.trash {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.trash-message {
+  margin-top: 1rem;
+}
+
+.buttons {
+  display: flex;
+  margin-top: 1rem;
+}
+
+.button {
+  text-align: center;
+  cursor: pointer;
+  border: 0;
+  outline: 0;
+  flex: 1;
+  padding: 0.4rem 0.25rem;
+}
+
+.confirm {
+  border-top-left-radius: 0.25rem;
+  border-bottom-left-radius: 0.25rem;
+  background: #D33333;
+  color: white;
+
+  &:hover {
+    background: darken(#D33333, 5%);
+  }
+
+  &:active {
+    background: darken(#D33333, 10%);
+  }
+}
+
+.cancel {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+  background: #36BA41;
+  color: white;
+
+  &:hover {
+    background: darken(#36BA41, 5%);
+  }
+
+  &:active {
+    background: darken(#36BA41, 10%);
+  }
+}

@@ -14,7 +14,7 @@ input {
   border-radius: 0.2rem;
   width: 100%;
   box-sizing: border-box;
-  padding: 0.4rem 0.25rem;
+  padding: 0.4rem 0.5rem;
   transition: 0.1s ease-in-out;
 
   &:focus {
@@ -26,4 +26,9 @@ input {
 label {
   font-size: 0.85rem;
   margin-bottom: 0.2rem;
+}
+
+select {
+  display: block;
+  width: 100%;
 }
