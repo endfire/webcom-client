@@ -63,6 +63,23 @@ export const findRecords = (entityType, filters = {}) => {
   };
 };
 
+export const fetchRelated = (entityType, id, field) => {
+  const type = types.RELATED_REQUEST;
+
+  if (!entityType) throw missingRequiredParamError(type, 'entityType');
+  if (!id) throw missingRequiredParamError(type, 'id');
+  if (!field) throw missingRequiredParamError(type, 'field');
+
+  return {
+    type,
+    payload: {
+      id,
+      field,
+      type: entityType,
+    },
+  };
+};
+
 export const updateRecord = (entityType, id, data) => {
   const type = types.UPDATE_REQUEST;
 
