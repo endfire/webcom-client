@@ -1,6 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
-import JobSelect from '../JobSelect';
 
 const AddPersonModal = withModal(
   ({ isOpen, openModal }) => (
@@ -30,7 +29,6 @@ class AddPersonDialog extends Component {
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleJobSelect = this.handleJobSelect.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -46,17 +44,13 @@ class AddPersonDialog extends Component {
     closeModal();
   }
 
-  handleJobSelect(item) {
-    this.setState({ job: item.label });
-  }
-
   handleChange(e) {
     const { name, value } = e.target;
     this.setState({ [name]: value });
   }
 
   render() {
-    const { handleSubmit, handleChange, handleJobSelect } = this;
+    const { handleSubmit, handleChange } = this;
     const { closeModal } = this.props;
 
     return (
@@ -90,15 +84,19 @@ class AddPersonDialog extends Component {
                   onChange={handleChange}
                   value={this.state.phone}
                 /><br />
-                <label>Job Title</label>
-                <input
-                  type="text"
-                  id="job"
-                  name="job"
-                  hidden
-                  value={this.state.job}
-                />
-                <JobSelect handleJobSelect={handleJobSelect} /><br /><br />
+                <label htmlFor="job">Job Title</label>
+                <select id="job" name="job" onChange={handleChange} value={this.state.job}>
+                  <option value="Admin/HR/Legal">Admin/HR/Legal</option>
+                  <option value="Finance/Purchasing">Finance/Purchasing</option>
+                  <option value="Gen/Corp Management">Gen/Corp Management</option>
+                  <option value="IT/MIS">IT/MIS</option>
+                  <option value="Nurse/NP">Nurse/NP</option>
+                  <option value="Physician/MP">Physician/MP</option>
+                  <option value="RD/Engineering/Tech">RD/Engineering/Tech</option>
+                  <option value="Sales/Marketing/Customer Service">
+                    Sales/Marketing/Customer Service
+                  </option>
+                </select>
                 <Button type="submit">Save Change</Button>
               </form>
               <Button onClick={closeModal}>
