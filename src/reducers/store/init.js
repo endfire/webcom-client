@@ -4,6 +4,7 @@ const verbs = Map({
   CREATE: List(),
   FIND: List(),
   FETCH: List(),
+  RELATED: List(),
   UPDATE: List(),
   DELETE: List(),
 });
@@ -17,6 +18,7 @@ export default Map({
     brands: Map(),
     categories: Map(),
     companies: Map(),
+    listings: Map(),
     submissions: Map(),
     fields: Map(),
     forms: Map(),
@@ -27,6 +29,7 @@ export default Map({
     CREATE: false,
     FIND: false,
     FETCH: false,
+    RELATED: false,
     UPDATE: false,
     DELETE: false,
   }),
