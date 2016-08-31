@@ -61,6 +61,7 @@
     "node-uuid": "^1.4.7",
     "normalizr": "^2.1.0",
     "paintcan": "0.0.17",
+    "precss": "^1.4.0",
     "qs": "^6.2.1",
     "react": "^15.2.0",
     "react-addons-transition-group": "^15.1.0",
@@ -76,7 +77,8 @@
     "redux-slider-monitor": "^1.0.6",
     "reselect": "^2.5.3",
     "us": "^1.1.1",
-    "validator": "^5.5.0"
+    "validator": "^5.5.0",
+    "zxcvbn": "^4.3.0"
   },
   "ava": {
     "files": [

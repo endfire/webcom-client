@@ -7,8 +7,8 @@ export const company = new Schema('companies');
 export const submission = new Schema('submissions');
 export const field = new Schema('fields');
 export const form = new Schema('forms');
-export const payment = new Schema('payment');
-export const item = new Schema('item');
+export const payment = new Schema('payments');
+export const item = new Schema('items');
 export const person = new Schema('people');
 export const user = new Schema('users');
 

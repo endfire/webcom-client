@@ -4,6 +4,7 @@ import session from './session';
 import login from './login';
 import store from './store';
 import form from './form';
+import signup from './signup';
 import * as types from 'constants/actionTypes';
 
 const appReducer = combineReducers({
@@ -11,6 +12,7 @@ const appReducer = combineReducers({
   login,
   store,
   form,
+  signup,
 });
 
 export default (state, action) => {

@@ -5,9 +5,9 @@ import cx from 'classnames';
 import styles from './styles.scss';
 
 const DeleteModal = withModal(
-  ({ isOpen, openModal }) => (
-    <Button active={isOpen} onClick={openModal} color="danger" circle>
-      <Icon name="close" />
+  ({ isOpen, openModal, size }) => (
+    <Button active={isOpen} onClick={openModal} color="danger" size={size || 'md'}>
+      <Icon name="close" /> Delete
     </Button>
   ),
   ({ closeModal, handleDelete }) => (

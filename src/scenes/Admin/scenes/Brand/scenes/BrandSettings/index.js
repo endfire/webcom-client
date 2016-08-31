@@ -11,6 +11,7 @@ const BrandSettings = ({ brand, error }) => {
 
   return (
     <div className={styles.wrapper}>
+      <h3>Settings</h3>
       {error && <AuthErrorCard message={error.message} />}
       <BrandSettingsForm />
     </div>
