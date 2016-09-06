@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
 import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 const AddListingModal = withModal(
   ({ isOpen, openModal }) => (
@@ -8,13 +9,24 @@ const AddListingModal = withModal(
       Add a new listing
     </Button>
   ),
-  ({ closeModal, createListing, isCreateLoading, companyID, brands }) => (
+  ({ closeModal,
+    createListing,
+    isCreateLoading,
+    companyID,
+    brands,
+    categories,
+    findCategories,
+    setSelectedBrand,
+  }) => (
     <AddListingDialog
       closeModal={closeModal}
       createListing={createListing}
       isCreateLoading={isCreateLoading}
       companyID={companyID}
       brands={brands}
+      categories={categories}
+      findCategories={findCategories}
+      setSelectedBrand={setSelectedBrand}
     />
   ),
 );
@@ -23,17 +35,17 @@ class AddListingDialog extends Component {
   constructor(props) {
     super(props);
 
-    console.log('Brands here', props.brands);
-
     this.state = {
       brand: '',
       brandId: '',
       categories: [],
       brandOptions: props.brands,
+      categoryOptions: props.categories,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.handleMultiChange = this.handleMultiChange.bind(this);
   }
 
   handleSubmit(e) {
@@ -48,13 +60,36 @@ class AddListingDialog extends Component {
     closeModal();
   }
 
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
+  handleMultiChange(value) {
+    console.log(value);
+    this.setState({ categories: value });
   }
 
+  handleSelectChange(val) {
+    if (val) {
+      this.props.findCategories(val.value);
+      this.props.setSelectedBrand(val.value);
+      this.setState({ brandId: val.value });
+      this.setState({ brand: val.label });
+    } else {
+      this.setState({ brandId: '' });
+      this.setState({ brand: '' });
+    }
+  }
+
+  renderCategorySelect(handleMultiChange) {
+    return (
+      <Select
+        name="categories"
+        value={this.state.categories}
+        options={this.state.categoryOptions}
+        onChange={handleMultiChange}
+        multi
+      />
+    );
+  }
   render() {
-    const { handleSubmit, handleChange } = this;
+    const { handleSubmit, handleSelectChange, handleMultiChange } = this;
     const { closeModal } = this.props;
 
     return (
@@ -67,10 +102,17 @@ class AddListingDialog extends Component {
                 <label htmlFor="name">Select a brand</label><br />
                 <Select
                   name="brand"
-                  value=""
+                  value={this.state.brandId}
                   options={this.state.brandOptions}
-                  onChange={handleChange}
+                  onChange={handleSelectChange}
+                  placeholder="Please select a brand"
                 /><br />
+                {
+                  this.state.brand === ''
+                    ? 'Please select a brand.'
+                    : this.renderCategorySelect(handleMultiChange)
+                }
+                <br />
                 <Button type="submit">Save Change</Button>
               </form>
               <Button onClick={closeModal}>
@@ -89,7 +131,10 @@ AddListingDialog.propTypes = {
   createListing: PropTypes.func,
   isCreateLoading: PropTypes.bool,
   companyID: PropTypes.string,
-  brands: PropTypes.object,
+  brands: PropTypes.array,
+  findCategories: PropTypes.func,
+  categories: PropTypes.array,
+  setSelectedBrand: PropTypes.func,
 };
 
 export default AddListingModal;

@@ -1,10 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Button } from 'paintcan';
+import { Button } from 'paintcan';
 import { Link } from 'react-router';
+import { Icon } from 'react-fa';
+import cx from 'classnames';
 import { getSessionID } from 'selectors/company';
 import * as types from 'constants/actionTypes';
 import * as actions from 'actions/store';
+import styles from './company.scss';
 
 class Company extends Component {
   constructor(props) {
@@ -26,25 +29,31 @@ class Company extends Component {
   render() {
     return (
       <div>
-        <Container fluid style={{ backgroundColor: 'yellow' }}>
-          <Row>
-            <Col size={{ xs: 2 }} align={{ xs: 'center' }}>
-              <Link to="/company">Webcom</Link>
-            </Col>
-            <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
-              <Link to="/company/listings">Listings</Link>
-            </Col>
-            <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
-              <Link to="/company/people">People</Link>
-            </Col>
-            <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
-              <Link to="/company/settings">Settings</Link>
-            </Col>
-            <Col size={{ xs: 6 }} align={{ xs: 'center' }}>
-              <Button onClick={this.handleLogout}>Logout</Button>
-            </Col>
-          </Row>
-        </Container>
+        <div className={styles.navbar}>
+          <nav className={styles.navbarNav}>
+            <ul className={styles.navbarList}>
+              <li className={styles.navbarItem}>
+                <Link className={cx(styles.navbarLink, styles.navbarBrand)} to="/company">
+                  Webcom
+                </Link>
+              </li>
+              <li className={styles.navbarItem}>
+                <Link className={styles.navbarLink} to="/company/listings">Listings</Link>
+              </li>
+              <li className={styles.navbarItem}>
+                <Link className={styles.navbarLink} to="/company/people">People</Link>
+              </li>
+              <li className={styles.navbarItem}>
+                <Link className={styles.navbarLink} to="/company/settings">Settings</Link>
+              </li>
+            </ul>
+          </nav>
+          <nav className={styles.navbarNav}>
+            <Button onClick={this.handleLogout} size="sm">
+              <Icon name="sign-out" /> Logout
+            </Button>
+          </nav>
+        </div>
 
         {this.props.children}
       </div>

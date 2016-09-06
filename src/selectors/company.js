@@ -16,13 +16,30 @@ const getBrands = createSelector(
   (store) => store.getIn(['entities', 'brands'])
 );
 
+const getCategories = createSelector(
+  [getStore],
+  (store) => store.getIn(['entities', 'categories'])
+);
+
 export const getSessionID = (state) => state.session.get('id');
+
+export const getCurrentBrandCategories = (brandId) => (
+  createSelector(
+    [getCategories],
+    (categories) => categories.filter(category => (
+      category.get('brand') === brandId
+    )).map(item => ({
+      value: item.get('id'),
+      label: item.get('name'),
+    })).toArray()
+  )
+);
 
 export const getNonDeletedPeople = (companyID) => (
   createSelector(
     [getPeople],
-    (people) => people.filter(val => (
-      val.get('meta') && !val.getIn(['meta', 'archived'])) && val.get('company') === companyID
+    (people) => people.filter(val =>
+      (val.get('meta') && !val.getIn(['meta', 'archived'])) && val.get('company') === companyID
     )
   )
 );
@@ -42,7 +59,7 @@ export const getCompanyListings = createSelector(
 export const getBrandSelectOptions = createSelector(
   [getBrands],
   (brands) => brands.map(brand => ({
-    value: brand.id,
-    label: brand.name,
-  }))
+    value: brand.get('id'),
+    label: brand.get('name'),
+  })).toArray()
 );

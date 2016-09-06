@@ -3,14 +3,24 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddListingModal, ManageListingModal } from './components';
-import { getSessionID, getCompanyListings, getBrandSelectOptions } from 'selectors/company';
 import * as actions from 'actions/store';
+import {
+  getSessionID,
+  getCompanyListings,
+  getBrandSelectOptions,
+  getCurrentBrandCategories,
+} from 'selectors/company';
 
 class Listings extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      selectedBrand: '',
+    };
+
     this.handleDelete = this.handleDelete.bind(this);
+    this.setSelectedBrand = this.setSelectedBrand.bind(this);
   }
 
   componentDidMount() {
@@ -18,6 +28,11 @@ class Listings extends Component {
 
     findListings(companyID);
     findBrands();
+  }
+
+  setSelectedBrand(selectedBrand) {
+    console.log('Hello I am setting the brand to', selectedBrand);
+    this.setState({ selectedBrand });
   }
 
   handleDelete(id) {
@@ -32,6 +47,7 @@ class Listings extends Component {
     const {
       listings,
       brands,
+      categories,
       findCategories,
       createListing,
       isCreateLoading,
@@ -49,7 +65,9 @@ class Listings extends Component {
               isCreateLoading={isCreateLoading}
               companyID={companyID}
               brands={brands}
+              categories={categories}
               findCategories={findCategories}
+              setSelectedBrand={this.setSelectedBrand}
             /><br /><br /><br />
             {listings
               ? <List
@@ -67,14 +85,18 @@ class Listings extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  companyID: getSessionID(state),
-  listings: getCompanyListings(state),
-  brands: getBrandSelectOptions(state),
-  isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
-  isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
-  isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
-});
+const mapStateToProps = (state, ownProps) => {
+  console.log(ownProps);
+  return {
+    companyID: getSessionID(state),
+    listings: getCompanyListings(state),
+    brands: getBrandSelectOptions(state),
+    categories: getCurrentBrandCategories(ownProps.selectedBrand)(state),
+    isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
+    isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
+    isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
+  };
+};
 
 const mapDispatchToProps = (dispatch) => ({
   updateListing: (id, data) => dispatch(actions.updateRecord('listing', id, data)),
@@ -93,8 +115,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 Listings.propTypes = {
   listings: PropTypes.object,
-  brands: PropTypes.object,
-  categories: PropTypes.object,
+  brands: PropTypes.array,
+  categories: PropTypes.array,
   companyID: PropTypes.string,
   findListings: PropTypes.func,
   findBrands: PropTypes.func,
