@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Icon } from 'react-fa';
 import cx from 'classnames';
 import { Link } from 'react-router';
+import { getCurrentBrand } from 'selectors/adminBrands';
 import * as actions from 'actions/store';
 import styles from './brand.scss';
 
@@ -70,7 +71,7 @@ class Brand extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  brand: state.store.getIn(['entities', 'brands', ownProps.params.brandID]),
+  brand: getCurrentBrand(ownProps.params.brandID)(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -3,11 +3,12 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddPersonModal, EditPersonModal } from './components';
-import { getSessionID } from 'selectors/company';
+import { getCanUserDelete } from 'selectors/admin';
+import { getCurrentCompany, getCurrentCompanyPeople } from 'selectors/adminCompanies';
 import { getIsDeleteLoading, getIsCreateLoading, getIsUpdateLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
 
-class People extends Component {
+class CompanyPeople extends Component {
   constructor(props) {
     super(props);
 
@@ -15,7 +16,7 @@ class People extends Component {
   }
 
   componentDidMount() {
-    const { findPeople, companyID } = this.props;
+    const { findPeople, params: { companyID } } = this.props;
 
     findPeople(companyID);
   }
@@ -35,7 +36,8 @@ class People extends Component {
       isCreateLoading,
       updatePerson,
       isUpdateLoading,
-      companyID,
+      canUserDelete,
+      params: { companyID },
     } = this.props;
 
     return (
@@ -51,6 +53,7 @@ class People extends Component {
               ? <List
                 items={people}
                 handleDelete={this.handleDelete}
+                canUserDelete={canUserDelete}
               ><EditPersonModal
                 updatePerson={updatePerson}
                 isUpdateLoading={isUpdateLoading}
@@ -63,9 +66,10 @@ class People extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  companyID: getSessionID(state),
-  people: state.store.getIn(['entities', 'people']),
+const mapStateToProps = (state, ownProps) => ({
+  company: getCurrentCompany(ownProps.params.companyID)(state),
+  people: getCurrentCompanyPeople(ownProps.params.companyID)(state),
+  canUserDelete: getCanUserDelete(state),
   isDeleteLoading: getIsDeleteLoading(state),
   isCreateLoading: getIsCreateLoading(state),
   isUpdateLoading: getIsUpdateLoading(state),
@@ -84,9 +88,11 @@ const mapDispatchToProps = (dispatch) => ({
   })),
 });
 
-People.propTypes = {
+CompanyPeople.propTypes = {
+  params: PropTypes.object,
+  canUserDelete: PropTypes.bool,
   people: PropTypes.object,
-  companyID: PropTypes.string,
+  company: PropTypes.object,
   findPeople: PropTypes.func,
   isDeleteLoading: PropTypes.bool,
   deletePerson: PropTypes.func,
@@ -99,4 +105,4 @@ People.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(People);
+)(CompanyPeople);

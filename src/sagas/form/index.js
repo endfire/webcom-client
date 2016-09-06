@@ -23,5 +23,9 @@ export {
 } from './submissions/submitCompanySettingsForm';
 
 export {
+  default as watchCompanyInfoFormSubmit,
+} from './submissions/submitCompanyInfoForm';
+
+export {
   default as watchFieldInitializerFormSubmit,
 } from './submissions/submitFieldInitializerForm';

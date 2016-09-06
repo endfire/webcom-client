@@ -52,6 +52,7 @@ class EditPersonDialog extends Component {
 
   handleChange(e) {
     const { name, value } = e.target;
+    console.log('handleChange');
     this.setState({ [name]: value });
   }
 

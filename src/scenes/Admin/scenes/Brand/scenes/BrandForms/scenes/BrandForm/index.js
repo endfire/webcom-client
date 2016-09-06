@@ -4,6 +4,7 @@ import { Icon } from 'react-fa';
 import { Link } from 'react-router';
 import { Button, ButtonGroup } from 'paintcan';
 import { getFormFields } from 'selectors/dynamicForms';
+import { getCurrentForm } from 'selectors/adminBrands';
 import * as actions from 'actions/store';
 import store from 'configureStore';
 import { Field, AddFieldModal, PaymentBox } from './components';
@@ -52,7 +53,7 @@ class BrandForm extends Component {
   }
 
   handleSave() {
-    const { form, saveForm } = this.props;
+    // const { form, saveForm } = this.props;
   }
 
   handlePublish() {
@@ -69,7 +70,7 @@ class BrandForm extends Component {
 
   renderControls() {
     const { form } = this.props;
-    const { handleAddField, handleAddFieldChange, handleSave, handlePublish } = this;
+    const { handleAddField, handleAddFieldChange, handlePublish } = this;
 
     if (!form) {
       return <Icon name="spinner" spin />;
@@ -184,7 +185,7 @@ class BrandForm extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  form: state.store.getIn(['entities', 'forms', ownProps.params.formID]),
+  form: getCurrentForm(ownProps.params.formID)(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

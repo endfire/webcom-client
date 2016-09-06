@@ -3,14 +3,14 @@ import React, { PropTypes, cloneElement } from 'react';
 import { Container, Row, Col } from 'paintcan';
 import { DeleteModal } from 'scenes/components';
 
-const ListItem = ({ item, handleDelete, children }) => (
+const ListItem = ({ item, handleDelete, canUserDelete, children }) => (
   <Container fluid>
     <Row>
       <Col size={{ lg: 6 }}>
         {cloneElement(children, { item })}
       </Col>
       <Col size={{ lg: 6 }}>
-        <DeleteModal handleDelete={handleDelete.bind(this, item.get('id'))} />
+        {canUserDelete && <DeleteModal handleDelete={handleDelete.bind(this, item.get('id'))} />}
       </Col>
     </Row>
   </Container>
@@ -19,6 +19,7 @@ const ListItem = ({ item, handleDelete, children }) => (
 ListItem.propTypes = {
   item: PropTypes.object,
   handleDelete: PropTypes.func,
+  canUserDelete: PropTypes.bool,
   children: PropTypes.any,
 };
 
