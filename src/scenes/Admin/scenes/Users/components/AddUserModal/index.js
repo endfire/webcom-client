@@ -27,6 +27,7 @@ class AddUserDialog extends Component {
       name: '',
       email: '',
       role: '',
+      password: '',
     };
 
     this.submitHandler = this.submitHandler.bind(this);
@@ -39,8 +40,8 @@ class AddUserDialog extends Component {
 
     if (isCreateLoading) return;
 
-    const { name, email, role } = this.state;
-    createUser(name, email, role);
+    const { name, email, role, password } = this.state;
+    createUser(name, email, role, password);
     closeModal();
   }
 
@@ -77,14 +78,22 @@ class AddUserDialog extends Component {
             />
           </fieldset>
           <fieldset>
-            <label htmlFor="role">Role</label>
+            <label htmlFor="password">Password</label>
             <input
               type="text"
-              id="role"
-              name="role"
+              id="password"
+              name="password"
               onChange={handleChange}
-              value={this.state.role}
+              value={this.state.password}
             />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="role">Role</label>
+            <select id="role" name="role" onChange={handleChange} value={this.state.role}>
+              <option value="1">No restrictions</option>
+              <option value="2">Cannot delete</option>
+              <option value="3">Cannot delete, add users, or access OBG</option>
+            </select>
           </fieldset>
           <fieldset>
             <ButtonGroup spaced>
@@ -107,10 +116,11 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  createUser: (name, email, role) => dispatch(actions.createRecord('user', {
+  createUser: (name, email, role, password) => dispatch(actions.createRecord('user', {
     name,
     email,
     role,
+    password,
   })),
 });
 
