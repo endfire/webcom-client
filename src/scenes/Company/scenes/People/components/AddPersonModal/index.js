@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
+import { Button, Card, Container, Row, Col, withModal, ButtonGroup } from 'paintcan';
 import Select from 'react-select';
 
 const AddPersonModal = withModal(
@@ -71,43 +71,60 @@ class AddPersonDialog extends Component {
             <Card>
               <h3>Add new person</h3>
               <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Name</label><br />
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  onChange={handleChange}
-                  value={this.state.name}
-                /><br />
-                <label htmlFor="email">Email</label><br />
-                <input
-                  type="text"
-                  id="email"
-                  name="email"
-                  onChange={handleChange}
-                  value={this.state.email}
-                /><br />
-                <label htmlFor="phone">Phone Number</label><br />
-                <input
-                  type="text"
-                  id="phone"
-                  name="phone"
-                  onChange={handleChange}
-                  value={this.state.phone}
-                /><br />
-                <label htmlFor="job">Job Title</label>
-                <Select
-                  name="job"
-                  value={this.state.job}
-                  options={jobSelectOptions}
-                  onChange={handleSelectChange}
-                  placeholder="Please select a job title"
-                />
-                <Button type="submit">Save Change</Button>
+                <fieldset>
+                  <label htmlFor="name">Name</label><br />
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    onChange={handleChange}
+                    value={this.state.name}
+                    placeholder="John Doe"
+                  />
+                </fieldset>
+                <fieldset>
+                  <label htmlFor="email">Email</label><br />
+                  <input
+                    type="text"
+                    id="email"
+                    name="email"
+                    onChange={handleChange}
+                    value={this.state.email}
+                    placeholder="john@company.com"
+                  />
+                </fieldset>
+                <fieldset>
+                  <label htmlFor="phone">Phone Number</label><br />
+                  <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    onChange={handleChange}
+                    value={this.state.phone}
+                    placeholder="303-123-4567"
+                  />
+                </fieldset>
+                <fieldset>
+                  <label htmlFor="job">Job Title</label><br />
+                  <Select
+                    name="job"
+                    value={this.state.job}
+                    options={jobSelectOptions}
+                    onChange={handleSelectChange}
+                    placeholder="Please select a job title"
+                  />
+                </fieldset>
+                <fieldset>
+                  <ButtonGroup spaced>
+                    <Button type="submit" color="primary">
+                      Submit
+                    </Button>
+                    <Button type="button" color="danger" onClick={closeModal}>
+                      Cancel
+                    </Button>
+                  </ButtonGroup>
+                </fieldset>
               </form>
-              <Button onClick={closeModal}>
-                Cancel
-              </Button>
             </Card>
           </Col>
         </Row>

@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
+import { Button, Card, Container, Row, Col, withModal, ButtonGroup } from 'paintcan';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
@@ -59,9 +59,13 @@ class AddListingDialog extends Component {
   }
 
   handleMultiChange(value) {
-    this.setState({
-      categories: value.map(category => category.value),
-    });
+    if (value) {
+      this.setState({
+        categories: value.map(category => category.value),
+      });
+    } else {
+      this.setState({ categories: [] });
+    }
   }
 
   handleSelectChange(val) {
@@ -80,15 +84,18 @@ class AddListingDialog extends Component {
   renderCategorySelect(handleMultiChange) {
     if (this.state.brand) {
       return (
-        <Select
-          name="categories"
-          value={this.state.categories}
-          options={this.state.categoryOptions.filter(category => (
-            category.brand === this.state.brandId
-          ))}
-          onChange={handleMultiChange}
-          multi
-        />
+        <fieldset>
+          <label>Select all categories for this listing</label><br />
+          <Select
+            name="categories"
+            value={this.state.categories}
+            options={this.state.categoryOptions.filter(category => (
+              category.brand === this.state.brandId
+            ))}
+            onChange={handleMultiChange}
+            multi
+          />
+        </fieldset>
       );
     }
 
@@ -105,21 +112,28 @@ class AddListingDialog extends Component {
             <Card>
               <h3>Add new listing</h3>
               <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Select a brand</label><br />
-                <Select
-                  name="brand"
-                  value={this.state.brandId}
-                  options={this.state.brandOptions}
-                  onChange={handleSelectChange}
-                  placeholder="Please select a brand"
-                /><br />
+                <fieldset>
+                  <label htmlFor="name">Select a brand</label><br />
+                  <Select
+                    name="brand"
+                    value={this.state.brandId}
+                    options={this.state.brandOptions}
+                    onChange={handleSelectChange}
+                    placeholder="Please select a brand"
+                  />
+                </fieldset>
                 {this.renderCategorySelect(handleMultiChange)}
-                <br />
-                <Button type="submit">Save Change</Button>
+                <fieldset>
+                  <ButtonGroup spaced>
+                    <Button type="submit" color="primary">
+                      Submit
+                    </Button>
+                    <Button type="button" color="danger" onClick={closeModal}>
+                      Cancel
+                    </Button>
+                  </ButtonGroup>
+                </fieldset>
               </form>
-              <Button onClick={closeModal}>
-                Cancel
-              </Button>
             </Card>
           </Col>
         </Row>

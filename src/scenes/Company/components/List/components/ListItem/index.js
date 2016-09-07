@@ -1,19 +1,17 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { PropTypes, cloneElement } from 'react';
-import { Container, Row, Col } from 'paintcan';
 import { DeleteModal } from 'scenes/components';
+import styles from './styles.scss';
 
 const ListItem = ({ item, handleDelete, children }) => (
-  <Container fluid>
-    <Row>
-      <Col size={{ lg: 6 }}>
-        {cloneElement(children, { item })}
-      </Col>
-      <Col size={{ lg: 6 }}>
-        <DeleteModal handleDelete={handleDelete.bind(this, item.get('id'))} />
-      </Col>
-    </Row>
-  </Container>
+  <div className={styles.wrapper}>
+    <div>
+      {cloneElement(children, { item })}
+    </div>
+    <div>
+      <DeleteModal handleDelete={handleDelete.bind(this, item.get('id'))} />
+    </div>
+  </div>
 );
 
 ListItem.propTypes = {
