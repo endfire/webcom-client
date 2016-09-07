@@ -95,13 +95,27 @@ const mapDispatchToProps = (dispatch) => ({
   findCategories: (brandId) => dispatch(
     actions.fetchRelated('brand', brandId, 'categories', 'category')
   ),
-  createAd: ({ brand, brandId, categories, companyID }) =>
-    dispatch(actions.createRecord('ad', {
-      brand,
-      brandId,
-      categories,
-      company: companyID,
-    })),
+  createAd: ({
+    brand,
+    brandId,
+    image,
+    url,
+    start,
+    end,
+    priority,
+    categories,
+    companyID,
+  }) => dispatch(actions.createRecord('ad', {
+    brand,
+    brandId,
+    image,
+    url,
+    start,
+    end,
+    priority,
+    categories,
+    company: companyID,
+  })),
 });
 
 Ads.propTypes = {
