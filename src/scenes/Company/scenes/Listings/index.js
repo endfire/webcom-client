@@ -3,8 +3,14 @@ import { connect } from 'react-redux';
 import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddListingModal, ManageListingModal } from './components';
-import { getSessionID, getCompanyListings, getBrandSelectOptions } from 'selectors/company';
 import * as actions from 'actions/store';
+
+import {
+  getSessionID,
+  getCompanyListings,
+  getBrandSelectOptions,
+  getCategorySelectOptions,
+} from 'selectors/company';
 
 class Listings extends Component {
   constructor(props) {
@@ -24,7 +30,6 @@ class Listings extends Component {
     const { isDeleteLoading, deleteListing } = this.props;
 
     if (isDeleteLoading) return;
-
     deleteListing(id);
   }
 
@@ -32,6 +37,7 @@ class Listings extends Component {
     const {
       listings,
       brands,
+      categories,
       findCategories,
       createListing,
       isCreateLoading,
@@ -49,6 +55,7 @@ class Listings extends Component {
               isCreateLoading={isCreateLoading}
               companyID={companyID}
               brands={brands}
+              categories={categories}
               findCategories={findCategories}
             /><br /><br /><br />
             {listings
@@ -57,6 +64,7 @@ class Listings extends Component {
                 handleDelete={this.handleDelete}
               ><ManageListingModal
                 updateListing={updateListing}
+                categories={categories}
                 isUpdateLoading={isUpdateLoading}
               /></List>
               : 'Loading...'}
@@ -71,6 +79,7 @@ const mapStateToProps = (state) => ({
   companyID: getSessionID(state),
   listings: getCompanyListings(state),
   brands: getBrandSelectOptions(state),
+  categories: getCategorySelectOptions(state),
   isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
   isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
   isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
@@ -79,10 +88,14 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   updateListing: (id, data) => dispatch(actions.updateRecord('listing', id, data)),
   deleteListing: (id) => dispatch(actions.deleteRecord('listing', 'listings', id)),
-  findListings: (companyID) => dispatch(actions.fetchRelated('company', companyID, 'listings')),
+  findListings: (companyID) => dispatch(
+    actions.fetchRelated('company', companyID, 'listings', 'listing')
+  ),
   findBrands: () => dispatch(actions.findRecords('brand')),
-  findCategories: (brandId) => dispatch(actions.fetchRelated('brand', brandId, 'categories')),
-  createListing: (name, brand, brandId, categories, companyID) =>
+  findCategories: (brandId) => dispatch(
+    actions.fetchRelated('brand', brandId, 'categories', 'category')
+  ),
+  createListing: ({ brand, brandId, categories, companyID }) =>
     dispatch(actions.createRecord('listing', {
       brand,
       brandId,
@@ -93,8 +106,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 Listings.propTypes = {
   listings: PropTypes.object,
-  brands: PropTypes.object,
-  categories: PropTypes.object,
+  brands: PropTypes.array,
+  categories: PropTypes.array,
   companyID: PropTypes.string,
   findListings: PropTypes.func,
   findBrands: PropTypes.func,

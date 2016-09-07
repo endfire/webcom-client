@@ -63,7 +63,7 @@ export const findRecords = (entityType, filters = {}) => {
   };
 };
 
-export const fetchRelated = (entityType, id, field) => {
+export const fetchRelated = (entityType, id, field, relatedType) => {
   const type = types.RELATED_REQUEST;
 
   if (!entityType) throw missingRequiredParamError(type, 'entityType');
@@ -75,6 +75,7 @@ export const fetchRelated = (entityType, id, field) => {
     payload: {
       id,
       field,
+      relatedType,
       type: entityType,
     },
   };

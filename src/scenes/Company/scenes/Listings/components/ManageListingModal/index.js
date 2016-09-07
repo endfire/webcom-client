@@ -8,10 +8,11 @@ const ManageListingsModal = withModal(
       {item.get('brand')}
     </Button>
   ),
-  ({ closeModal, item, updateListing, isUpdateLoading }) => (
+  ({ closeModal, item, updateListing, isUpdateLoading, categories }) => (
     <EditListingDialog
       closeModal={closeModal}
       listing={item}
+      categories={categories}
       updateListing={updateListing}
       isUpdateLoading={isUpdateLoading}
     />
@@ -23,45 +24,43 @@ class EditListingDialog extends Component {
     super(props);
 
     this.state = {
-      name: props.listing.get('name'),
-      email: props.listing.get('email'),
-      phone: props.listing.get('phone'),
-      job: props.listing.get('job'),
+      categories: props.listing.get('categories').toArray(),
+      oldCategories: props.listing.get('categories').toArray(),
+      categoryOptions: props.categories,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleJobSelect = this.handleJobSelect.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleMultiChange = this.handleMultiChange.bind(this);
   }
 
   handleSubmit(e) {
     e.preventDefault();
     const { isUpdateLoading, updateListing, closeModal } = this.props;
     const id = this.props.listing.get('id');
-    const { name, email, phone, job } = this.state;
+    const { categories, oldCategories } = this.state;
 
     if (isUpdateLoading) return;
 
+    console.log(this.state);
+
     updateListing(id, {
-      name,
-      email,
-      phone,
-      job,
+      categories: {
+        old: oldCategories,
+        new: categories,
+      },
     });
+
     closeModal();
   }
 
-  handleJobSelect(item) {
-    this.setState({ job: item.label });
-  }
-
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
+  handleMultiChange(value) {
+    this.setState({
+      categories: value.map(category => category.value),
+    });
   }
 
   render() {
-    const { handleSubmit, handleChange, handleJobSelect } = this;
+    const { handleSubmit, handleMultiChange } = this;
     const { listing, closeModal } = this.props;
 
     return (
@@ -70,43 +69,17 @@ class EditListingDialog extends Component {
         <Row align={{ xs: 'center' }}>
           <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
             <Card>
-              <h3>Edit {listing.name}</h3>
+              <h3>Edit {listing.get('brand')} Listing</h3>
               <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  onChange={handleChange}
-                  value={this.state.name}
-                /><br />
-                <label htmlFor="email">Email</label>
-                <input
-                  type="text"
-                  id="email"
-                  name="email"
-                  onChange={handleChange}
-                  value={this.state.email}
-                /><br />
-                <label htmlFor="phone">Phone Number</label>
-                <input
-                  type="text"
-                  id="phone"
-                  name="phone"
-                  onChange={handleChange}
-                  value={this.state.phone}
-                /><br />
-                <label>Job Title</label>
-                <input
-                  type="text"
-                  id="job"
-                  name="job"
-                  hidden
-                  value={this.state.job}
-                />
-                <JobSelect
-                  handleJobSelect={handleJobSelect}
-                  item={{ label: this.state.job }}
+                <label htmlFor="name">Remove or add categories for this listing</label>
+                <Select
+                  name="categories"
+                  value={this.state.categories}
+                  options={this.state.categoryOptions.filter(category => (
+                    category.brand === listing.get('brandId')
+                  ))}
+                  onChange={handleMultiChange}
+                  multi
                 /><br /><br />
                 <Button type="submit">Save Change</Button>
               </form>
@@ -126,6 +99,7 @@ EditListingDialog.propTypes = {
   updateListing: PropTypes.func,
   isUpdateLoading: PropTypes.bool,
   listing: PropTypes.object,
+  categories: PropTypes.array,
 };
 
 export default ManageListingsModal;
