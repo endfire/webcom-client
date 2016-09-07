@@ -1,11 +1,11 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddPersonModal, EditPersonModal } from './components';
 import { getSessionID, getCompanyPeople } from 'selectors/company';
 import { getIsDeleteLoading, getIsCreateLoading, getIsUpdateLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
+import styles from './styles.scss';
 
 class People extends Component {
   constructor(props) {
@@ -76,28 +76,28 @@ class People extends Component {
     } = this.props;
 
     return (
-      <Container fluid><br />
-        <Row>
-          <Col size={{ xs: 4 }} align={{ xs: 'left' }}>
-            <AddPersonModal
-              createPerson={createPerson}
-              isCreateLoading={isCreateLoading}
-              companyID={companyID}
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <AddPersonModal
+            createPerson={createPerson}
+            isCreateLoading={isCreateLoading}
+            companyID={companyID}
+            jobSelectOptions={this.state.jobSelectOptions}
+          />
+        </div>
+        <div className={styles.container}>
+          {people
+            ? <List
+              items={people}
+              handleDelete={this.handleDelete}
+            ><EditPersonModal
+              updatePerson={updatePerson}
+              isUpdateLoading={isUpdateLoading}
               jobSelectOptions={this.state.jobSelectOptions}
-            /><br /><br /><br />
-            {people
-              ? <List
-                items={people}
-                handleDelete={this.handleDelete}
-              ><EditPersonModal
-                updatePerson={updatePerson}
-                isUpdateLoading={isUpdateLoading}
-                jobSelectOptions={this.state.jobSelectOptions}
-              /></List>
-              : 'Loading...'}
-          </Col>
-        </Row>
-      </Container>
+            /></List>
+            : 'Loading...'}
+        </div>
+      </div>
     );
   }
 }
