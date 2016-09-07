@@ -21,12 +21,12 @@ export function* watchFetchRequest() {
 }
 
 function* fetchRelated(action) {
-  const { type, id, field } = action.payload;
+  const { type, id, field, relatedType } = action.payload;
   const records = yield api.fetchRelated(type, id, field);
 
   try {
     yield put({ type: types.RELATED_SUCCESS, payload: action.payload });
-    yield put(syncStore(type, records));
+    yield put(syncStore(relatedType, records));
   } catch (e) {
     yield put({ type: types.RELATED_ERROR, payload: e, error: true });
   }

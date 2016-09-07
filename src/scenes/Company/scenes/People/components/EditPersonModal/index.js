@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
+import Select from 'react-select';
 
 const EditPersonModal = withModal(
   ({ isOpen, openModal, item }) => (
@@ -7,12 +8,13 @@ const EditPersonModal = withModal(
       {item.get('name')}
     </Button>
   ),
-  ({ closeModal, item, updatePerson, isUpdateLoading }) => (
+  ({ closeModal, item, updatePerson, isUpdateLoading, jobSelectOptions }) => (
     <EditPersonDialog
       closeModal={closeModal}
       person={item}
       updatePerson={updatePerson}
       isUpdateLoading={isUpdateLoading}
+      jobSelectOptions={jobSelectOptions}
     />
   ),
 );
@@ -30,6 +32,7 @@ class EditPersonDialog extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleSelectChange = this.handleSelectChange.bind(this);
   }
 
   handleSubmit(e) {
@@ -55,9 +58,17 @@ class EditPersonDialog extends Component {
     this.setState({ [name]: value });
   }
 
+  handleSelectChange(val) {
+    if (val) {
+      this.setState({ job: val.value });
+    } else {
+      this.setState({ job: '' });
+    }
+  }
+
   render() {
-    const { handleSubmit, handleChange } = this;
-    const { person, closeModal } = this.props;
+    const { handleSubmit, handleChange, handleSelectChange } = this;
+    const { person, closeModal, jobSelectOptions } = this.props;
 
     return (
       <Container fluid>
@@ -91,18 +102,13 @@ class EditPersonDialog extends Component {
                   value={this.state.phone}
                 /><br />
                 <label htmlFor="job">Job Title</label>
-                <select id="job" name="job" onChange={handleChange} value={this.state.job}>
-                  <option value="Admin/HR/Legal">Admin/HR/Legal</option>
-                  <option value="Finance/Purchasing">Finance/Purchasing</option>
-                  <option value="Gen/Corp Management">Gen/Corp Management</option>
-                  <option value="IT/MIS">IT/MIS</option>
-                  <option value="Nurse/NP">Nurse/NP</option>
-                  <option value="Physician/MP">Physician/MP</option>
-                  <option value="RD/Engineering/Tech">RD/Engineering/Tech</option>
-                  <option value="Sales/Marketing/Customer Service">
-                    Sales/Marketing/Customer Service
-                  </option>
-                </select>
+                <Select
+                  name="job"
+                  value={this.state.job}
+                  options={jobSelectOptions}
+                  onChange={handleSelectChange}
+                  placeholder="Please select a job title"
+                />
                 <Button type="submit">Save Change</Button>
               </form>
               <Button onClick={closeModal}>
@@ -121,6 +127,7 @@ EditPersonDialog.propTypes = {
   updatePerson: PropTypes.func,
   isUpdateLoading: PropTypes.bool,
   person: PropTypes.object,
+  jobSelectOptions: PropTypes.array,
 };
 
 export default EditPersonModal;

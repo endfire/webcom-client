@@ -1,6 +1,7 @@
 import { createSelector } from 'reselect';
 
 const getStore = (state) => state.store;
+
 const getPeople = createSelector(
   [getStore],
   (store) => store.getIn(['entities', 'people'])
@@ -23,25 +24,18 @@ const getCategories = createSelector(
 
 export const getSessionID = (state) => state.session.get('id');
 
-export const getCurrentBrandCategories = (brandId) => (
-  createSelector(
-    [getCategories],
-    (categories) => categories.filter(category => (
-      category.get('brand') === brandId
-    )).map(item => ({
-      value: item.get('id'),
-      label: item.get('name'),
-    })).toArray()
-  )
+export const getCompanyPeople = createSelector(
+  [getPeople, getSessionID],
+  (people, companyID) => people.filter(person => (
+    person.get('company') === companyID
+  ))
 );
 
-export const getNonDeletedPeople = (companyID) => (
-  createSelector(
-    [getPeople],
-    (people) => people.filter(val =>
-      (val.get('meta') && !val.getIn(['meta', 'archived'])) && val.get('company') === companyID
-    )
-  )
+export const getCompanyListings = createSelector(
+  [getListings, getSessionID],
+  (listings, companyID) => listings.filter(listing => (
+    listing.get('company') === companyID
+  ))
 );
 
 export const getLoggedInCompany = createSelector(
@@ -49,17 +43,19 @@ export const getLoggedInCompany = createSelector(
   (sessionID, store) => store.getIn(['entities', 'companies', sessionID])
 );
 
-export const getCompanyListings = createSelector(
-  [getListings, getLoggedInCompany],
-  (listings, company) => listings.filter(listing => (
-    company.get('listings').includes(listing.get('id'))
-  ))
-);
-
 export const getBrandSelectOptions = createSelector(
   [getBrands],
   (brands) => brands.map(brand => ({
     value: brand.get('id'),
     label: brand.get('name'),
+  })).toArray()
+);
+
+export const getCategorySelectOptions = createSelector(
+  [getCategories],
+  (categories) => categories.map(category => ({
+    value: category.get('id'),
+    label: category.get('name'),
+    brand: category.get('brand'),
   })).toArray()
 );

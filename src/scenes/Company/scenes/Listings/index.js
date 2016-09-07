@@ -4,23 +4,19 @@ import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddListingModal, ManageListingModal } from './components';
 import * as actions from 'actions/store';
+
 import {
   getSessionID,
   getCompanyListings,
   getBrandSelectOptions,
-  getCurrentBrandCategories,
+  getCategorySelectOptions,
 } from 'selectors/company';
 
 class Listings extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      selectedBrand: '',
-    };
-
     this.handleDelete = this.handleDelete.bind(this);
-    this.setSelectedBrand = this.setSelectedBrand.bind(this);
   }
 
   componentDidMount() {
@@ -30,16 +26,10 @@ class Listings extends Component {
     findBrands();
   }
 
-  setSelectedBrand(selectedBrand) {
-    console.log('Hello I am setting the brand to', selectedBrand);
-    this.setState({ selectedBrand });
-  }
-
   handleDelete(id) {
     const { isDeleteLoading, deleteListing } = this.props;
 
     if (isDeleteLoading) return;
-
     deleteListing(id);
   }
 
@@ -67,7 +57,6 @@ class Listings extends Component {
               brands={brands}
               categories={categories}
               findCategories={findCategories}
-              setSelectedBrand={this.setSelectedBrand}
             /><br /><br /><br />
             {listings
               ? <List
@@ -75,6 +64,7 @@ class Listings extends Component {
                 handleDelete={this.handleDelete}
               ><ManageListingModal
                 updateListing={updateListing}
+                categories={categories}
                 isUpdateLoading={isUpdateLoading}
               /></List>
               : 'Loading...'}
@@ -85,26 +75,27 @@ class Listings extends Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  console.log(ownProps);
-  return {
-    companyID: getSessionID(state),
-    listings: getCompanyListings(state),
-    brands: getBrandSelectOptions(state),
-    categories: getCurrentBrandCategories(ownProps.selectedBrand)(state),
-    isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
-    isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
-    isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
-  };
-};
+const mapStateToProps = (state) => ({
+  companyID: getSessionID(state),
+  listings: getCompanyListings(state),
+  brands: getBrandSelectOptions(state),
+  categories: getCategorySelectOptions(state),
+  isDeleteLoading: state.store.getIn(['isLoading', 'DELETE']),
+  isCreateLoading: state.store.getIn(['isLoading', 'CREATE']),
+  isUpdateLoading: state.store.getIn(['isLoading', 'UPDATE']),
+});
 
 const mapDispatchToProps = (dispatch) => ({
   updateListing: (id, data) => dispatch(actions.updateRecord('listing', id, data)),
   deleteListing: (id) => dispatch(actions.deleteRecord('listing', 'listings', id)),
-  findListings: (companyID) => dispatch(actions.fetchRelated('company', companyID, 'listings')),
+  findListings: (companyID) => dispatch(
+    actions.fetchRelated('company', companyID, 'listings', 'listing')
+  ),
   findBrands: () => dispatch(actions.findRecords('brand')),
-  findCategories: (brandId) => dispatch(actions.fetchRelated('brand', brandId, 'categories')),
-  createListing: (name, brand, brandId, categories, companyID) =>
+  findCategories: (brandId) => dispatch(
+    actions.fetchRelated('brand', brandId, 'categories', 'category')
+  ),
+  createListing: ({ brand, brandId, categories, companyID }) =>
     dispatch(actions.createRecord('listing', {
       brand,
       brandId,

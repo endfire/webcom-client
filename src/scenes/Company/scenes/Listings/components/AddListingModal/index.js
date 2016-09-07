@@ -16,7 +16,6 @@ const AddListingModal = withModal(
     brands,
     categories,
     findCategories,
-    setSelectedBrand,
   }) => (
     <AddListingDialog
       closeModal={closeModal}
@@ -26,7 +25,6 @@ const AddListingModal = withModal(
       brands={brands}
       categories={categories}
       findCategories={findCategories}
-      setSelectedBrand={setSelectedBrand}
     />
   ),
 );
@@ -56,19 +54,21 @@ class AddListingDialog extends Component {
 
     if (isCreateLoading) return;
 
-    createListing(brand, brandId, categories, companyID);
+    createListing({ brand, brandId, categories, companyID });
     closeModal();
   }
 
   handleMultiChange(value) {
-    console.log(value);
-    this.setState({ categories: value });
+    this.setState({
+      categories: value.map(category => category.value),
+    });
   }
 
   handleSelectChange(val) {
+    this.setState({ categories: [] });
+
     if (val) {
       this.props.findCategories(val.value);
-      this.props.setSelectedBrand(val.value);
       this.setState({ brandId: val.value });
       this.setState({ brand: val.label });
     } else {
@@ -78,15 +78,21 @@ class AddListingDialog extends Component {
   }
 
   renderCategorySelect(handleMultiChange) {
-    return (
-      <Select
-        name="categories"
-        value={this.state.categories}
-        options={this.state.categoryOptions}
-        onChange={handleMultiChange}
-        multi
-      />
-    );
+    if (this.state.brand) {
+      return (
+        <Select
+          name="categories"
+          value={this.state.categories}
+          options={this.state.categoryOptions.filter(category => (
+            category.brand === this.state.brandId
+          ))}
+          onChange={handleMultiChange}
+          multi
+        />
+      );
+    }
+
+    return '';
   }
   render() {
     const { handleSubmit, handleSelectChange, handleMultiChange } = this;
@@ -107,11 +113,7 @@ class AddListingDialog extends Component {
                   onChange={handleSelectChange}
                   placeholder="Please select a brand"
                 /><br />
-                {
-                  this.state.brand === ''
-                    ? 'Please select a brand.'
-                    : this.renderCategorySelect(handleMultiChange)
-                }
+                {this.renderCategorySelect(handleMultiChange)}
                 <br />
                 <Button type="submit">Save Change</Button>
               </form>
@@ -134,7 +136,6 @@ AddListingDialog.propTypes = {
   brands: PropTypes.array,
   findCategories: PropTypes.func,
   categories: PropTypes.array,
-  setSelectedBrand: PropTypes.func,
 };
 
 export default AddListingModal;
