@@ -45,7 +45,9 @@ export const getLoggedInCompany = createSelector(
 
 export const getBrandSelectOptions = createSelector(
   [getBrands],
-  (brands) => brands.map(brand => ({
+  (brands) => brands.filter(brand => (
+    brand.get('obg') === true
+  )).map(brand => ({
     value: brand.get('id'),
     label: brand.get('name'),
   })).toArray()
