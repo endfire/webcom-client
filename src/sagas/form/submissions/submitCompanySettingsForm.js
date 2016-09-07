@@ -34,6 +34,7 @@ function* submitCompanySettingsForm(action) {
       url: fields.getIn(['url', 'value']),
       email: fields.getIn(['email', 'value']),
       description: fields.getIn(['description', 'value']),
+      approved: false,
     });
 
     yield put(syncStore('company', updatedRecord));
