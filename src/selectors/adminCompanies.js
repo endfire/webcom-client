@@ -24,14 +24,9 @@ const getListings = createSelector(
   (store) => store.getIn(['entities', 'listings'])
 );
 
-const getBrands = createSelector(
+const getAds = createSelector(
   [getStore],
-  (store) => store.getIn(['entities', 'brands'])
-);
-
-const getCategories = createSelector(
-  [getStore],
-  (store) => store.getIn(['entities', 'categories'])
+  (store) => store.getIn(['entities', 'ads'])
 );
 
 export const getCurrentCompanyPeople = (companyID) => (
@@ -48,28 +43,9 @@ export const getCurrentCompanyListings = (companyID) => (
   )
 );
 
-export const getBrandSelectOptions = createSelector(
-  [getBrands],
-  (brands) => brands.filter(brand => (
-    brand.get('obg') === true
-  )).map(brand => ({
-    value: brand.get('id'),
-    label: brand.get('name'),
-  })).toArray()
+export const getCurrentCompanyAds = (companyID) => (
+  createSelector(
+    [getAds],
+    (ads) => ads.filter(ad => ad.get('company') === companyID)
+  )
 );
-
-export const getCategorySelectOptions = createSelector(
-  [getCategories],
-  (categories) => categories.map(category => ({
-    value: category.get('id'),
-    label: category.get('name'),
-    brand: category.get('brand'),
-  })).toArray()
-);
-
-/*
-export const getAds = createSelector(
-  [getStore],
-  (store) => store.getIn(['entities', 'ads'])
-);
-*/

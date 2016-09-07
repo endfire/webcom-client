@@ -29,6 +29,7 @@ export default {
       description: true,
       password: true,
       meta: true,
+      approved: true,
     },
     relationships: {
       listings: getRelationship(MANY, types.LISTING, 'company'),
