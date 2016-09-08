@@ -132,7 +132,6 @@ export default {
       label: true,
       placeholder: true,
       type: true,
-      value: true,
       meta: true,
       isRequired: true,
     },
