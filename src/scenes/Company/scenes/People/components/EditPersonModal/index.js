@@ -1,17 +1,14 @@
 import React, { PropTypes, Component } from 'react';
-import { Button, Card, Container, Row, Col, withModal, ButtonGroup } from 'paintcan';
+import { Button, withModal, ButtonGroup } from 'paintcan';
 import Select from 'react-select';
-
-const h3Style = {
-  cursor: 'pointer',
-  color: 'blue',
-};
+import { ModalDialog } from 'components';
+import listItem from 'styles/listItem';
 
 const EditPersonModal = withModal(
   ({ isOpen, openModal, item }) => (
-    <h3 active={isOpen} onClick={openModal} style={h3Style}>
+    <p active={isOpen} onClick={openModal} style={listItem}>
       {item.get('name')}
-    </h3>
+    </p>
   ),
   ({ closeModal, item, updatePerson, isUpdateLoading, jobSelectOptions }) => (
     <EditPersonDialog
@@ -76,67 +73,60 @@ class EditPersonDialog extends Component {
     const { person, closeModal, jobSelectOptions } = this.props;
 
     return (
-      <Container fluid>
-        <Row align={{ xs: 'center' }}>
-          <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
-            <Card>
-              <h3>Edit {person.get('name')}</h3>
-              <form onSubmit={handleSubmit}>
-                <fieldset>
-                  <label htmlFor="name">Name</label><br />
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    onChange={handleChange}
-                    value={this.state.name}
-                  />
-                </fieldset>
-                <fieldset>
-                  <label htmlFor="email">Email</label><br />
-                  <input
-                    type="text"
-                    id="email"
-                    name="email"
-                    onChange={handleChange}
-                    value={this.state.email}
-                  />
-                </fieldset>
-                <fieldset>
-                  <label htmlFor="phone">Phone Number</label><br />
-                  <input
-                    type="text"
-                    id="phone"
-                    name="phone"
-                    onChange={handleChange}
-                    value={this.state.phone}
-                  />
-                </fieldset>
-                <fieldset>
-                  <label htmlFor="job">Job Title</label><br />
-                  <Select
-                    name="job"
-                    value={this.state.job}
-                    options={jobSelectOptions}
-                    onChange={handleSelectChange}
-                    placeholder="Please select a job title"
-                  />
-                </fieldset>
-                <fieldset>
-                  <ButtonGroup spaced>
-                    <Button type="submit" color="primary">
-                      Submit
-                    </Button>
-                    <Button type="button" color="danger" onClick={closeModal}>
-                      Cancel
-                    </Button>
-                  </ButtonGroup>
-                </fieldset>
-              </form>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+      <ModalDialog title={`Edit ${person.get('name')}`} size="sm" closeModal={closeModal}>
+        <form onSubmit={handleSubmit}>
+          <fieldset>
+            <label htmlFor="name">Name</label><br />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              onChange={handleChange}
+              value={this.state.name}
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="email">Email</label><br />
+            <input
+              type="text"
+              id="email"
+              name="email"
+              onChange={handleChange}
+              value={this.state.email}
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="phone">Phone Number</label><br />
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              onChange={handleChange}
+              value={this.state.phone}
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="job">Job Title</label><br />
+            <Select
+              name="job"
+              value={this.state.job}
+              options={jobSelectOptions}
+              onChange={handleSelectChange}
+              placeholder="Please select a job title"
+            />
+          </fieldset>
+          <fieldset>
+            <ButtonGroup spaced>
+              <Button type="submit" color="primary">
+                Submit
+              </Button>
+              <Button type="button" color="danger" onClick={closeModal}>
+                Cancel
+              </Button>
+            </ButtonGroup>
+          </fieldset>
+        </form>
+      </ModalDialog>
     );
   }
 }

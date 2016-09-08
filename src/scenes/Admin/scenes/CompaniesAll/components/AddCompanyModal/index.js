@@ -1,32 +1,34 @@
 import React, { PropTypes, Component } from 'react';
-import { Button, ButtonGroup, withModal } from 'paintcan';
+import { Button, withModal, ButtonGroup } from 'paintcan';
 import { ModalDialog } from 'components';
 
-const AddPersonModal = withModal(
+const AddCompanyModal = withModal(
   ({ isOpen, openModal }) => (
     <Button active={isOpen} onClick={openModal} color="primary">
-      Add a new person
+      Add a new company
     </Button>
   ),
-  ({ closeModal, createPerson, isCreateLoading, companyID }) => (
-    <AddPersonDialog
+  ({
+    closeModal,
+    createCompany,
+    isCreateLoading,
+  }) => (
+    <AddCompanyDialog
       closeModal={closeModal}
-      createPerson={createPerson}
+      createCompany={createCompany}
       isCreateLoading={isCreateLoading}
-      companyID={companyID}
     />
   ),
 );
 
-class AddPersonDialog extends Component {
+class AddCompanyDialog extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       name: '',
       email: '',
-      phone: '',
-      job: '',
+      password: '',
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,12 +38,20 @@ class AddPersonDialog extends Component {
   handleSubmit(e) {
     e.preventDefault();
 
-    const { isCreateLoading, createPerson, closeModal, companyID } = this.props;
-    const { name, email, phone, job } = this.state;
+    const { isCreateLoading, createCompany, closeModal } = this.props;
+    const { name, email, password } = this.state;
 
     if (isCreateLoading) return;
 
-    createPerson(name, email, phone, job, companyID);
+    createCompany({
+      name,
+      email,
+      password,
+      listings: [],
+      ads: [],
+      people: [],
+      approved: true,
+    });
     closeModal();
   }
 
@@ -55,7 +65,7 @@ class AddPersonDialog extends Component {
     const { closeModal } = this.props;
 
     return (
-      <ModalDialog title="Add a new person" size="sm" closeModal={closeModal}>
+      <ModalDialog title="Add a new company" size="sm" closeModal={closeModal}>
         <form onSubmit={handleSubmit}>
           <fieldset>
             <label htmlFor="name">Name</label><br />
@@ -65,42 +75,30 @@ class AddPersonDialog extends Component {
               name="name"
               onChange={handleChange}
               value={this.state.name}
+              placeholder="Apple"
             />
           </fieldset>
           <fieldset>
-            <label htmlFor="email">Email</label><br />
+            <label htmlFor="name">Email</label><br />
             <input
               type="text"
               id="email"
               name="email"
               onChange={handleChange}
               value={this.state.email}
+              placeholder="john@apple.com"
             />
           </fieldset>
           <fieldset>
-            <label htmlFor="phone">Phone Number</label><br />
+            <label htmlFor="name">Password</label><br />
             <input
-              type="text"
-              id="phone"
-              name="phone"
+              type="password"
+              id="password"
+              name="password"
               onChange={handleChange}
-              value={this.state.phone}
+              value={this.state.password}
+              placeholder="••••••••"
             />
-          </fieldset>
-          <fieldset>
-            <label htmlFor="job">Job Title</label><br />
-            <select id="job" name="job" onChange={handleChange} value={this.state.job}>
-              <option value="Admin/HR/Legal">Admin/HR/Legal</option>
-              <option value="Finance/Purchasing">Finance/Purchasing</option>
-              <option value="Gen/Corp Management">Gen/Corp Management</option>
-              <option value="IT/MIS">IT/MIS</option>
-              <option value="Nurse/NP">Nurse/NP</option>
-              <option value="Physician/MP">Physician/MP</option>
-              <option value="RD/Engineering/Tech">RD/Engineering/Tech</option>
-              <option value="Sales/Marketing/Customer Service">
-                Sales/Marketing/Customer Service
-              </option>
-            </select>
           </fieldset>
           <fieldset>
             <ButtonGroup spaced>
@@ -118,11 +116,10 @@ class AddPersonDialog extends Component {
   }
 }
 
-AddPersonDialog.propTypes = {
+AddCompanyDialog.propTypes = {
   closeModal: PropTypes.func,
-  createPerson: PropTypes.func,
+  createCompany: PropTypes.func,
   isCreateLoading: PropTypes.bool,
-  companyID: PropTypes.string,
 };
 
-export default AddPersonModal;
+export default AddCompanyModal;

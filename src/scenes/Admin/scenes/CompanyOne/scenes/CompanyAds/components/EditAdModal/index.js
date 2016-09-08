@@ -1,8 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import DatePicker from 'react-datepicker';
-import { Button, Card, Container, Row, Col, withModal, ButtonGroup } from 'paintcan';
+import { Button, withModal, ButtonGroup } from 'paintcan';
 import Select from 'react-select';
 import moment from 'moment';
+import { ModalDialog } from 'components';
 
 const EditAdModal = withModal(
   ({ isOpen, openModal, item }) => (
@@ -116,87 +117,79 @@ class EditAdDialog extends Component {
     const { ad, closeModal } = this.props;
 
     return (
-      // this could be a presentational component that is a sibling in this 'components' folder
-      <Container fluid>
-        <Row align={{ xs: 'center' }}>
-          <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
-            <Card>
-              <h3>Edit {ad.get('brand')} Ad</h3>
-              <form onSubmit={handleSubmit}>
-                <fieldset>
-                  <label>Select all categories for this ad</label><br />
-                  <Select
-                    name="categories"
-                    value={this.state.categories}
-                    options={this.state.categoryOptions.filter(category => (
-                      category.brand === this.state.brandId
-                    ))}
-                    onChange={handleMultiChange}
-                    multi
-                  />
-                </fieldset>
-                <fieldset>
-                  <label htmlFor="name">Image URL</label><br />
-                  <input
-                    type="text"
-                    id="image"
-                    name="image"
-                    onChange={handleChange}
-                    value={this.state.image}
-                    placeholder="http://example.com/image.jpg"
-                  />
-                </fieldset>
-                <fieldset>
-                  <label htmlFor="name">Ad URL</label><br />
-                  <input
-                    type="text"
-                    id="url"
-                    name="url"
-                    onChange={handleChange}
-                    value={this.state.url}
-                    placeholder="http://example.com"
-                  />
-                </fieldset>
-                <fieldset>
-                  <label>Start date</label><br />
-                  <DatePicker
-                    selected={this.state.start}
-                    onChange={handleStartChange}
-                  />
-                </fieldset>
-                <fieldset>
-                  <label>End date</label><br />
-                  <DatePicker
-                    selected={this.state.end}
-                    onChange={handleEndChange}
-                  />
-                </fieldset>
-                <fieldset>
-                  <label htmlFor="name">Priority</label><br />
-                  <input
-                    type="text"
-                    id="priority"
-                    name="priority"
-                    onChange={handleChange}
-                    value={this.state.priority}
-                    placeholder="1 - 100"
-                  />
-                </fieldset>
-                <fieldset>
-                  <ButtonGroup spaced>
-                    <Button type="submit" color="primary">
-                      Submit
-                    </Button>
-                    <Button type="button" color="danger" onClick={closeModal}>
-                      Cancel
-                    </Button>
-                  </ButtonGroup>
-                </fieldset>
-              </form>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+      <ModalDialog title={`Edit ${ad.get('brand')} Ad`} size="sm" closeModal={closeModal}>
+        <form onSubmit={handleSubmit}>
+          <fieldset>
+            <label>Select all categories for this ad</label><br />
+            <Select
+              name="categories"
+              value={this.state.categories}
+              options={this.state.categoryOptions.filter(category => (
+                category.brand === this.state.brandId
+              ))}
+              onChange={handleMultiChange}
+              multi
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="name">Image URL</label><br />
+            <input
+              type="text"
+              id="image"
+              name="image"
+              onChange={handleChange}
+              value={this.state.image}
+              placeholder="http://example.com/image.jpg"
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="name">Ad URL</label><br />
+            <input
+              type="text"
+              id="url"
+              name="url"
+              onChange={handleChange}
+              value={this.state.url}
+              placeholder="http://example.com"
+            />
+          </fieldset>
+          <fieldset>
+            <label>Start date</label><br />
+            <DatePicker
+              selected={this.state.start}
+              onChange={handleStartChange}
+            />
+          </fieldset>
+          <fieldset>
+            <label>End date</label><br />
+            <DatePicker
+              selected={this.state.end}
+              onChange={handleEndChange}
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="name">Priority</label><br />
+            <input
+              type="text"
+              id="priority"
+              name="priority"
+              onChange={handleChange}
+              value={this.state.priority}
+              placeholder="1 - 100"
+            />
+          </fieldset>
+          <fieldset>
+            <ButtonGroup spaced>
+              <Button type="submit" color="primary">
+                Submit
+              </Button>
+              <Button type="button" color="danger" onClick={closeModal}>
+                Cancel
+              </Button>
+            </ButtonGroup>
+          </fieldset>
+        </form>
+      </ModalDialog>
     );
   }
 }

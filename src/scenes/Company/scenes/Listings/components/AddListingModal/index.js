@@ -1,7 +1,7 @@
 import React, { PropTypes, Component } from 'react';
-import { Button, Card, Container, Row, Col, withModal, ButtonGroup } from 'paintcan';
+import { Button, withModal, ButtonGroup } from 'paintcan';
 import Select from 'react-select';
-import 'react-select/dist/react-select.css';
+import { ModalDialog } from 'components';
 
 const AddListingModal = withModal(
   ({ isOpen, openModal }) => (
@@ -106,38 +106,31 @@ class AddListingDialog extends Component {
     const { closeModal } = this.props;
 
     return (
-      <Container fluid>
-        <Row align={{ xs: 'center' }}>
-          <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
-            <Card>
-              <h3>Add new listing</h3>
-              <form onSubmit={handleSubmit}>
-                <fieldset>
-                  <label htmlFor="name">Select a brand</label><br />
-                  <Select
-                    name="brand"
-                    value={this.state.brandId}
-                    options={this.state.brandOptions}
-                    onChange={handleSelectChange}
-                    placeholder="Please select a brand"
-                  />
-                </fieldset>
-                {this.renderCategorySelect(handleMultiChange)}
-                <fieldset>
-                  <ButtonGroup spaced>
-                    <Button type="submit" color="primary">
-                      Submit
-                    </Button>
-                    <Button type="button" color="danger" onClick={closeModal}>
-                      Cancel
-                    </Button>
-                  </ButtonGroup>
-                </fieldset>
-              </form>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+      <ModalDialog title="Add a new listing" size="sm" closeModal={closeModal}>
+        <form onSubmit={handleSubmit}>
+          <fieldset>
+            <label htmlFor="name">Select a brand</label><br />
+            <Select
+              name="brand"
+              value={this.state.brandId}
+              options={this.state.brandOptions}
+              onChange={handleSelectChange}
+              placeholder="Please select a brand"
+            />
+          </fieldset>
+          {this.renderCategorySelect(handleMultiChange)}
+          <fieldset>
+            <ButtonGroup spaced>
+              <Button type="submit" color="primary">
+                Submit
+              </Button>
+              <Button type="button" color="danger" onClick={closeModal}>
+                Cancel
+              </Button>
+            </ButtonGroup>
+          </fieldset>
+        </form>
+      </ModalDialog>
     );
   }
 }

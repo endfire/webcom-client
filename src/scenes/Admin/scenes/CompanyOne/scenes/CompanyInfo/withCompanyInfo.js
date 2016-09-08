@@ -20,7 +20,9 @@ const CompanyInfoForm = ({
         placeholder="Company, Inc."
         value={values ? values.getIn(['name', 'value']) : ''}
         onChange={(e) => handleChange('name', e.target.value)}
-      /><br />
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="street">Street</label><br />
       <input
         id="street"
@@ -28,7 +30,9 @@ const CompanyInfoForm = ({
         placeholder="123 Maple Street"
         value={values ? values.getIn(['street', 'value']) : ''}
         onChange={(e) => handleChange('street', e.target.value)}
-      /><br />
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="city">City</label><br />
       <input
         id="city"
@@ -36,7 +40,9 @@ const CompanyInfoForm = ({
         placeholder="Anytown"
         value={values ? values.getIn(['city', 'value']) : ''}
         onChange={(e) => handleChange('city', e.target.value)}
-      /><br />
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="state">State</label><br />
       <input
         id="state"
@@ -44,7 +50,9 @@ const CompanyInfoForm = ({
         placeholder="Colorado"
         value={values ? values.getIn(['state', 'value']) : ''}
         onChange={(e) => handleChange('state', e.target.value)}
-      /><br />
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="zip">Zip Code</label><br />
       <input
         id="zip"
@@ -52,7 +60,9 @@ const CompanyInfoForm = ({
         placeholder="80123"
         value={values ? values.getIn(['zip', 'value']) : ''}
         onChange={(e) => handleChange('zip', e.target.value)}
-      /><br />
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="phone">Phone Number</label><br />
       <input
         id="phone"
@@ -60,7 +70,9 @@ const CompanyInfoForm = ({
         placeholder="123-456-7890"
         value={values ? values.getIn(['phone', 'value']) : ''}
         onChange={(e) => handleChange('phone', e.target.value)}
-      /><br />
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="url">Company URL</label><br />
       <input
         id="url"
@@ -68,7 +80,9 @@ const CompanyInfoForm = ({
         placeholder="http://companyname.com"
         value={values ? values.getIn(['url', 'value']) : ''}
         onChange={(e) => handleChange('url', e.target.value)}
-      /><br />
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="email">Email</label><br />
       <input
         id="email"
@@ -76,7 +90,9 @@ const CompanyInfoForm = ({
         placeholder="company@domain.com"
         value={values ? values.getIn(['email', 'value']) : ''}
         onChange={(e) => handleChange('email', e.target.value)}
-      /><br />
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="description">Description</label><br />
       <input
         id="description"
@@ -86,14 +102,16 @@ const CompanyInfoForm = ({
         onChange={(e) => handleChange('description', e.target.value)}
       />
     </fieldset>
-    <ButtonGroup spaced>
-      <Button type="submit" color="primary" loading={isSubmitting}>
-        Submit
-      </Button>
-      <Button type="button" color="danger" onClick={revert}>
-        Cancel
-      </Button>
-    </ButtonGroup>
+    <fieldset>
+      <ButtonGroup spaced>
+        <Button type="submit" color="primary" loading={isSubmitting}>
+          Submit
+        </Button>
+        <Button type="button" color="danger" onClick={revert}>
+          Cancel
+        </Button>
+      </ButtonGroup>
+    </fieldset>
   </form>
 );
 

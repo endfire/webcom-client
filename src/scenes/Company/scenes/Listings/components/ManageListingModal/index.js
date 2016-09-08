@@ -1,17 +1,14 @@
 import React, { PropTypes, Component } from 'react';
-import { Button, Card, Container, Row, Col, withModal, ButtonGroup } from 'paintcan';
+import { Button, withModal, ButtonGroup } from 'paintcan';
 import Select from 'react-select';
-
-const h3Style = {
-  cursor: 'pointer',
-  color: 'blue',
-};
+import { ModalDialog } from 'components';
+import listItem from 'styles/listItem';
 
 const ManageListingsModal = withModal(
   ({ isOpen, openModal, item }) => (
-    <h3 active={isOpen} onClick={openModal} style={h3Style}>
+    <p active={isOpen} onClick={openModal} style={listItem}>
       {item.get('brand')}
-    </h3>
+    </p>
   ),
   ({ closeModal, item, updateListing, isUpdateLoading, categories }) => (
     <EditListingDialog
@@ -71,39 +68,36 @@ class EditListingDialog extends Component {
     const { listing, closeModal } = this.props;
 
     return (
-      <Container fluid>
-        <Row align={{ xs: 'center' }}>
-          <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
-            <Card>
-              <h3>Edit {listing.get('brand')} Listing</h3>
-              <form onSubmit={handleSubmit}>
-                <fieldset>
-                  <label htmlFor="name">Remove or add categories for this listing</label><br />
-                  <Select
-                    name="categories"
-                    value={this.state.categories}
-                    options={this.state.categoryOptions.filter(category => (
-                      category.brand === listing.get('brandId')
-                    ))}
-                    onChange={handleMultiChange}
-                    multi
-                  />
-                </fieldset>
-                <fieldset>
-                  <ButtonGroup spaced>
-                    <Button type="submit" color="primary">
-                      Submit
-                    </Button>
-                    <Button type="button" color="danger" onClick={closeModal}>
-                      Cancel
-                    </Button>
-                  </ButtonGroup>
-                </fieldset>
-              </form>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+      <ModalDialog
+        title={`Edit ${listing.get('brand')} Listing`}
+        size="sm"
+        closeModal={closeModal}
+      >
+        <form onSubmit={handleSubmit}>
+          <fieldset>
+            <label htmlFor="name">Remove or add categories for this listing</label><br />
+            <Select
+              name="categories"
+              value={this.state.categories}
+              options={this.state.categoryOptions.filter(category => (
+                category.brand === listing.get('brandId')
+              ))}
+              onChange={handleMultiChange}
+              multi
+            />
+          </fieldset>
+          <fieldset>
+            <ButtonGroup spaced>
+              <Button type="submit" color="primary">
+                Submit
+              </Button>
+              <Button type="button" color="danger" onClick={closeModal}>
+                Cancel
+              </Button>
+            </ButtonGroup>
+          </fieldset>
+        </form>
+      </ModalDialog>
     );
   }
 }
