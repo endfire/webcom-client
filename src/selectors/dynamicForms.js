@@ -16,3 +16,15 @@ export const getFormPayment = (form) => (
     (store) => store.getIn(['entities', 'payments', form.get('payment')])
   )
 );
+
+const getForms = createSelector(
+  [getStore],
+  (store) => store.getIn(['entities', 'forms'])
+);
+
+export const getCurrentForm = (formID) => (
+  createSelector(
+    [getForms],
+    (forms) => forms.get(formID)
+  )
+);

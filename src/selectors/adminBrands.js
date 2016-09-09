@@ -37,10 +37,3 @@ export const getCurrentBrandForms = (brandID) => (
     (forms) => forms.filter(val => val.get('brand') === brandID)
   )
 );
-
-export const getCurrentForm = (formID) => (
-  createSelector(
-    [getForms],
-    (forms) => forms.get(formID)
-  )
-);
