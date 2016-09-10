@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Button } from 'paintcan';
+import { Button } from 'paintcan';
 import { List, EditCategoryModal, AddCategoryModal } from './components';
 import { getCurrentBrand, getCurrentBrandCategories } from 'selectors/adminBrands';
 import { getCanUserDelete } from 'selectors/admin';
 import { getIsCreateLoading, getIsUpdateLoading, getIsDeleteLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
+import styles from './styles.scss';
 
 const BrandOBG = ({
   brand,
@@ -27,23 +28,23 @@ const BrandOBG = ({
   };
 
   const obgUninitialized = (
-    <Button onClick={initializeOBG}>Initialize {brand.get('name')} OBG</Button>
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
+        <Button onClick={initializeOBG} color="success">Initialize {brand.get('name')} OBG</Button>
+      </div>
+    </div>
   );
 
   const obgInitialized = (
-    <Container fluid><br />
-      <Row>
-        <Col>
-          <p>{`${brand.get('name')} OBG`}</p>
-          <Button onClick={uninitializeOBG}>Uninitialize OBG</Button>
-          <AddCategoryModal
-            createCategory={createCategory}
-            isCreateLoading={isCreateLoading}
-          /><br /><br /><br />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
+        <AddCategoryModal
+          createCategory={createCategory}
+          isCreateLoading={isCreateLoading}
+        /> &nbsp;
+        <Button onClick={uninitializeOBG} color="success">Uninitialize OBG</Button>
+      </div>
+      <div className={styles.container}>
         {categories
           ? <List
             items={categories}
@@ -54,9 +55,8 @@ const BrandOBG = ({
             isUpdateLoading={isUpdateLoading}
           /></List>
           : 'Loading...'}
-        </Col>
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 
   return brand.get('obg') ? obgInitialized : obgUninitialized;

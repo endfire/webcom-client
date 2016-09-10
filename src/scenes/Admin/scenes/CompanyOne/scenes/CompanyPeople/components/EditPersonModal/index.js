@@ -1,12 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, ButtonGroup, withModal } from 'paintcan';
 import { ModalDialog } from 'components';
+import listItem from 'styles/listItem';
 
 const EditPersonModal = withModal(
   ({ isOpen, openModal, item }) => (
-    <Button active={isOpen} onClick={openModal} color="primary">
+    <p active={isOpen} onClick={openModal} style={listItem}>
       {item.get('name')}
-    </Button>
+    </p>
   ),
   ({ closeModal, item, updatePerson, isUpdateLoading }) => (
     <EditPersonDialog

@@ -1,13 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddListingModal, ManageListingModal } from './components';
 import { getCanUserDelete } from 'selectors/admin';
 import * as actions from 'actions/store';
 import { getCurrentCompanyListings } from 'selectors/adminCompanies';
 import { getBrandSelectOptions, getCategorySelectOptions } from 'selectors/company';
-
+import styles from './styles.scss';
 
 class Listings extends Component {
   constructor(props) {
@@ -45,31 +44,31 @@ class Listings extends Component {
     } = this.props;
 
     return (
-      <Container fluid><br />
-        <Row>
-          <Col size={{ xs: 4 }} align={{ xs: 'left' }}>
-            <AddListingModal
-              createListing={createListing}
-              isCreateLoading={isCreateLoading}
-              companyID={companyID}
-              brands={brands}
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <AddListingModal
+            createListing={createListing}
+            isCreateLoading={isCreateLoading}
+            companyID={companyID}
+            brands={brands}
+            categories={categories}
+            findCategories={findCategories}
+          />
+        </div>
+        <div className={styles.container}>
+          {listings
+            ? <List
+              items={listings}
+              handleDelete={this.handleDelete}
+              canUserDelete={canUserDelete}
+            ><ManageListingModal
+              updateListing={updateListing}
               categories={categories}
-              findCategories={findCategories}
-            /><br /><br /><br />
-            {listings
-              ? <List
-                items={listings}
-                handleDelete={this.handleDelete}
-                canUserDelete={canUserDelete}
-              ><ManageListingModal
-                updateListing={updateListing}
-                categories={categories}
-                isUpdateLoading={isUpdateLoading}
-              /></List>
-              : 'Loading...'}
-          </Col>
-        </Row>
-      </Container>
+              isUpdateLoading={isUpdateLoading}
+            /></List>
+            : 'Loading...'}
+        </div>
+      </div>
     );
   }
 }

@@ -2,12 +2,13 @@ import React, { PropTypes, Component } from 'react';
 import { Button, ButtonGroup, withModal } from 'paintcan';
 import Select from 'react-select';
 import { ModalDialog } from 'components';
+import listItem from 'styles/listItem';
 
 const ManageListingsModal = withModal(
   ({ isOpen, openModal, item }) => (
-    <Button active={isOpen} onClick={openModal} color="primary">
+    <p active={isOpen} onClick={openModal} style={listItem}>
       {item.get('brand')}
-    </Button>
+    </p>
   ),
   ({ closeModal, item, updateListing, isUpdateLoading, categories }) => (
     <EditListingDialog
