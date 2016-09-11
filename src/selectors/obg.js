@@ -1,10 +1,11 @@
 import { createSelector } from 'reselect';
+import moment from 'moment';
 
 const getStore = (state) => state.store;
 
 const getAds = createSelector(
   [getStore],
-  (store) => store.getIn(['entities', 'people'])
+  (store) => store.getIn(['entities', 'ads'])
 );
 
 const getListings = createSelector(
@@ -20,6 +21,18 @@ const getBrands = createSelector(
 const getCategories = createSelector(
   [getStore],
   (store) => store.getIn(['entities', 'categories'])
+);
+
+const getCompanies = createSelector(
+  [getStore],
+  (store) => store.getIn(['entities', 'companies'])
+);
+
+export const getCategoryObgAds = createSelector(
+  [getAds],
+  (ads) => ads.filter(ad => (
+    moment().isAfter(ad.get('start')) && moment().isBefore(ad.get('end'))
+  ))
 );
 
 export const getCurrentBrand = (brandID) => (
@@ -43,15 +56,13 @@ export const getCategorySelectOptions = (brandID) => (
 );
 
 export const getCategoryObgListings = createSelector(
-  [getListings],
-  (listings) => listings.map(listing => ({
-    brand: listing.get('brand'),
-  }))
-);
-
-export const getCategoryObgAds = createSelector(
-  [getAds],
-  (ads) => ads.map(ad => ({
-    brand: ad.get('brand'),
-  }))
+  [getListings, getCompanies],
+  (listings, companies) => listings.map(listing => {
+    console.log(listing.get('company'));
+    console.log(companies);
+    return {
+      company: companies.get(listing.get('company')),
+      categories: listing.get('categories'),
+    };
+  })
 );

@@ -23,7 +23,6 @@ class OBG extends Component {
       listings,
       ads,
       fetchAds,
-      fetchCategories,
       fetchListings,
     } = this.props;
 
@@ -38,7 +37,6 @@ class OBG extends Component {
           listings={listings}
           ads={ads}
           fetchAds={fetchAds}
-          fetchCategories={fetchCategories}
           fetchListings={fetchListings}
         />
       </div>
@@ -63,9 +61,6 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchBrand: () => dispatch(actions.fetchRecord('brand', ownProps.params.brandID)),
   fetchAds: (categoryID) => dispatch(actions.fetchRelated('category', categoryID, 'ads', 'ad')),
-  fetchCategories: () => dispatch(
-    actions.fetchRelated('brand', ownProps.params.brandID, 'categories', 'category')
-  ),
   fetchListings: (categoryID) => dispatch(
     actions.fetchRelated('category', categoryID, 'listings', 'listing')
   ),
@@ -74,10 +69,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 OBG.propTypes = {
   brand: PropTypes.object,
   categoryOptions: PropTypes.array,
-  listings: PropTypes.array,
+  listings: PropTypes.object,
   ads: PropTypes.object,
   fetchBrand: PropTypes.func,
-  fetchCategories: PropTypes.func,
   fetchListings: PropTypes.func,
   fetchAds: PropTypes.func,
 };

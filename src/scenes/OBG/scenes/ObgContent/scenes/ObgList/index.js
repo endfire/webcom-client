@@ -1,39 +1,27 @@
-import React, { PropTypes, Component } from 'react';
+import React, { PropTypes } from 'react';
+import { ListingList, AdList } from './components';
 
-class ObgList extends Component {
-  componentDidMount() {
-    const { category, fetchListings, fetchAds } = this.props;
-
-    console.log(category);
-
-    fetchListings(category);
-    fetchAds(category);
-  }
-
-  render() {
-    /* const {
-      brand,
-      listings,
-      ads,
-      fetchAds,
-      fetchListings,
-    } = this.props; */
-
-    // Need link to login and signup
-    return (
-      <div>
-      </div>
-    );
-  }
-}
+// Need link to login and signup
+const ObgList = ({ listings, ads, category }) => (
+  <div>
+    <AdList
+      items={ads.filter(ad => (
+        ad.get('categories').includes(category)
+      ))}
+    /><br />
+    <ListingList
+      items={listings.filter(listing => (
+        listing.categories.includes(category)
+      ))}
+    />
+  </div>
+);
 
 ObgList.propTypes = {
   brand: PropTypes.object,
-  listings: PropTypes.array,
+  listings: PropTypes.object,
   ads: PropTypes.object,
   category: PropTypes.string,
-  fetchListings: PropTypes.func,
-  fetchAds: PropTypes.func,
 };
 
 export default ObgList;

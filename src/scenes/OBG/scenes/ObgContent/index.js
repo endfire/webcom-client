@@ -14,15 +14,11 @@ class ObgContent extends Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
   }
 
-  componentDidMount() {
-    const { fetchCategories } = this.props;
-
-    fetchCategories();
-  }
-
   handleSelectChange(value) {
     if (value) {
       this.setState({ category: value.value });
+      this.props.fetchListings(value.value);
+      this.props.fetchAds(value.value);
     } else {
       this.setState({ category: '' });
     }
@@ -79,9 +75,8 @@ class ObgContent extends Component {
 ObgContent.propTypes = {
   brand: PropTypes.object,
   categoryOptions: PropTypes.array,
-  listings: PropTypes.array,
+  listings: PropTypes.object,
   ads: PropTypes.object,
-  fetchCategories: PropTypes.func,
   fetchListings: PropTypes.func,
   fetchAds: PropTypes.func,
 };
