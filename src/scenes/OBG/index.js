@@ -9,6 +9,8 @@ import {
   getCategoryObgAds,
 } from 'selectors/obg';
 
+import styles from './styles.scss';
+
 class OBG extends Component {
   componentDidMount() {
     const { fetchBrand } = this.props;
@@ -27,18 +29,26 @@ class OBG extends Component {
     } = this.props;
 
     const renderOBG = () => (
-      <div>
-        {`${brand.get('name')} OBG`}<br />
-        {brand.get('image')}
-        <br />
-        <ObgContent
-          brand={brand}
-          categoryOptions={categoryOptions}
-          listings={listings}
-          ads={ads}
-          fetchAds={fetchAds}
-          fetchListings={fetchListings}
-        />
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <h3>{`${brand.get('name')} OBG`}</h3>
+        </div>
+        <div className={styles.headImage}>
+          <img
+            src={brand.get('image')}
+            alt={brand.get('name')}
+          />
+        </div>
+        <div className={styles.header}>
+          <ObgContent
+            brand={brand}
+            categoryOptions={categoryOptions}
+            listings={listings}
+            ads={ads}
+            fetchAds={fetchAds}
+            fetchListings={fetchListings}
+          />
+        </div>
       </div>
     );
 

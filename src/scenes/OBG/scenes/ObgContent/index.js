@@ -36,7 +36,7 @@ class ObgContent extends Component {
 
     const renderContent = () => (
       this.state.category === ''
-      ? 'Please select a category'
+      ? <div></div>
       : <div>
         <ObgList
           brand={brand}
@@ -51,13 +51,13 @@ class ObgContent extends Component {
 
     const renderOBG = () => (
       <div>
-        <label htmlFor="name">Select a category</label><br />
+        <label htmlFor="name">Select a product or service to see its providers.</label><br />
         <Select
           name="category"
           value={this.state.category}
           options={this.state.categoryOptions}
           onChange={handleSelectChange}
-          placeholder="Please select a category"
+          placeholder="Please select a product or service."
         />
         {renderContent()}
       </div>
