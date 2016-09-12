@@ -13,7 +13,6 @@ export default {
       email: true,
       password: true,
       role: true,
-      meta: true,
     },
   },
   [types.COMPANY]: {
@@ -28,7 +27,6 @@ export default {
       email: true,
       description: true,
       password: true,
-      meta: true,
       approved: true,
     },
     relationships: {
@@ -39,7 +37,6 @@ export default {
   },
   [types.LISTING]: {
     attributes: {
-      meta: true,
       brand: true,
       brandId: true,
     },
@@ -57,7 +54,6 @@ export default {
       start: true,
       end: true,
       priority: true,
-      meta: true,
     },
     relationships: {
       company: getRelationship(BELONGS, types.COMPANY, 'ads'),
@@ -70,7 +66,6 @@ export default {
       email: true,
       phone: true,
       job: true,
-      meta: true,
     },
     relationships: {
       company: getRelationship(BELONGS, types.COMPANY, 'people'),
@@ -84,7 +79,6 @@ export default {
       text: true,
       secondary: true,
       obg: true,
-      meta: true,
     },
     relationships: {
       forms: getRelationship(MANY, types.FORM, 'brand'),
@@ -95,7 +89,6 @@ export default {
     attributes: {
       name: true,
       heading: true,
-      meta: true,
     },
     relationships: {
       brand: getRelationship(BELONGS, types.BRAND, 'categories'),
@@ -107,7 +100,6 @@ export default {
     attributes: {
       name: true,
       published: true,
-      meta: true,
     },
     relationships: {
       brand: getRelationship(BELONGS, types.BRAND, 'forms'),
@@ -118,9 +110,8 @@ export default {
   },
   [types.SUBMISSION]: {
     attributes: {
-      meta: true,
-      stripe: true,
       fields: true,
+      items: true,
       payment: true,
     },
     relationships: {
@@ -132,7 +123,8 @@ export default {
       label: true,
       placeholder: true,
       type: true,
-      meta: true,
+      value: true,
+      options: true,
       isRequired: true,
     },
     relationships: {
@@ -141,7 +133,6 @@ export default {
   },
   [types.PAYMENT]: {
     attributes: {
-      meta: true,
       expMonth: true,
       expYear: true,
       cardNumber: true,
@@ -154,7 +145,6 @@ export default {
   },
   [types.ITEM]: {
     attributes: {
-      meta: true,
       price: true,
       quantity: true,
       description: true,
