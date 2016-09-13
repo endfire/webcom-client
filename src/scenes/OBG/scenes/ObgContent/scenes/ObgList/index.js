@@ -9,13 +9,17 @@ const ObgList = ({ listings, ads, category }) => (
       <AdList
         items={ads.filter(ad => (
           ad.get('categories').includes(category)
+        )).sortBy(ad => (
+          ad.get('priority')
         ))}
       />
     </div><br />
     <div className={styles.container}>
       <ListingList
         items={listings.filter(listing => (
-          listing.categories.includes(category)
+          listing.categories.includes(category) && listing.company.get('approved')
+        )).sortBy(listing => (
+          listing.company.get('name')
         ))}
       />
     </div>

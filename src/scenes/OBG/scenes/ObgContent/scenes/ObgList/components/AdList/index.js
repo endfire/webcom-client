@@ -5,13 +5,17 @@ import styles from './styles.scss';
 const AdList = ({ items }) => {
   const keys = items.keySeq();
 
-  return (<div className={styles.wrapper}>
-    {keys.map(key => (<ListItem
-      key={key}
-      item={items.get(key)}
-    />)
-    )}
-  </div>);
+  return (
+    <div className={styles.wrapper}>
+      {keys.map(key => (
+        <ListItem
+          key={key}
+          item={items.get(key)}
+        />
+        )
+      )}
+    </div>
+  );
 };
 
 AdList.propTypes = {

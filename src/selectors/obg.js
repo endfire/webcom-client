@@ -51,18 +51,17 @@ export const getCategorySelectOptions = (brandID) => (
       value: category.get('id'),
       label: category.get('name'),
       brand: category.get('brand'),
-    })).toArray()
+    })).sortBy(category => (
+      category.label
+    ))
+    .toArray()
   )
 );
 
 export const getCategoryObgListings = createSelector(
   [getListings, getCompanies],
-  (listings, companies) => listings.map(listing => {
-    console.log(listing.get('company'));
-    console.log(companies);
-    return {
-      company: companies.get(listing.get('company')),
-      categories: listing.get('categories'),
-    };
-  })
+  (listings, companies) => listings.map(listing => ({
+    company: companies.get(listing.get('company')),
+    categories: listing.get('categories'),
+  }))
 );

@@ -12,6 +12,8 @@ class ObgContent extends Component {
     };
 
     this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.renderOBG = this.renderOBG.bind(this);
+    this.renderContent = this.renderContent.bind(this);
   }
 
   handleSelectChange(value) {
@@ -24,8 +26,7 @@ class ObgContent extends Component {
     }
   }
 
-  render() {
-    const { handleSelectChange } = this;
+  renderContent() {
     const {
       brand,
       listings,
@@ -34,22 +35,26 @@ class ObgContent extends Component {
       fetchListings,
     } = this.props;
 
-    const renderContent = () => (
+    return (
       this.state.category === ''
-      ? <div></div>
-      : <div>
-        <ObgList
-          brand={brand}
-          listings={listings}
-          ads={ads}
-          category={this.state.category}
-          fetchAds={fetchAds}
-          fetchListings={fetchListings}
-        />
-      </div>
+        ? <div></div>
+        : <div>
+          <ObgList
+            brand={brand}
+            listings={listings}
+            ads={ads}
+            category={this.state.category}
+            fetchAds={fetchAds}
+            fetchListings={fetchListings}
+          />
+        </div>
     );
+  }
 
-    const renderOBG = () => (
+  renderOBG() {
+    const { handleSelectChange } = this;
+
+    return (
       <div>
         <label htmlFor="name">Select a product or service to see its providers.</label><br />
         <Select
@@ -59,9 +64,14 @@ class ObgContent extends Component {
           onChange={handleSelectChange}
           placeholder="Please select a product or service."
         />
-        {renderContent()}
+        {this.renderContent()}
       </div>
     );
+  }
+
+  render() {
+    const { renderOBG } = this;
+    const { brand } = this.props;
 
     // Need link to login and signup
     return (
