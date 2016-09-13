@@ -40,6 +40,11 @@ class OBG extends Component {
           />
         </div>
         <div className={styles.header}>
+          <p>
+            {brand.get('obgDescription')}
+          </p>
+        </div>
+        <div className={styles.header}>
           <ObgContent
             brand={brand}
             categoryOptions={categoryOptions}
