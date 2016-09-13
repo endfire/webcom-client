@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'paintcan';
-import { List, EditCategoryModal, AddCategoryModal } from './components';
+import { List, EditCategoryModal, AddCategoryModal, EditOBGModal } from './components';
 import { getCurrentBrand, getCurrentBrandCategories } from 'selectors/adminBrands';
 import { getCanUserDelete } from 'selectors/admin';
 import { getIsCreateLoading, getIsUpdateLoading, getIsDeleteLoading } from 'selectors/loading';
@@ -13,6 +13,7 @@ const BrandOBG = ({
   categories,
   initializeOBG,
   uninitializeOBG,
+  updateOBG,
   canUserDelete,
   createCategory,
   updateCategory,
@@ -41,6 +42,11 @@ const BrandOBG = ({
         <AddCategoryModal
           createCategory={createCategory}
           isCreateLoading={isCreateLoading}
+        /> &nbsp;
+        <EditOBGModal
+          OBG={brand}
+          updateOBG={updateOBG}
+          isUpdateLoading={isUpdateLoading}
         /> &nbsp;
         <Button onClick={uninitializeOBG} color="success">Uninitialize OBG</Button>
       </div>
@@ -72,6 +78,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+  updateOBG: (id, data) => dispatch(actions.updateRecord('brand', id, data)),
   updateCategory: (id, data) => dispatch(actions.updateRecord('category', id, data)),
   deleteCategory: (id) => dispatch(actions.deleteRecord('category', 'categories', id)),
   createCategory: (name, heading) => dispatch(actions.createRecord('category', {
@@ -94,6 +101,7 @@ BrandOBG.propTypes = {
   categories: PropTypes.object,
   initializeOBG: PropTypes.func,
   uninitializeOBG: PropTypes.func,
+  updateOBG: PropTypes.func,
   createCategory: PropTypes.func,
   updateCategory: PropTypes.func,
   deleteCategory: PropTypes.func,
