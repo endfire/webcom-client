@@ -16,7 +16,7 @@ export default (store, api) => (nextState, replace, callback) => {
         return done();
       }
 
-      store.dispatch(subActions.initializeSubmissionForm(id));
+      store.dispatch(subActions.hydrateSubmissionForm(id));
       return done();
     })
     .catch(() => {

@@ -1,6 +1,10 @@
-import init from './init';
+import { Map, List } from 'immutable';
 import { mapFormIDToValues, mapFormIDToItems } from './utils';
 import * as types from 'constants/actionTypes';
+
+const init = Map({
+  submissions: List(),
+});
 
 export default (state = init, action) => {
   const { type, payload } = action;
@@ -36,36 +40,6 @@ export default (state = init, action) => {
     case types.SUBMIT_SUBMISSION_FORM: {
       return state
         .update('submissions', submissions => submissions.push(payload));
-    }
-
-    case types.INITIALIZE_SUBMISSION_FORM_REQUEST: {
-      return state
-        .updateIn(['requests', 'submissionForm'], requests => requests.push(payload));
-    }
-
-    case types.INITIALIZE_SUBMISSION_FORM_ITEMS_REQUEST: {
-      return state
-        .updateIn(['requests', 'submissionFormItems'], requests => requests.push(payload));
-    }
-
-    case types.INITIALIZE_SUBMISSION_FORM_ERROR: {
-      return state
-        .updateIn(['errors', 'submissionForm'], errors => errors.push(payload));
-    }
-
-    case types.INITIALIZE_SUBMISSION_FORM_ITEMS_ERROR: {
-      return state
-        .updateIn(['errors', 'submissionFormItems'], errors => errors.push(payload));
-    }
-
-    case types.INITIALIZE_SUBMISSION_FORM_SUCCESS: {
-      return state
-        .updateIn(['successes', 'submissionForm'], successes => successes.push(payload));
-    }
-
-    case types.INITIALIZE_SUBMISSION_FORM_ITEMS_SUCCESS: {
-      return state
-        .updateIn(['successes', 'submissionFormItems'], successes => successes.push(payload));
     }
 
     default:

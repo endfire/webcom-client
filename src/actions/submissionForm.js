@@ -1,8 +1,8 @@
 import * as types from 'constants/actionTypes';
 import missingRequiredParamError from './missingRequiredParamError';
 
-export const initializeSubmissionForm = (formID) => {
-  const type = types.INITIALIZE_SUBMISSION_FORM_REQUEST;
+export const hydrateSubmissionForm = (formID) => {
+  const type = types.HYDRATE_SUBMISSION_FORM;
 
   if (!formID) throw missingRequiredParamError(type, 'formID');
 
@@ -15,7 +15,7 @@ export const initializeSubmissionForm = (formID) => {
 };
 
 export const initializeSubmissionFormItems = (formID) => {
-  const type = types.INITIALIZE_SUBMISSION_FORM_ITEMS_REQUEST;
+  const type = types.INITIALIZE_SUBMISSION_FORM_ITEMS;
 
   if (!formID) throw missingRequiredParamError(type, 'formID');
 
