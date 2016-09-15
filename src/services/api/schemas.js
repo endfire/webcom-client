@@ -121,6 +121,7 @@ export default {
       fields: true,
       items: true,
       payment: true,
+      transactionID: true,
       createdOn: true,
     },
     relationships: {
@@ -147,6 +148,9 @@ export default {
       expYear: true,
       cardNumber: true,
       cardCvc: true,
+      firstName: true,
+      lastName: true,
+      email: true,
       createdOn: true,
     },
     relationships: {
