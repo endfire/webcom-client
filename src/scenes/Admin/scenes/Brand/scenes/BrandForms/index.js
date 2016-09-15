@@ -70,7 +70,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     brand: ownProps.params.brandID,
     fields: [],
     submissions: [],
-    createdOn: Date.now(),
   })),
 });
 

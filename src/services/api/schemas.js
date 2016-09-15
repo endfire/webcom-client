@@ -13,6 +13,7 @@ export default {
       email: true,
       password: true,
       role: true,
+      createdOn: true,
     },
   },
   [types.COMPANY]: {
@@ -28,6 +29,7 @@ export default {
       description: true,
       password: true,
       approved: true,
+      createdOn: true,
     },
     relationships: {
       listings: getRelationship(MANY, types.LISTING, 'company'),
@@ -39,6 +41,7 @@ export default {
     attributes: {
       brand: true,
       brandId: true,
+      createdOn: true,
     },
     relationships: {
       company: getRelationship(BELONGS, types.COMPANY, 'listings'),
@@ -54,6 +57,7 @@ export default {
       start: true,
       end: true,
       priority: true,
+      createdOn: true,
     },
     relationships: {
       company: getRelationship(BELONGS, types.COMPANY, 'ads'),
@@ -66,6 +70,7 @@ export default {
       email: true,
       phone: true,
       job: true,
+      createdOn: true,
     },
     relationships: {
       company: getRelationship(BELONGS, types.COMPANY, 'people'),
@@ -79,6 +84,7 @@ export default {
       text: true,
       secondary: true,
       obg: true,
+      createdOn: true,
     },
     relationships: {
       forms: getRelationship(MANY, types.FORM, 'brand'),
@@ -89,6 +95,7 @@ export default {
     attributes: {
       name: true,
       heading: true,
+      createdOn: true,
     },
     relationships: {
       brand: getRelationship(BELONGS, types.BRAND, 'categories'),
@@ -100,6 +107,7 @@ export default {
     attributes: {
       name: true,
       didPublish: true,
+      createdOn: true,
     },
     relationships: {
       brand: getRelationship(BELONGS, types.BRAND, 'forms'),
@@ -113,6 +121,7 @@ export default {
       fields: true,
       items: true,
       payment: true,
+      createdOn: true,
     },
     relationships: {
       form: getRelationship(BELONGS, types.FORM, 'submissions'),
@@ -126,6 +135,7 @@ export default {
       value: true,
       options: true,
       isRequired: true,
+      createdOn: true,
     },
     relationships: {
       form: getRelationship(BELONGS, types.FORM, 'fields'),
@@ -137,6 +147,7 @@ export default {
       expYear: true,
       cardNumber: true,
       cardCvc: true,
+      createdOn: true,
     },
     relationships: {
       items: getRelationship(MANY, types.ITEM, 'payment'),
@@ -149,6 +160,7 @@ export default {
       quantity: true,
       description: true,
       label: true,
+      createdOn: true,
     },
     relationships: {
       payment: getRelationship(BELONGS, types.PAYMENT, 'items'),

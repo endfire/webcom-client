@@ -45,7 +45,6 @@ class BrandForm extends Component {
 
     createField({
       form: form.get('id'),
-      createdOn: Date.now(),
       type: 'text',
       label,
     });

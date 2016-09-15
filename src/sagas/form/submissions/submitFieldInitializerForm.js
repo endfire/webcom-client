@@ -40,7 +40,6 @@ function* submitFieldInitializerForm(action) {
       const createdField = yield api.create('field', {
         ...field,
         form: id,
-        createdOn: Date.now(),
       });
 
       yield put(syncStore('field', createdField));

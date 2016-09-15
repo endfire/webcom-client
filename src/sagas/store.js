@@ -53,11 +53,16 @@ export function* watchFindRequest() {
 }
 
 function* create(action) {
-  const { type, record } = action.payload;
+  const { type } = action.payload;
+  const record = {
+    ...action.payload.record,
+    createdOn: Date.now(),
+  };
+
   const createdRecord = yield api.create(type, record);
 
   try {
-    yield put({ type: types.CREATE_SUCCESS, payload: action.payload });
+    yield put({ type: types.CREATE_SUCCESS, payload: { type, record } });
     yield put(syncStore(type, createdRecord));
   } catch (e) {
     yield put({ type: types.CREATE_ERROR, payload: e, error: true });
