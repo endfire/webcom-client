@@ -66,7 +66,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   findForms: (brandID) => dispatch(actions.findRecords('form', { brand: brandID })),
   createForm: (name) => dispatch(actions.createRecord('form', {
     name,
-    published: false,
+    didPublish: false,
     brand: ownProps.params.brandID,
     fields: [],
     submissions: [],

@@ -29,10 +29,10 @@ export const getCurrentFormName = (formID) => (
   )
 );
 
-export const getCurrentFormPublished = (formID) => (
+export const getCurrentFormDidPublish = (formID) => (
   createSelector(
     [getForms],
-    (forms) => forms.getIn([formID, 'published'])
+    (forms) => forms.getIn([formID, 'didPublish'])
   )
 );
 

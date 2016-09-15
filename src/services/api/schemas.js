@@ -99,7 +99,7 @@ export default {
   [types.FORM]: {
     attributes: {
       name: true,
-      published: true,
+      didPublish: true,
     },
     relationships: {
       brand: getRelationship(BELONGS, types.BRAND, 'forms'),
