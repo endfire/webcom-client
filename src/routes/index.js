@@ -5,11 +5,13 @@ import checkAuth from './checkAuth';
 import requiresUserAuth from './requiresUserAuth';
 import requiresCompanyAuth from './requiresCompanyAuth';
 import canAccessOBG from './canAccessOBG';
+import checkIfPublished from './checkIfPublished';
 
 import { App, Welcome } from 'components';
-import { Admin, Company, Signup } from 'scenes';
+import { Admin, Company, Signup, Form } from 'scenes';
 import { LoginAdmin, LoginCompany } from 'scenes/Login/scenes';
 import { Listings, People, Settings } from 'scenes/Company/scenes';
+import { SubmissionForm, NotPublished } from 'scenes/Form/scenes';
 
 import { Brand, BrandsAll, CompanyOne, CompaniesAll, Users } from 'scenes/Admin/scenes';
 import {
@@ -38,6 +40,21 @@ export default {
     {
       path: 'signup',
       component: Signup,
+    },
+    {
+      path: 'form',
+      component: Form,
+      childRoutes: [
+        {
+          path: ':submissionFormID',
+          component: SubmissionForm,
+          onEnter: checkIfPublished(store, api),
+        },
+        {
+          path: 'not-published',
+          component: NotPublished,
+        },
+      ],
     },
     {
       path: 'admin',
