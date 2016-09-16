@@ -1,20 +1,19 @@
 import React, { PropTypes } from 'react';
-import mapLabeltoFormLabel from '../mapLabeltoFormLabel';
 
 const DynamicSelectField = ({ field, handleChange }) => {
   const label = field.get('label');
   const isRequired = field.get('isRequired');
   const value = field.get('value');
   const options = field.get('options');
-  const formLabel = mapLabeltoFormLabel(label);
+  const id = field.get('id');
   const keys = options.keySeq();
 
   return (
     <fieldset>
-      <label htmlFor={formLabel}>{label}</label>
+      <label htmlFor={id}>{label}</label>
       <select
-        id={formLabel}
-        name={formLabel}
+        id={id}
+        name={id}
         onChange={handleChange}
         value={value}
         required={isRequired}

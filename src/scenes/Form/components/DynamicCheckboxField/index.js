@@ -1,10 +1,9 @@
 import React, { PropTypes } from 'react';
-import mapLabeltoFormLabel from '../mapLabeltoFormLabel';
 
 const DynamicCheckboxField = ({ field, handleChange }) => {
   const label = field.get('label');
   const options = field.get('options');
-  const formLabel = mapLabeltoFormLabel(label);
+  const id = field.get('id');
   const keys = options.keySeq();
 
   return (
@@ -15,7 +14,7 @@ const DynamicCheckboxField = ({ field, handleChange }) => {
           <input
             type="checkbox"
             id={options.getIn([key, 'value'])}
-            name={formLabel}
+            name={id}
             onChange={handleChange}
             value={options.getIn([key, 'value'])}
           />
