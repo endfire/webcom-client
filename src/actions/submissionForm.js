@@ -27,8 +27,42 @@ export const initializeSubmissionFormItems = (formID) => {
   };
 };
 
-export const editSubmissionForm = (formID, name, value) => {
-  const type = types.EDIT_SUBMISSION_FORM;
+export const editSubmissionFormField = (formID, name, value) => {
+  const type = types.EDIT_SUBMISSION_FORM_FIELD;
+
+  if (!formID) throw missingRequiredParamError(type, 'formID');
+  if (!name) throw missingRequiredParamError(type, 'name');
+  if (!value) throw missingRequiredParamError(type, 'value');
+
+  return {
+    type,
+    payload: {
+      formID,
+      name,
+      value,
+    },
+  };
+};
+
+export const editSubmissionFormPayment = (formID, name, value) => {
+  const type = types.EDIT_SUBMISSION_FORM_PAYMENT;
+
+  if (!formID) throw missingRequiredParamError(type, 'formID');
+  if (!name) throw missingRequiredParamError(type, 'name');
+  if (!value) throw missingRequiredParamError(type, 'value');
+
+  return {
+    type,
+    payload: {
+      formID,
+      name,
+      value,
+    },
+  };
+};
+
+export const editSubmissionFormItem = (formID, name, value) => {
+  const type = types.EDIT_SUBMISSION_FORM_ITEM;
 
   if (!formID) throw missingRequiredParamError(type, 'formID');
   if (!name) throw missingRequiredParamError(type, 'name');

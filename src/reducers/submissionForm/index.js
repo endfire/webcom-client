@@ -26,20 +26,29 @@ export default (state = init, action) => {
 
       const items = mapFormIDToItems(formID);
 
-      return state
-        .setIn([formID, 'items'], items);
+      return state.setIn([formID, 'items'], items);
     }
 
-    case types.EDIT_SUBMISSION_FORM: {
+    case types.EDIT_SUBMISSION_FORM_FIELD: {
       const { formID, name, value } = payload;
 
-      return state
-        .setIn([formID, 'fields', name, 'value'], value);
+      return state.setIn([formID, 'fields', name, 'value'], value);
+    }
+
+    case types.EDIT_SUBMISSION_FORM_PAYMENT: {
+      const { formID, name, value } = payload;
+
+      return state.setIn([formID, 'payment', name], value);
+    }
+
+    case types.EDIT_SUBMISSION_FORM_ITEM: {
+      const { formID, name, value } = payload;
+
+      return state.setIn([formID, 'items', name, 'quantity'], value);
     }
 
     case types.SUBMIT_SUBMISSION_FORM: {
-      return state
-        .update('submissions', submissions => submissions.push(payload));
+      return state.update('submissions', submissions => submissions.push(payload));
     }
 
     default:
