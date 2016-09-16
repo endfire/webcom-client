@@ -1,12 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddAdModal, EditAdModal } from './components';
 import { getCanUserDelete } from 'selectors/admin';
 import * as actions from 'actions/store';
 import { getCurrentCompanyAds } from 'selectors/adminCompanies';
 import { getBrandSelectOptions, getCategorySelectOptions } from 'selectors/company';
+import styles from './styles.scss';
 
 
 class Ads extends Component {
@@ -45,31 +45,31 @@ class Ads extends Component {
     } = this.props;
 
     return (
-      <Container fluid><br />
-        <Row>
-          <Col size={{ xs: 4 }} align={{ xs: 'left' }}>
-            <AddAdModal
-              createAd={createAd}
-              isCreateLoading={isCreateLoading}
-              companyID={companyID}
-              brands={brands}
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <AddAdModal
+            createAd={createAd}
+            isCreateLoading={isCreateLoading}
+            companyID={companyID}
+            brands={brands}
+            categories={categories}
+            findCategories={findCategories}
+          />
+        </div>
+        <div className={styles.container}>
+          {ads
+            ? <List
+              items={ads}
+              handleDelete={this.handleDelete}
+              canUserDelete={canUserDelete}
+            ><EditAdModal
+              updateAd={updateAd}
               categories={categories}
-              findCategories={findCategories}
-            /><br /><br /><br />
-            {ads
-              ? <List
-                items={ads}
-                handleDelete={this.handleDelete}
-                canUserDelete={canUserDelete}
-              ><EditAdModal
-                updateAd={updateAd}
-                categories={categories}
-                isUpdateLoading={isUpdateLoading}
-              /></List>
-              : 'Loading...'}
-          </Col>
-        </Row>
-      </Container>
+              isUpdateLoading={isUpdateLoading}
+            /></List>
+            : 'Loading...'}
+        </div>
+      </div>
     );
   }
 }

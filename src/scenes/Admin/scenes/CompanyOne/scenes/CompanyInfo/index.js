@@ -6,13 +6,18 @@ import { getCurrentCompany } from 'selectors/adminCompanies';
 import { AuthErrorCard } from 'components';
 import * as actions from 'actions/store';
 import withCompanyInfo from './withCompanyInfo';
+import styles from './settings.scss';
 
 const CompanyInfo = ({ company, error, approveCompany }) => {
   const CompanyInfoForm = withCompanyInfo(company);
 
   return (
-    <div>
-      {!company.get('approved') && <Button onClick={approveCompany}>Approve this company</Button>}
+    <div className={styles.wrapper}>
+      {
+        !company.get('approved') &&
+          <Button onClick={approveCompany} color="primary">Approve this company</Button>
+      }
+      <h3>Information</h3>
       {error && <AuthErrorCard message={error.message} />}
       <CompanyInfoForm />
     </div>

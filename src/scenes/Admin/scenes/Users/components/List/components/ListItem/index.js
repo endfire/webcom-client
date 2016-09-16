@@ -1,25 +1,19 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { PropTypes } from 'react';
-import { Container, Row, Col } from 'paintcan';
 import { DeleteModal } from 'scenes/components';
+import styles from './styles.scss';
 
 const ListItem = ({ item, handleDelete, canUserDelete }) => (
-  <Container fluid>
-    <Row>
-      <Col size={{ xs: 2 }} align={{ xs: 'start' }}>
-        {item.get('name')}
-      </Col>
-      <Col size={{ xs: 2 }} align={{ xs: 'start' }}>
-        Role: {item.get('role')}
-      </Col>
-      <Col size={{ xs: 4 }} align={{ xs: 'end' }}>
-        Email: {item.get('email')}
-      </Col>
-      <Col size={{ xs: 4 }} align={{ xs: 'end' }}>
-        {canUserDelete && <DeleteModal handleDelete={handleDelete.bind(this, item.get('id'))} />}
-      </Col>
-    </Row>
-  </Container>
+  <div className={styles.wrapper}>
+    <div>
+      <p>
+        <strong>{item.get('name')}</strong> - Role({item.get('role')})
+      </p>
+    </div>
+    <div>
+      {canUserDelete && <DeleteModal handleDelete={handleDelete.bind(this, item.get('id'))} />}
+    </div>
+  </div>
 );
 
 ListItem.propTypes = {

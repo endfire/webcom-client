@@ -8,7 +8,7 @@ import canAccessOBG from './canAccessOBG';
 import checkIfPublished from './checkIfPublished';
 
 import { App, Welcome } from 'components';
-import { Admin, Company, Signup, Form } from 'scenes';
+import { Admin, Company, Signup, OBG, Form } from 'scenes';
 import { LoginAdmin, LoginCompany } from 'scenes/Login/scenes';
 import { Listings, People, Settings } from 'scenes/Company/scenes';
 import { SubmissionForm, NotPublished } from 'scenes/Form/scenes';
@@ -40,6 +40,10 @@ export default {
     {
       path: 'signup',
       component: Signup,
+    },
+    {
+      path: 'obg/:brandID',
+      component: OBG,
     },
     {
       path: 'form',

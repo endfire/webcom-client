@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
-import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
+import { Button, ButtonGroup, withModal } from 'paintcan';
+import { ModalDialog } from 'components';
 
 const AddCategoryModal = withModal(
   ({ isOpen, openModal }) => (
@@ -51,37 +52,40 @@ class AddCategoryDialog extends Component {
     const { closeModal } = this.props;
 
     return (
-      <Container fluid>
-        <Row align={{ xs: 'center' }}>
-          <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
-            <Card>
-              <h3>Add new category</h3>
-              <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Name</label><br />
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  onChange={handleChange}
-                  value={this.state.name}
-                /><br />
-                <label htmlFor="heading">Heading</label><br />
-                <input
-                  type="text"
-                  id="heading"
-                  name="heading"
-                  onChange={handleChange}
-                  value={this.state.heading}
-                /><br />
-                <Button type="submit">Save Change</Button>
-              </form>
-              <Button onClick={closeModal}>
+      <ModalDialog title="Add a new category" size="sm" closeModal={closeModal}>
+        <form onSubmit={handleSubmit}>
+          <fieldset>
+            <label htmlFor="name">Name</label><br />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              onChange={handleChange}
+              value={this.state.name}
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="heading">Heading</label><br />
+            <input
+              type="text"
+              id="heading"
+              name="heading"
+              onChange={handleChange}
+              value={this.state.heading}
+            />
+          </fieldset>
+          <fieldset>
+            <ButtonGroup spaced>
+              <Button type="submit" color="primary">
+                Submit
+              </Button>
+              <Button type="button" color="danger" onClick={closeModal}>
                 Cancel
               </Button>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+            </ButtonGroup>
+          </fieldset>
+        </form>
+      </ModalDialog>
     );
   }
 }

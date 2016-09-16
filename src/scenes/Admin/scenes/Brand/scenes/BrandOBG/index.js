@@ -1,17 +1,19 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Button } from 'paintcan';
-import { List, EditCategoryModal, AddCategoryModal } from './components';
+import { Button } from 'paintcan';
+import { List, EditCategoryModal, AddCategoryModal, EditOBGModal } from './components';
 import { getCurrentBrand, getCurrentBrandCategories } from 'selectors/adminBrands';
 import { getCanUserDelete } from 'selectors/admin';
 import { getIsCreateLoading, getIsUpdateLoading, getIsDeleteLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
+import styles from './styles.scss';
 
 const BrandOBG = ({
   brand,
   categories,
   initializeOBG,
   uninitializeOBG,
+  updateOBG,
   canUserDelete,
   createCategory,
   updateCategory,
@@ -27,23 +29,28 @@ const BrandOBG = ({
   };
 
   const obgUninitialized = (
-    <Button onClick={initializeOBG}>Initialize {brand.get('name')} OBG</Button>
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
+        <Button onClick={initializeOBG} color="success">Initialize {brand.get('name')} OBG</Button>
+      </div>
+    </div>
   );
 
   const obgInitialized = (
-    <Container fluid><br />
-      <Row>
-        <Col>
-          <p>{`${brand.get('name')} OBG`}</p>
-          <Button onClick={uninitializeOBG}>Uninitialize OBG</Button>
-          <AddCategoryModal
-            createCategory={createCategory}
-            isCreateLoading={isCreateLoading}
-          /><br /><br /><br />
-        </Col>
-      </Row>
-      <Row>
-        <Col>
+    <div className={styles.wrapper}>
+      <div className={styles.header}>
+        <AddCategoryModal
+          createCategory={createCategory}
+          isCreateLoading={isCreateLoading}
+        /> &nbsp;
+        <EditOBGModal
+          OBG={brand}
+          updateOBG={updateOBG}
+          isUpdateLoading={isUpdateLoading}
+        /> &nbsp;
+        <Button onClick={uninitializeOBG} color="success">Uninitialize OBG</Button>
+      </div>
+      <div className={styles.container}>
         {categories
           ? <List
             items={categories}
@@ -54,9 +61,8 @@ const BrandOBG = ({
             isUpdateLoading={isUpdateLoading}
           /></List>
           : 'Loading...'}
-        </Col>
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 
   return brand.get('obg') ? obgInitialized : obgUninitialized;
@@ -72,6 +78,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
+  updateOBG: (id, data) => dispatch(actions.updateRecord('brand', id, data)),
   updateCategory: (id, data) => dispatch(actions.updateRecord('category', id, data)),
   deleteCategory: (id) => dispatch(actions.deleteRecord('category', 'categories', id)),
   createCategory: (name, heading) => dispatch(actions.createRecord('category', {
@@ -94,6 +101,7 @@ BrandOBG.propTypes = {
   categories: PropTypes.object,
   initializeOBG: PropTypes.func,
   uninitializeOBG: PropTypes.func,
+  updateOBG: PropTypes.func,
   createCategory: PropTypes.func,
   updateCategory: PropTypes.func,
   deleteCategory: PropTypes.func,

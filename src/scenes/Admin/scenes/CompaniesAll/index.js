@@ -1,12 +1,13 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col, Button } from 'paintcan';
-import List from './components/List';
+import { Button } from 'paintcan';
+import { List, AddCompanyModal } from './components/';
 import { getCanUserDelete } from 'selectors/admin';
 import { getCompanies } from 'selectors/adminCompanies';
 import { getIsDeleteLoading, getIsCreateLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
 import * as types from 'constants/actionTypes';
+import styles from './styles.scss';
 
 class CompaniesAll extends Component {
   constructor(props) {
@@ -28,18 +29,26 @@ class CompaniesAll extends Component {
   }
 
   render() {
-    const { companies, canUserDelete, downloadPeople, downloadCompanies } = this.props;
+    const {
+      companies,
+      canUserDelete,
+      downloadPeople,
+      downloadCompanies,
+      createCompany,
+      isCreateLoading,
+    } = this.props;
 
     return (
-      <Container fluid><br />
-        <Row>
-          <Col>
-            <Button onClick={downloadPeople}>Download All People</Button>
-            <Button onClick={downloadCompanies}>Download All Companies</Button>
-          </Col>
-        </Row><br />
-        <Row>
-          <Col align={{ xs: 'start' }}>
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <AddCompanyModal
+            createCompany={createCompany}
+            isCreateLoading={isCreateLoading}
+          /> &nbsp;
+          <Button onClick={downloadPeople} color="success">Download All People</Button> &nbsp;
+          <Button onClick={downloadCompanies} color="success">Download All Companies</Button>
+        </div>
+        <div className={styles.container}>
           {companies
             ? <List
               items={companies}
@@ -47,9 +56,8 @@ class CompaniesAll extends Component {
               canUserDelete={canUserDelete}
             />
             : 'Loading...'}
-          </Col>
-        </Row>
-      </Container>
+        </div>
+      </div>
     );
   }
 }
@@ -64,6 +72,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   findCompanies: () => dispatch(actions.findRecords('company')),
   deleteCompany: (id) => dispatch(actions.deleteRecord('company', 'companies', id)),
+  createCompany: (data) => dispatch(actions.createRecord('company', data)),
   downloadPeople: () => dispatch({
     type: types.DOWNLOAD,
     payload: {
@@ -83,9 +92,11 @@ CompaniesAll.propTypes = {
   canUserDelete: PropTypes.bool,
   isDeleteLoading: PropTypes.bool,
   findCompanies: PropTypes.func,
+  createCompany: PropTypes.func,
   deleteCompany: PropTypes.func,
   downloadPeople: PropTypes.func,
   downloadCompanies: PropTypes.func,
+  isCreateLoading: PropTypes.bool,
 };
 
 export default connect(

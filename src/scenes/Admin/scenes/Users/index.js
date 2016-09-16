@@ -1,9 +1,9 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'paintcan';
 import { List, AddUserModal } from './components';
 import { getCanUserDelete, getCanUserAddUsers } from 'selectors/admin';
 import * as actions from 'actions/store';
+import styles from './styles.scss';
 
 class Users extends Component {
   constructor(props) {
@@ -36,15 +36,23 @@ class Users extends Component {
     );
 
     return (
-      <Container fluid><br />
-        <Row>
-          <Col>
-            {canUserAddUsers && <AddUserModal />}
-            <br /><br /><br />
-            {users ? list : 'Loading...'}
-          </Col>
-        </Row>
-      </Container>
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          {canUserAddUsers && <AddUserModal />}
+        </div>
+        <p>
+          Role(1) - User has no restrictions.
+        </p>
+        <p>
+          Role(2) - User cannot delete.
+        </p>
+        <p>
+          Role(3) - User cannot delete, access OBG, or create users.
+        </p>
+        <div className={styles.container}>
+          {users ? list : 'Loading...'}
+        </div>
+      </div>
     );
   }
 }

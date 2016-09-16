@@ -1,12 +1,12 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'paintcan';
 import List from '../../components/List';
 import { AddPersonModal, EditPersonModal } from './components';
 import { getCanUserDelete } from 'selectors/admin';
 import { getCurrentCompany, getCurrentCompanyPeople } from 'selectors/adminCompanies';
 import { getIsDeleteLoading, getIsCreateLoading, getIsUpdateLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
+import styles from './styles.scss';
 
 class CompanyPeople extends Component {
   constructor(props) {
@@ -41,27 +41,27 @@ class CompanyPeople extends Component {
     } = this.props;
 
     return (
-      <Container fluid><br />
-        <Row>
-          <Col size={{ xs: 4 }} align={{ xs: 'left' }}>
-            <AddPersonModal
-              createPerson={createPerson}
-              isCreateLoading={isCreateLoading}
-              companyID={companyID}
-            /><br /><br /><br />
-            {people
-              ? <List
-                items={people}
-                handleDelete={this.handleDelete}
-                canUserDelete={canUserDelete}
-              ><EditPersonModal
-                updatePerson={updatePerson}
-                isUpdateLoading={isUpdateLoading}
-              /></List>
-              : 'Loading...'}
-          </Col>
-        </Row>
-      </Container>
+      <div className={styles.wrapper}>
+        <div className={styles.header}>
+          <AddPersonModal
+            createPerson={createPerson}
+            isCreateLoading={isCreateLoading}
+            companyID={companyID}
+          />
+        </div>
+        <div className={styles.container}>
+          {people
+            ? <List
+              items={people}
+              handleDelete={this.handleDelete}
+              canUserDelete={canUserDelete}
+            ><EditPersonModal
+              updatePerson={updatePerson}
+              isUpdateLoading={isUpdateLoading}
+            /></List>
+            : 'Loading...'}
+        </div>
+      </div>
     );
   }
 }

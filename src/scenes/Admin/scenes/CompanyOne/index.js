@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { Container, Row, Col } from 'paintcan';
+import { Icon } from 'react-fa';
 import { Link } from 'react-router';
 import { getCurrentCompany } from 'selectors/adminCompanies';
+import cx from 'classnames';
 import * as actions from 'actions/store';
+import styles from './company.scss';
 
 class CompanyOne extends Component {
   componentDidMount() {
@@ -12,30 +14,64 @@ class CompanyOne extends Component {
     fetchCompany(companyID);
   }
 
+  renderSpinner() {
+    return (
+      <span>
+        Loading <Icon name="spinner" spin />
+      </span>
+    );
+  }
+
   render() {
     const { children, company, params: { companyID } } = this.props;
 
     return (
       <div>
-        <Container fluid style={{ backgroundColor: 'yellow' }}>
-          <Row>
-            <Col size={{ xs: 2 }} align={{ xs: 'center' }}>
-              {company ? company.get('name') : 'Loading...'}
-            </Col>
-            <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
-              <Link to={`/admin/companies/${companyID}/listings`}>Listings</Link>
-            </Col>
-            <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
-              <Link to={`/admin/companies/${companyID}/ads`}>Ads</Link>
-            </Col>
-            <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
-              <Link to={`/admin/companies/${companyID}/people`}>People</Link>
-            </Col>
-            <Col size={{ xs: 1 }} align={{ xs: 'center' }}>
-              <Link to={`/admin/companies/${companyID}/info`}>Information</Link>
-            </Col>
-          </Row>
-        </Container>
+        <div className={styles.navbar}>
+          <nav className={styles.navbarNav}>
+            <ul className={styles.navbarList}>
+              <li className={cx(styles.navbarItem, styles.navbarBrand)}>
+                {company ? company.get('name') : this.renderSpinner()}
+              </li>
+              <li className={styles.navbarItem}>
+                <Link
+                  className={styles.navbarLink}
+                  activeClassName={styles.isActive}
+                  to={`/admin/companies/${companyID}/listings`}
+                >
+                  Listings
+                </Link>
+              </li>
+              <li className={styles.navbarItem}>
+                <Link
+                  className={styles.navbarLink}
+                  activeClassName={styles.isActive}
+                  to={`/admin/companies/${companyID}/ads`}
+                >
+                  Ads
+                </Link>
+              </li>
+              <li className={styles.navbarItem}>
+                <Link
+                  className={styles.navbarLink}
+                  activeClassName={styles.isActive}
+                  to={`/admin/companies/${companyID}/people`}
+                >
+                  People
+                </Link>
+              </li>
+              <li className={styles.navbarItem}>
+                <Link
+                  className={styles.navbarLink}
+                  activeClassName={styles.isActive}
+                  to={`/admin/companies/${companyID}/info`}
+                >
+                  Information
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        </div>
 
         {children}
       </div>

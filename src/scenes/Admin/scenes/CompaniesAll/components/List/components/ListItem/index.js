@@ -1,24 +1,20 @@
 /* eslint-disable react/jsx-no-bind */
 import React, { PropTypes } from 'react';
-import { Container, Row, Col } from 'paintcan';
 import { Link } from 'react-router';
 import { DeleteModal } from 'scenes/components';
+import styles from './styles.scss';
 
 const ListItem = ({ item, handleDelete, canUserDelete }) => (
-  <Container fluid>
-    <Row>
-      <Col size={{ lg: 8 }}>
-        <Link to={`/admin/companies/${item.get('id')}`}>{item.get('name')}</Link>
-      </Col>
-      <Col size={{ lg: 2 }}>
-        {!item.get('approved') &&
-          <Link to={`/admin/companies/${item.get('id')}/info`}>Needs approval</Link>}
-      </Col>
-      <Col size={{ lg: 2 }}>
-        {canUserDelete && <DeleteModal handleDelete={handleDelete.bind(this, item.get('id'))} />}
-      </Col>
-    </Row>
-  </Container>
+  <div className={styles.wrapper}>
+    <div>
+      <Link to={`/admin/companies/${item.get('id')}/info`}>{item.get('name')}</Link>
+    </div>
+    <div>
+      {!item.get('approved') &&
+        <Link to={`/admin/companies/${item.get('id')}/info`}>Needs approval</Link>} &nbsp;
+      {canUserDelete && <DeleteModal handleDelete={handleDelete.bind(this, item.get('id'))} />}
+    </div>
+  </div>
 );
 
 ListItem.propTypes = {

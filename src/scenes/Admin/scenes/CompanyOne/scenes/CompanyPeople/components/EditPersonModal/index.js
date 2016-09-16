@@ -1,11 +1,13 @@
 import React, { PropTypes, Component } from 'react';
-import { Button, Card, Container, Row, Col, withModal } from 'paintcan';
+import { Button, ButtonGroup, withModal } from 'paintcan';
+import { ModalDialog } from 'components';
+import listItem from 'styles/listItem';
 
 const EditPersonModal = withModal(
   ({ isOpen, openModal, item }) => (
-    <Button active={isOpen} onClick={openModal} color="primary">
+    <p active={isOpen} onClick={openModal} style={listItem}>
       {item.get('name')}
-    </Button>
+    </p>
   ),
   ({ closeModal, item, updatePerson, isUpdateLoading }) => (
     <EditPersonDialog
@@ -52,7 +54,6 @@ class EditPersonDialog extends Component {
 
   handleChange(e) {
     const { name, value } = e.target;
-    console.log('handleChange');
     this.setState({ [name]: value });
   }
 
@@ -61,58 +62,65 @@ class EditPersonDialog extends Component {
     const { person, closeModal } = this.props;
 
     return (
-      <Container fluid>
-        <Row align={{ xs: 'center' }}>
-          <Col size={{ xs: 10, lg: 4 }} align={{ xs: 'start' }}>
-            <Card>
-              <h3>Edit {person.get('name')}</h3>
-              <form onSubmit={handleSubmit}>
-                <label htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  onChange={handleChange}
-                  value={this.state.name}
-                /><br />
-                <label htmlFor="email">Email</label>
-                <input
-                  type="text"
-                  id="email"
-                  name="email"
-                  onChange={handleChange}
-                  value={this.state.email}
-                /><br />
-                <label htmlFor="phone">Phone Number</label>
-                <input
-                  type="text"
-                  id="phone"
-                  name="phone"
-                  onChange={handleChange}
-                  value={this.state.phone}
-                /><br />
-                <label htmlFor="job">Job Title</label>
-                <select id="job" name="job" onChange={handleChange} value={this.state.job}>
-                  <option value="Admin/HR/Legal">Admin/HR/Legal</option>
-                  <option value="Finance/Purchasing">Finance/Purchasing</option>
-                  <option value="Gen/Corp Management">Gen/Corp Management</option>
-                  <option value="IT/MIS">IT/MIS</option>
-                  <option value="Nurse/NP">Nurse/NP</option>
-                  <option value="Physician/MP">Physician/MP</option>
-                  <option value="RD/Engineering/Tech">RD/Engineering/Tech</option>
-                  <option value="Sales/Marketing/Customer Service">
-                    Sales/Marketing/Customer Service
-                  </option>
-                </select>
-                <Button type="submit">Save Change</Button>
-              </form>
-              <Button onClick={closeModal}>
+      <ModalDialog title={`Edit ${person.get('name')}`} size="sm" closeModal={closeModal}>
+        <form onSubmit={handleSubmit}>
+          <fieldset>
+            <label htmlFor="name">Name</label><br />
+            <input
+              type="text"
+              id="name"
+              name="name"
+              onChange={handleChange}
+              value={this.state.name}
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="email">Email</label><br />
+            <input
+              type="text"
+              id="email"
+              name="email"
+              onChange={handleChange}
+              value={this.state.email}
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="phone">Phone Number</label><br />
+            <input
+              type="text"
+              id="phone"
+              name="phone"
+              onChange={handleChange}
+              value={this.state.phone}
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="job">Job Title</label><br />
+            <select id="job" name="job" onChange={handleChange} value={this.state.job}>
+              <option value="Admin/HR/Legal">Admin/HR/Legal</option>
+              <option value="Finance/Purchasing">Finance/Purchasing</option>
+              <option value="Gen/Corp Management">Gen/Corp Management</option>
+              <option value="IT/MIS">IT/MIS</option>
+              <option value="Nurse/NP">Nurse/NP</option>
+              <option value="Physician/MP">Physician/MP</option>
+              <option value="RD/Engineering/Tech">RD/Engineering/Tech</option>
+              <option value="Sales/Marketing/Customer Service">
+                Sales/Marketing/Customer Service
+              </option>
+            </select>
+          </fieldset>
+          <fieldset>
+            <ButtonGroup spaced>
+              <Button type="submit" color="primary">
+                Submit
+              </Button>
+              <Button type="button" color="danger" onClick={closeModal}>
                 Cancel
               </Button>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
+            </ButtonGroup>
+          </fieldset>
+        </form>
+      </ModalDialog>
     );
   }
 }
