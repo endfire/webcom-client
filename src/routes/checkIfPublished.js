@@ -1,5 +1,4 @@
 import * as actions from 'actions/store';
-import * as subActions from 'actions/submissionForm';
 import { getCurrentFormDidPublish } from 'selectors/dynamicForm';
 
 export default (store, api) => (nextState, replace, callback) => {
@@ -9,14 +8,14 @@ export default (store, api) => (nextState, replace, callback) => {
   return api.fetch('form', id)
     .then((record) => store.dispatch(actions.syncStore('form', record)))
     .then(() => {
-      const currentFormDidPublish = getCurrentFormDidPublish(store.getState());
+      const state = store.getState();
+      const currentFormDidPublish = getCurrentFormDidPublish(state);
 
       if (!currentFormDidPublish) {
         replace('/form/not-published');
         return done();
       }
 
-      store.dispatch(subActions.hydrateSubmissionForm(id));
       return done();
     })
     .catch(() => {
