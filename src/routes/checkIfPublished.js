@@ -9,17 +9,14 @@ export default (store, api) => (nextState, replace, callback) => {
     .then((record) => store.dispatch(actions.syncStore('form', record)))
     .then(() => {
       const state = store.getState();
-      const currentFormDidPublish = getCurrentFormDidPublish(state);
+      const currentFormDidPublish = getCurrentFormDidPublish(id)(state);
 
       if (!currentFormDidPublish) {
-        replace('/form/not-published');
+        replace('/not-published');
         return done();
       }
 
       return done();
     })
-    .catch(() => {
-      replace('/form/not-published');
-      return done();
-    });
+    .catch(done);
 };

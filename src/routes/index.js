@@ -46,6 +46,10 @@ export default {
       component: OBG,
     },
     {
+      path: 'not-published',
+      component: NotPublished,
+    },
+    {
       path: 'form',
       component: Form,
       childRoutes: [
@@ -53,10 +57,6 @@ export default {
           path: ':submissionFormID',
           component: SubmissionForm,
           onEnter: checkIfPublished(store, api),
-        },
-        {
-          path: 'not-published',
-          component: NotPublished,
         },
       ],
     },
