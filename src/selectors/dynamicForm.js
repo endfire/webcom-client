@@ -22,6 +22,13 @@ const getForms = createSelector(
   (store) => store.getIn(['entities', 'forms'])
 );
 
+export const getCurrentForm = (formID) => (
+  createSelector(
+    [getForms],
+    (forms) => forms.get(formID)
+  )
+);
+
 export const getCurrentFormName = (formID) => (
   createSelector(
     [getForms],
