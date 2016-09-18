@@ -1,10 +1,11 @@
 import contactInfo from './contactInfo';
+import contactInfoPayment from './contactInfoPayment';
 
 export const withPayment = {
   id: '1',
   name: 'With a payment option',
   payment: true,
-  fields: contactInfo,
+  fields: contactInfoPayment,
 };
 
 export const withNoPayment = {

@@ -13,14 +13,6 @@ export default [{
   isRequired: true,
 }, {
   type: 'text',
-  label: 'Contact First Name',
-  isRequired: true,
-}, {
-  type: 'text',
-  label: 'Contact Last Name',
-  isRequired: true,
-}, {
-  type: 'text',
   label: 'Contact Title',
 }, {
   type: 'text',
@@ -48,10 +40,6 @@ export default [{
 }, {
   type: 'text',
   label: 'Fax',
-}, {
-  type: 'text',
-  label: 'Email',
-  isRequired: true,
 }, {
   type: 'text',
   label: 'Website',
