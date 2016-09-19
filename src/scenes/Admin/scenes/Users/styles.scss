@@ -11,3 +11,18 @@
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 0.25rem;
 }
+
+.wrapperLoading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.03);
+  }
+
+  &:not(:last-child) {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}

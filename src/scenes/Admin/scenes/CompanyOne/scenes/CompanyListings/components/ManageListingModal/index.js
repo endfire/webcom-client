@@ -5,8 +5,8 @@ import { ModalDialog } from 'components';
 import listItem from 'styles/listItem';
 
 const ManageListingsModal = withModal(
-  ({ isOpen, openModal, item }) => (
-    <p active={isOpen} onClick={openModal} style={listItem}>
+  ({ openModal, item }) => (
+    <p onClick={openModal} style={listItem}>
       {item.get('brand')}
     </p>
   ),

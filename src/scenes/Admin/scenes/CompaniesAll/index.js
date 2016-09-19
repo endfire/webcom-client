@@ -49,13 +49,18 @@ class CompaniesAll extends Component {
           <Button onClick={downloadCompanies} color="success">Download All Companies</Button>
         </div>
         <div className={styles.container}>
-          {companies
+          {!companies.isEmpty()
             ? <List
               items={companies}
               handleDelete={this.handleDelete}
               canUserDelete={canUserDelete}
             />
-            : 'Loading...'}
+            : <div className={styles.wrapperLoading}>
+              <div>
+                  Loading...
+              </div>
+            </div>
+          }
         </div>
       </div>
     );

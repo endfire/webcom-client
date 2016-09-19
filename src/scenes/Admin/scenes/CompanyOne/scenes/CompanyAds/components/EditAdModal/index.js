@@ -7,8 +7,8 @@ import { ModalDialog } from 'components';
 import listItem from 'styles/listItem';
 
 const EditAdModal = withModal(
-  ({ isOpen, openModal, item }) => (
-    <p active={isOpen} onClick={openModal} style={listItem}>
+  ({ openModal, item }) => (
+    <p onClick={openModal} style={listItem}>
       {item.get('brand')}
     </p>
   ),
@@ -169,9 +169,9 @@ class EditAdDialog extends Component {
             />
           </fieldset>
           <fieldset>
-            <label htmlFor="name">Priority</label><br />
+            <label htmlFor="priority">Priority</label><br />
             <input
-              type="text"
+              type="number"
               id="priority"
               name="priority"
               onChange={handleChange}

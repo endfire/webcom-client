@@ -56,7 +56,7 @@ class Listings extends Component {
           />
         </div>
         <div className={styles.container}>
-          {listings
+          {!listings.isEmpty()
             ? <List
               items={listings}
               handleDelete={this.handleDelete}
@@ -66,7 +66,12 @@ class Listings extends Component {
               categories={categories}
               isUpdateLoading={isUpdateLoading}
             /></List>
-            : 'Loading...'}
+            : <div className={styles.wrapperLoading}>
+              <div>
+                  No listings
+              </div>
+            </div>
+          }
         </div>
       </div>
     );

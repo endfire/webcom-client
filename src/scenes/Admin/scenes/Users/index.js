@@ -50,7 +50,12 @@ class Users extends Component {
           Role(3) - User cannot delete, access OBG, or create users.
         </p>
         <div className={styles.container}>
-          {users ? list : 'Loading...'}
+          {!users.isEmpty() ? list : <div className={styles.wrapperLoading}>
+            <div>
+                Loading...
+            </div>
+          </div>
+        }
         </div>
       </div>
     );

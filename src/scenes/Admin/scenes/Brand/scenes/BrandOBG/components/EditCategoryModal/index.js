@@ -4,8 +4,9 @@ import listItem from 'styles/listItem';
 import { ModalDialog } from 'components';
 
 const EditCategoryModal = withModal(
-  ({ isOpen, openModal, item }) => (
-    <p active={isOpen} onClick={openModal} style={listItem}>
+  ({ openModal, item }) => (
+    <p onClick={openModal} style={listItem}>
+      <strong>{item.get('heading')}</strong><br />
       {item.get('name')}
     </p>
   ),

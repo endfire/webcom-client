@@ -42,7 +42,7 @@ class AddAdDialog extends Component {
       url: '',
       start: moment(),
       end: moment(),
-      priority: '',
+      priority: 0,
       categories: [],
       brandOptions: props.brands,
       categoryOptions: props.categories,
@@ -212,9 +212,9 @@ class AddAdDialog extends Component {
             />
           </fieldset>
           <fieldset>
-            <label htmlFor="name">Priority</label><br />
+            <label htmlFor="priority">Priority</label><br />
             <input
-              type="text"
+              type="number"
               id="priority"
               name="priority"
               onChange={handleChange}

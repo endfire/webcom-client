@@ -50,7 +50,7 @@ class CompanyPeople extends Component {
           />
         </div>
         <div className={styles.container}>
-          {people
+          {!people.isEmpty()
             ? <List
               items={people}
               handleDelete={this.handleDelete}
@@ -59,7 +59,12 @@ class CompanyPeople extends Component {
               updatePerson={updatePerson}
               isUpdateLoading={isUpdateLoading}
             /></List>
-            : 'Loading...'}
+            : <div className={styles.wrapperLoading}>
+              <div>
+                  No people
+              </div>
+            </div>
+          }
         </div>
       </div>
     );

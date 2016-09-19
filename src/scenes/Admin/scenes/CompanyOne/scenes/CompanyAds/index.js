@@ -57,7 +57,7 @@ class Ads extends Component {
           />
         </div>
         <div className={styles.container}>
-          {ads
+          {!ads.isEmpty()
             ? <List
               items={ads}
               handleDelete={this.handleDelete}
@@ -67,7 +67,12 @@ class Ads extends Component {
               categories={categories}
               isUpdateLoading={isUpdateLoading}
             /></List>
-            : 'Loading...'}
+            : <div className={styles.wrapperLoading}>
+              <div>
+                  No ads
+              </div>
+            </div>
+          }
         </div>
       </div>
     );
