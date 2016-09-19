@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 
-const DynamicTextField = ({ field, handleChange }) => {
+const DynamicTextField = ({ field, onChange }) => {
   const label = field.get('label');
   const isRequired = field.get('isRequired');
   const value = field.get('value');
@@ -15,7 +15,7 @@ const DynamicTextField = ({ field, handleChange }) => {
         id={id}
         name={id}
         placeholder={placeholder}
-        onChange={handleChange}
+        onChange={onChange}
         value={value}
         required={isRequired}
       />
@@ -25,7 +25,7 @@ const DynamicTextField = ({ field, handleChange }) => {
 
 DynamicTextField.propTypes = {
   field: PropTypes.object,
-  handleChange: PropTypes.func,
+  onChange: PropTypes.func,
 };
 
 export default DynamicTextField;

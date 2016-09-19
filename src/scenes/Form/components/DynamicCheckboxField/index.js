@@ -1,25 +1,24 @@
 import React, { PropTypes } from 'react';
 
-const DynamicCheckboxField = ({ field, handleChange }) => {
+const DynamicCheckboxField = ({ field, onChange }) => {
   const label = field.get('label');
   const options = field.get('options');
   const id = field.get('id');
-  const keys = options.keySeq();
 
   return (
     <fieldset>
       <label >{label}</label>
-      {keys.map(key => (
-        <div>
+      {options.map(option => (
+        <div key={option}>
           <input
             type="checkbox"
-            id={options.getIn([key, 'value'])}
+            id={option}
             name={id}
-            onChange={handleChange}
-            value={options.getIn([key, 'value'])}
+            onChange={onChange}
+            value={option}
           />
-          <label htmlFor={options.getIn([key, 'value'])}>
-            {options.getIn([key, 'text'])}
+          <label htmlFor={option}>
+            {option}
           </label>
         </div>)
       )}
@@ -29,7 +28,7 @@ const DynamicCheckboxField = ({ field, handleChange }) => {
 
 DynamicCheckboxField.propTypes = {
   field: PropTypes.object,
-  handleChange: PropTypes.func,
+  onChange: PropTypes.func,
 };
 
 export default DynamicCheckboxField;

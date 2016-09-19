@@ -1,12 +1,11 @@
 import React, { PropTypes } from 'react';
 
-const DynamicSelectField = ({ field, handleChange }) => {
+const DynamicSelectField = ({ field, onChange }) => {
   const label = field.get('label');
   const isRequired = field.get('isRequired');
   const value = field.get('value');
   const options = field.get('options');
   const id = field.get('id');
-  const keys = options.keySeq();
 
   return (
     <fieldset>
@@ -14,13 +13,13 @@ const DynamicSelectField = ({ field, handleChange }) => {
       <select
         id={id}
         name={id}
-        onChange={handleChange}
+        onChange={onChange}
         value={value}
         required={isRequired}
       >
-        {keys.map(key => (
-          <option value={options.getIn([key, 'value'])}>
-            {options.getIn([key, 'text'])}
+        {options.map(option => (
+          <option key={option} value={option}>
+            {option}
           </option>)
         )}
       </select>
@@ -30,7 +29,7 @@ const DynamicSelectField = ({ field, handleChange }) => {
 
 DynamicSelectField.propTypes = {
   field: PropTypes.object,
-  handleChange: PropTypes.func,
+  onChange: PropTypes.func,
 };
 
 export default DynamicSelectField;
