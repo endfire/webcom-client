@@ -19,6 +19,23 @@ const CompanyInfo = ({ company, error, approveCompany }) => {
       }
       <h3>Information</h3>
       {error && <AuthErrorCard message={error.message} />}
+      {
+        !company.get('approved')
+          ? <p>
+            <strong>Old Name:</strong> {company.get('oldName')} <br />
+            <strong>Old Street:</strong> {company.get('oldStreet')} <br />
+            <strong>Old City:</strong> {company.get('oldCity')} <br />
+            <strong>Old State:</strong> {company.get('oldState')} <br />
+            <strong>Old Zip:</strong> {company.get('oldZip')} <br />
+            <strong>Old Country:</strong> {company.get('oldCountry')} <br />
+            <strong>Old Phone:</strong> {company.get('oldPhone')} <br />
+            <strong>Old Fax:</strong> {company.get('oldFax')} <br />
+            <strong>Old Url:</strong> {company.get('oldUrl')} <br />
+            <strong>Old Email:</strong> {company.get('oldEmail')} <br />
+            <strong>Old Description:</strong> {company.get('oldDescription')} <br />
+          </p>
+          : ''
+      }
       <CompanyInfoForm />
     </div>
   );

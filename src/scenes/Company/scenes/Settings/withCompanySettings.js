@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { PropTypes } from 'react';
 import { Button, ButtonGroup } from 'paintcan';
 import { withForm } from 'components';
@@ -63,6 +64,16 @@ const CompanySettingsForm = ({
       />
     </fieldset>
     <fieldset>
+      <label htmlFor="country">Country</label><br />
+      <input
+        id="country"
+        type="text"
+        placeholder="USA"
+        value={values ? values.getIn(['country', 'value']) : ''}
+        onChange={(e) => handleChange('country', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="phone">Phone Number</label><br />
       <input
         id="phone"
@@ -70,6 +81,16 @@ const CompanySettingsForm = ({
         placeholder="123-456-7890"
         value={values ? values.getIn(['phone', 'value']) : ''}
         onChange={(e) => handleChange('phone', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="fax">Fax</label><br />
+      <input
+        id="fax"
+        type="text"
+        placeholder="123-456-7890"
+        value={values ? values.getIn(['fax', 'value']) : ''}
+        onChange={(e) => handleChange('fax', e.target.value)}
       />
     </fieldset>
     <fieldset>
@@ -102,6 +123,17 @@ const CompanySettingsForm = ({
         onChange={(e) => handleChange('description', e.target.value)}
       />
     </fieldset>
+    <input id="oldName" value={values ? values.getIn(['oldName', 'value']) : ''} type="text" hidden />
+    <input id="oldStreet" value={values ? values.getIn(['oldStreet', 'value']) : ''} type="text" hidden />
+    <input id="oldCity" value={values ? values.getIn(['oldCity', 'value']) : ''} type="text" hidden />
+    <input id="oldState" value={values ? values.getIn(['oldState', 'value']) : ''} type="text" hidden />
+    <input id="oldZip" value={values ? values.getIn(['oldZip', 'value']) : ''} type="text" hidden />
+    <input id="oldCountry" value={values ? values.getIn(['oldCountry', 'value']) : ''} type="text" hidden />
+    <input id="oldPhone" value={values ? values.getIn(['oldPhone', 'value']) : ''} type="text" hidden />
+    <input id="oldFax" value={values ? values.getIn(['oldFax', 'value']) : ''} type="text" hidden />
+    <input id="oldUrl" value={values ? values.getIn(['oldUrl', 'value']) : ''} type="text" hidden />
+    <input id="oldEmail" value={values ? values.getIn(['oldEmail', 'value']) : ''} type="text" hidden />
+    <input id="oldDescription" value={values ? values.getIn(['oldDescription', 'value']) : ''} type="text" hidden />
     <fieldset>
       <ButtonGroup spaced>
         <Button type="submit" color="primary" loading={isSubmitting}>
@@ -132,19 +164,26 @@ export default (company) => withForm({
     city: company.get('city') || '',
     state: company.get('state') || '',
     zip: company.get('zip') || '',
+    country: company.get('country') || '',
     phone: company.get('phone') || '',
+    fax: company.get('fax') || '',
     url: company.get('url') || '',
     email: company.get('email') || '',
     description: company.get('description') || '',
+    oldName: company.get('name') || '',
+    oldStreet: company.get('street') || '',
+    oldCity: company.get('city') || '',
+    oldState: company.get('state') || '',
+    oldZip: company.get('zip') || '',
+    oldCountry: company.get('country') || '',
+    oldPhone: company.get('phone') || '',
+    oldFax: company.get('fax') || '',
+    oldUrl: company.get('url') || '',
+    oldEmail: company.get('email') || '',
+    oldDescription: company.get('description') || '',
   },
   validation: {
     name: (value) => !isNull(value),
-    street: (value) => !isNull(value),
-    city: (value) => !isNull(value),
-    state: (value) => !isNull(value),
-    zip: (value) => !isNull(value),
-    phone: (value) => !isNull(value),
-    url: (value) => !isNull(value),
     email: (value) => !isNull(value),
     description: (value) => !isNull(value),
   },
