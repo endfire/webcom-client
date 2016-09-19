@@ -49,7 +49,7 @@ export const fetchRecord = (entityType, id) => {
   };
 };
 
-export const findRecords = (entityType, filters = {}) => {
+export const findRecords = (entityType, filters = {}, pagination = {}) => {
   const type = types.FIND_REQUEST;
 
   if (!entityType) throw missingRequiredParamError(type, 'entityType');
@@ -58,12 +58,13 @@ export const findRecords = (entityType, filters = {}) => {
     type,
     payload: {
       filters,
+      pagination,
       type: entityType,
     },
   };
 };
 
-export const fetchRelated = (entityType, id, field, relatedType) => {
+export const fetchRelated = (entityType, id, field, relatedType, pagination = {}) => {
   const type = types.RELATED_REQUEST;
 
   if (!entityType) throw missingRequiredParamError(type, 'entityType');
@@ -76,6 +77,7 @@ export const fetchRelated = (entityType, id, field, relatedType) => {
       id,
       field,
       relatedType,
+      pagination,
       type: entityType,
     },
   };

@@ -5,6 +5,7 @@ import { api } from 'services/api';
 import { syncStore } from 'actions/store';
 import { getFields, getRecordID } from 'selectors/form';
 import { submitFormError, submitFormSuccess } from 'actions/form';
+import moment from 'moment';
 import * as types from 'constants/actionTypes';
 
 function* submitCompanyInfoForm(action) {
@@ -34,6 +35,15 @@ function* submitCompanyInfoForm(action) {
       url: fields.getIn(['url', 'value']),
       email: fields.getIn(['email', 'value']),
       description: fields.getIn(['description', 'value']),
+      lastUpdated: moment().format('dddd, MMMM Do YYYY'),
+      country: fields.getIn(['country', 'value']),
+      fax: fields.getIn(['fax', 'value']),
+      lastContacted: fields.getIn(['lastContacted', 'value']),
+      yearEstablished: fields.getIn(['yearEstablished', 'value']),
+      numberEmployees: fields.getIn(['numberEmployees', 'value']),
+      annualRevenue: fields.getIn(['annualRevenue', 'value']),
+      businessOwnership: fields.getIn(['businessOwnership', 'value']),
+      contactInfo: fields.getIn(['contactInfo', 'value']),
     });
 
     yield put(syncStore('company', updatedRecord));

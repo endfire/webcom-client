@@ -40,7 +40,7 @@ class Brands extends Component {
         <div className={styles.container}>
           {!brands.isEmpty()
             ? <List
-              items={brands}
+              items={brands.sortBy(brand => brand.get('name'))}
               handleDelete={this.handleDelete}
               canUserDelete={canUserDelete}
             />

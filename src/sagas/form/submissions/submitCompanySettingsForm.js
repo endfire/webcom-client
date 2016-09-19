@@ -5,6 +5,7 @@ import { api } from 'services/api';
 import { syncStore } from 'actions/store';
 import { getFields, getRecordID } from 'selectors/form';
 import { submitFormError, submitFormSuccess } from 'actions/form';
+import moment from 'moment';
 import * as types from 'constants/actionTypes';
 
 function* submitCompanySettingsForm(action) {
@@ -48,6 +49,7 @@ function* submitCompanySettingsForm(action) {
       oldEmail: fields.getIn(['oldEmail', 'value']),
       oldDescription: fields.getIn(['oldDescription', 'value']),
       approved: false,
+      lastUpdated: moment().format('dddd, MMMM Do YYYY'),
     });
 
     yield put(syncStore('company', updatedRecord));
