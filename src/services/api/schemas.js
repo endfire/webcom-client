@@ -138,6 +138,7 @@ export default {
       value: true,
       options: true,
       isRequired: true,
+      priority: true,
       createdOn: true,
     },
     relationships: {
