@@ -45,6 +45,7 @@ function* submitFieldInitializerForm(action) {
     if (payment) {
       yield put(actions.createRecord('payment', {
         form: id,
+        items: [],
       }));
     }
 
