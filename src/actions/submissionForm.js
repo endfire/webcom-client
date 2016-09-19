@@ -44,6 +44,23 @@ export const editSubmissionFormField = (formID, name, value) => {
   };
 };
 
+export const editSubmissionFormCheckbox = (formID, name, value) => {
+  const type = types.EDIT_SUBMISSION_FORM_CHECKBOX;
+
+  if (!formID) throw missingRequiredParamError(type, 'formID');
+  if (!name) throw missingRequiredParamError(type, 'name');
+  if (!value) throw missingRequiredParamError(type, 'value');
+
+  return {
+    type,
+    payload: {
+      formID,
+      name,
+      value,
+    },
+  };
+};
+
 export const editSubmissionFormPayment = (formID, name, value) => {
   const type = types.EDIT_SUBMISSION_FORM_PAYMENT;
 
