@@ -4,8 +4,8 @@ import countries from 'i18n-iso-countries';
 const { keys } = Object;
 
 const statesArray = keys(states);
-const countriesArray = keys(countries.getNames('en'))
-  .map(country => countries[country]);
+const countriesObject = countries.getNames('en');
+const countriesArray = keys(countriesObject).map(country => countriesObject[country]);
 
 export default [{
   type: 'text',
@@ -22,6 +22,7 @@ export default [{
 }, {
   type: 'text',
   label: 'Contact Title',
+  isRequired: false,
 }, {
   type: 'text',
   label: 'Address',
@@ -29,13 +30,16 @@ export default [{
 }, {
   type: 'text',
   label: 'Address 2',
+  isRequired: false,
 }, {
   type: 'text',
   label: 'City',
+  isRequired: true,
 }, {
   type: 'select',
   label: 'State',
   options: statesArray,
+  isRequired: true,
 }, {
   type: 'select',
   label: 'Country',
@@ -48,6 +52,7 @@ export default [{
 }, {
   type: 'text',
   label: 'Fax',
+  isRequired: false,
 }, {
   type: 'text',
   label: 'Email',
@@ -55,4 +60,5 @@ export default [{
 }, {
   type: 'text',
   label: 'Website',
+  isRequired: false,
 }];

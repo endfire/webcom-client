@@ -108,6 +108,7 @@ export default {
     attributes: {
       name: true,
       didPublish: true,
+      didInitialize: true,
       createdOn: true,
     },
     relationships: {
