@@ -1,7 +1,8 @@
 import { takeEvery, delay } from 'redux-saga';
 import { put } from 'redux-saga/effects';
 import store from 'configureStore';
-import * as actions from 'actions/store';
+import { api } from 'services/api';
+import { syncStore } from 'actions/store';
 import { submitFormError, submitFormSuccess } from 'actions/form';
 import * as types from 'constants/actionTypes';
 import * as templates from 'data/templates';
@@ -36,22 +37,28 @@ function* submitFieldInitializerForm(action) {
     for (const field of fields) {
       yield delay(150);
 
-      yield put(actions.createRecord('field', {
+      const createdField = yield api.create('field', {
         ...field,
         form: id,
-      }));
+      });
+
+      yield put(syncStore('field', createdField));
     }
 
     if (payment) {
-      yield put(actions.createRecord('payment', {
+      const createdPayment = yield api.create('payment', {
         form: id,
         items: [],
-      }));
+      });
+
+      yield put(syncStore('payment', createdPayment));
     }
 
-    yield put(actions.updateRecord('form', id, {
+    const updatedForm = yield api.update('form', id, {
       didInitialize: true,
-    }));
+    });
+
+    yield put(syncStore('form', updatedForm));
     yield put(submitFormSuccess(form));
   } catch (err) {
     yield put(submitFormError(form, err));
