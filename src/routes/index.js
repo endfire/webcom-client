@@ -6,6 +6,7 @@ import requiresUserAuth from './requiresUserAuth';
 import requiresCompanyAuth from './requiresCompanyAuth';
 import canAccessOBG from './canAccessOBG';
 import checkIfPublished from './checkIfPublished';
+import fetchDynamicPathEntity from './fetchDynamicPathEntity';
 
 import { App, Welcome } from 'components';
 import { Admin, Company, Signup, OBG, Form } from 'scenes';
@@ -76,6 +77,7 @@ export default {
         {
           path: 'brands/:brandID',
           component: Brand,
+          onEnter: fetchDynamicPathEntity(store, api, 'brand', 'brandID'),
           indexRoute: {
             onEnter: ({ params }, replace) => replace(`/admin/brands/${params.brandID}/forms`),
           },
@@ -108,6 +110,7 @@ export default {
         {
           path: 'companies/:companyID',
           component: CompanyOne,
+          onEnter: fetchDynamicPathEntity(store, api, 'company', 'companyID'),
           indexRoute: {
             onEnter: ({ params }, replace) =>
               replace(`/admin/companies/${params.companyID}/listings`),
