@@ -7,7 +7,7 @@ import { ModalDialog } from 'components';
 const AddFieldModal = withModal(
   ({ openModal }) => (
     <Button size="sm" onClick={openModal} color="primary">
-      <Icon name="plus" /> Add a field
+      <Icon name="plus" /> Add field
     </Button>
   ),
   ({ closeModal, formID, createField, isCreateLoading }) => (

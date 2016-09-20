@@ -3,9 +3,9 @@ import countries from 'i18n-iso-countries';
 
 const { keys } = Object;
 
-const statesArray = keys(states);
+const statesArray = ['', 'Not applicable', ...keys(states)];
 const countriesObject = countries.getNames('en');
-const countriesArray = keys(countriesObject).map(country => countriesObject[country]);
+const countriesArray = ['', ...keys(countriesObject).map(country => countriesObject[country])];
 
 export default [{
   type: 'text',

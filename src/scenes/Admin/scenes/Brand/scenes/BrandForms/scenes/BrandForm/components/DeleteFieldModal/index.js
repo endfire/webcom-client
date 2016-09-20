@@ -5,8 +5,8 @@ import cx from 'classnames';
 import styles from './styles.scss';
 
 const DeleteFieldModal = withModal(
-  ({ isOpen, openModal, size }) => (
-    <Button active={isOpen} onClick={openModal} color="danger" size={size || 'md'}>
+  ({ isOpen, openModal }) => (
+    <Button size="sm" active={isOpen} onClick={openModal} color="danger">
       <Icon name="close" /> Delete
     </Button>
   ),

@@ -5,6 +5,8 @@ import { Icon } from 'react-fa';
 import { Fields, PaymentAndItems } from './components';
 import * as actions from 'actions/submissionForm';
 
+import styles from './styles.scss';
+
 class FormSubmission extends Component {
   constructor(props) {
     super(props);
@@ -114,13 +116,15 @@ class FormSubmission extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmission}>
-        {this.renderFields()}
-        {this.renderPaymentAndItems()}
-        <Button type="submit" size="sm">
-          Submit Form
-        </Button>
-      </form>
+      <div className={styles.wrapper}>
+        <form onSubmit={this.handleSubmission}>
+          {this.renderFields()}
+          {this.renderPaymentAndItems()}
+          <Button type="submit" size="sm">
+            Submit Form
+          </Button>
+        </form>
+      </div>
     );
   }
 }
