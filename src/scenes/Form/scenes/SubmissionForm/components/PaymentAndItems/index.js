@@ -1,25 +1,41 @@
-import React, { PropTypes } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Payment, Items } from './components';
 
-const PaymentAndItems = ({
-  payment,
-  items,
-  handleEditFormPayment,
-  handleEditFormItem,
-  renderSpinner,
-}) => (
-  <div>
-    <Payment payment={payment} onChange={handleEditFormPayment} />
-    {items
-      ? <Items items={items} onChange={handleEditFormItem} />
-      : renderSpinner()
-    }
-  </div>
-);
+class PaymentAndItems extends Component {
+  componentDidMount() {
+    const { initializeSubmissionFormItems, formID } = this.props;
+
+    initializeSubmissionFormItems(formID);
+  }
+
+  renderItems() {
+    const { handleEditFormItem, submissionForm, renderSpinner } = this.props;
+    const items = submissionForm.get('items');
+
+    if (!items) return renderSpinner();
+
+    return <Items items={items} onChange={handleEditFormItem} />;
+  }
+
+  render() {
+    const { payment, handleEditFormPayment } = this.props;
+
+    return (
+      <div>
+        <h3>Payment Items</h3>
+        {this.renderItems()}
+        <h3>Payment Information</h3>
+        <Payment payment={payment} onChange={handleEditFormPayment} />
+      </div>
+    );
+  }
+}
 
 PaymentAndItems.propTypes = {
   payment: PropTypes.object,
-  items: PropTypes.object,
+  formID: PropTypes.string,
+  submissionForm: PropTypes.object,
+  initializeSubmissionFormItems: PropTypes.func,
   handleEditFormPayment: PropTypes.func,
   handleEditFormItem: PropTypes.func,
   renderSpinner: PropTypes.func,

@@ -25,13 +25,6 @@ class FormSubmission extends Component {
     hydrateSubmissionForm(submissionFormID);
   }
 
-  componentWillUpdate(nextProps) {
-    const { initializeSubmissionFormItems, params: { submissionFormID } } = this.props;
-    const hasPayment = !nextProps.submissionForm.get('payment').isEmpty();
-
-    if (hasPayment) initializeSubmissionFormItems(submissionFormID);
-  }
-
   handleEditFormField(e) {
     const { editField, params: { submissionFormID } } = this.props;
     const { name, value } = e.target;
@@ -84,7 +77,7 @@ class FormSubmission extends Component {
 
     return (
       <div>
-        <h3>Form: {submissionForm.get('name')}</h3>
+        <h2>Form: {submissionForm.get('name')}</h2>
         <Fields
           fields={fields}
           handleEditFormField={handleEditFormField}
@@ -95,22 +88,26 @@ class FormSubmission extends Component {
   }
 
   renderPaymentAndItems() {
-    const { submissionForm } = this.props;
-    const { handleEditFormPayment, handleEditFormItem, renderSpinner } = this;
+    const {
+      submissionForm,
+      initializeSubmissionFormItems,
+      params: { submissionFormID },
+    } = this.props;
 
     if (!submissionForm) return null;
     if (submissionForm.get('payment').isEmpty()) return null;
 
     const payment = submissionForm.get('payment');
-    const items = submissionForm.get('items');
 
     return (
       <PaymentAndItems
         payment={payment}
-        items={items}
-        handleEditFormPayment={handleEditFormPayment}
-        handleEditFormItem={handleEditFormItem}
-        renderSpinner={renderSpinner}
+        submissionForm={submissionForm}
+        formID={submissionFormID}
+        initializeSubmissionFormItems={initializeSubmissionFormItems}
+        handleEditFormPayment={this.handleEditFormPayment}
+        handleEditFormItem={this.handleEditFormItem}
+        renderSpinner={this.renderSpinner}
       />
     );
   }

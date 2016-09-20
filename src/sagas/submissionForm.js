@@ -1,5 +1,6 @@
 import { takeEvery } from 'redux-saga';
 import { put } from 'redux-saga/effects';
+import { api } from 'services/api';
 import store from 'configureStore';
 import * as types from 'constants/actionTypes';
 import * as actions from 'actions/store';
@@ -7,8 +8,10 @@ import * as actions from 'actions/store';
 function* initializeSubmissionFormItems(action) {
   const { formID } = action.payload;
 
-  yield put(actions.fetchRelated('form', formID, 'payment', 'payment'));
-  yield put({ type: types.HYDRATE_SUBMISSION_FORM_ITEMS, payload: formID });
+  const records = yield api.fetchRelated('form', formID, 'payment');
+  yield put(actions.syncStore('payment', records));
+
+  yield put({ type: types.HYDRATE_SUBMISSION_FORM_ITEMS, payload: { formID } });
 }
 
 export function* watchInitializeSubmissionFormItems() {
