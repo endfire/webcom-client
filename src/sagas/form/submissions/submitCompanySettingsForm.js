@@ -5,6 +5,7 @@ import { api } from 'services/api';
 import { syncStore } from 'actions/store';
 import { getFields, getRecordID } from 'selectors/form';
 import { submitFormError, submitFormSuccess } from 'actions/form';
+import moment from 'moment';
 import * as types from 'constants/actionTypes';
 
 function* submitCompanySettingsForm(action) {
@@ -30,11 +31,25 @@ function* submitCompanySettingsForm(action) {
       city: fields.getIn(['city', 'value']),
       state: fields.getIn(['state', 'value']),
       zip: fields.getIn(['zip', 'value']),
+      country: fields.getIn(['country', 'value']),
       phone: fields.getIn(['phone', 'value']),
+      fax: fields.getIn(['fax', 'value']),
       url: fields.getIn(['url', 'value']),
       email: fields.getIn(['email', 'value']),
       description: fields.getIn(['description', 'value']),
+      oldName: fields.getIn(['oldName', 'value']),
+      oldStreet: fields.getIn(['oldStreet', 'value']),
+      oldCity: fields.getIn(['oldCity', 'value']),
+      oldState: fields.getIn(['oldState', 'value']),
+      oldZip: fields.getIn(['oldZip', 'value']),
+      oldCountry: fields.getIn(['oldCountry', 'value']),
+      oldPhone: fields.getIn(['oldPhone', 'value']),
+      oldFax: fields.getIn(['oldFax', 'value']),
+      oldUrl: fields.getIn(['oldUrl', 'value']),
+      oldEmail: fields.getIn(['oldEmail', 'value']),
+      oldDescription: fields.getIn(['oldDescription', 'value']),
       approved: false,
+      lastUpdated: moment().format('dddd, MMMM Do YYYY'),
     });
 
     yield put(syncStore('company', updatedRecord));

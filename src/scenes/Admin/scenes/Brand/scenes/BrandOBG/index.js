@@ -53,7 +53,7 @@ const BrandOBG = ({
       <div className={styles.container}>
         {categories
           ? <List
-            items={categories}
+            items={categories.sortBy(category => category.get('heading'))}
             handleDelete={handleDelete}
             canUserDelete={canUserDelete}
           ><EditCategoryModal

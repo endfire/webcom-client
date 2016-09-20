@@ -21,8 +21,8 @@ export function* watchFetchRequest() {
 }
 
 function* fetchRelated(action) {
-  const { type, id, field, relatedType } = action.payload;
-  const records = yield api.fetchRelated(type, id, field);
+  const { type, id, field, relatedType, pagination } = action.payload;
+  const records = yield api.fetchRelated(type, id, field, pagination);
 
   try {
     yield put({ type: types.RELATED_SUCCESS, payload: action.payload });
@@ -37,8 +37,8 @@ export function* watchFetchRelatedRequest() {
 }
 
 function* find(action) {
-  const { type, filters } = action.payload;
-  const records = yield api.find(type, filters);
+  const { type, filters, pagination } = action.payload;
+  const records = yield api.find(type, filters, pagination);
 
   try {
     yield put({ type: types.FIND_SUCCESS, payload: action.payload });

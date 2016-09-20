@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Button } from 'paintcan';
+import { browserHistory } from 'react-router';
 import { List, AddCompanyModal } from './components/';
 import { getCanUserDelete } from 'selectors/admin';
 import { getCompanies } from 'selectors/adminCompanies';
@@ -14,10 +15,26 @@ class CompaniesAll extends Component {
     super(props);
 
     this.handleDelete = this.handleDelete.bind(this);
+    this.loadMore = this.loadMore.bind(this);
   }
 
   componentDidMount() {
-    this.props.findCompanies();
+    this.props.findCompanies(
+      this.props.location.query.skip,
+      this.props.location.query.limit
+    );
+  }
+
+  componentDidUpdate(prevProps) {
+    if (
+      (prevProps.location.query.skip !== this.props.location.query.skip) ||
+      (prevProps.location.query.limit !== this.props.location.query.limit)
+    ) {
+      this.props.findCompanies(
+        this.props.location.query.skip,
+        this.props.location.query.limit
+      );
+    }
   }
 
   handleDelete(id) {
@@ -26,6 +43,14 @@ class CompaniesAll extends Component {
     if (isDeleteLoading || !canUserDelete) return;
 
     deleteCompany(id);
+  }
+
+  loadMore() {
+    const skip = Number(this.props.location.query.skip) || 0;
+    const limit = Number(this.props.location.query.limit) || 80;
+    const next = skip + limit;
+
+    browserHistory.push(`/admin/companies?limit=${limit}&skip=${next}`);
   }
 
   render() {
@@ -38,6 +63,7 @@ class CompaniesAll extends Component {
       isCreateLoading,
     } = this.props;
 
+
     return (
       <div className={styles.wrapper}>
         <div className={styles.header}>
@@ -49,13 +75,21 @@ class CompaniesAll extends Component {
           <Button onClick={downloadCompanies} color="success">Download All Companies</Button>
         </div>
         <div className={styles.container}>
-          {companies
+          {!companies.isEmpty()
             ? <List
-              items={companies}
+              items={companies.sortBy(company => company.get('name'))}
               handleDelete={this.handleDelete}
               canUserDelete={canUserDelete}
             />
-            : 'Loading...'}
+            : <div className={styles.wrapperLoading}>
+              <div>
+                  Loading...
+              </div>
+            </div>
+          }
+        </div>
+        <div className={styles.bottom}>
+          <Button onClick={this.loadMore}>Load More</Button>
         </div>
       </div>
     );
@@ -70,7 +104,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  findCompanies: () => dispatch(actions.findRecords('company')),
+  findCompanies: (skip, limit) => dispatch(actions.findRecords('company', {}, {
+    limit,
+    skip,
+  })),
   deleteCompany: (id) => dispatch(actions.deleteRecord('company', 'companies', id)),
   createCompany: (data) => dispatch(actions.createRecord('company', data)),
   downloadPeople: () => dispatch({
@@ -97,6 +134,7 @@ CompaniesAll.propTypes = {
   downloadPeople: PropTypes.func,
   downloadCompanies: PropTypes.func,
   isCreateLoading: PropTypes.bool,
+  location: PropTypes.object,
 };
 
 export default connect(

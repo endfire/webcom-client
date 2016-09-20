@@ -63,6 +63,16 @@ const CompanyInfoForm = ({
       />
     </fieldset>
     <fieldset>
+      <label htmlFor="country">Country</label><br />
+      <input
+        id="country"
+        type="text"
+        placeholder="USA"
+        value={values ? values.getIn(['country', 'value']) : ''}
+        onChange={(e) => handleChange('country', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="phone">Phone Number</label><br />
       <input
         id="phone"
@@ -70,6 +80,16 @@ const CompanyInfoForm = ({
         placeholder="123-456-7890"
         value={values ? values.getIn(['phone', 'value']) : ''}
         onChange={(e) => handleChange('phone', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="fax">Fax</label><br />
+      <input
+        id="fax"
+        type="text"
+        placeholder="123-456-7890"
+        value={values ? values.getIn(['fax', 'value']) : ''}
+        onChange={(e) => handleChange('fax', e.target.value)}
       />
     </fieldset>
     <fieldset>
@@ -94,12 +114,82 @@ const CompanyInfoForm = ({
     </fieldset>
     <fieldset>
       <label htmlFor="description">Description</label><br />
-      <input
+      <textarea
         id="description"
         type="text"
         placeholder="Description of company"
         value={values ? values.getIn(['description', 'value']) : ''}
         onChange={(e) => handleChange('description', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="lastContacted">Last Contacted</label><br />
+      <input
+        id="lastContacted"
+        type="text"
+        placeholder="Last contacted."
+        value={values ? values.getIn(['lastContacted', 'value']) : ''}
+        onChange={(e) => handleChange('lastContacted', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="lastUpdated">Last Updated</label><br />
+      <input
+        id="lastUpdated"
+        type="text"
+        placeholder="Last updated."
+        value={values ? values.getIn(['lastUpdated', 'value']) : ''}
+        onChange={(e) => handleChange('lastUpdated', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="yearEstablished">Year Established</label><br />
+      <input
+        id="yearEstablished"
+        type="text"
+        placeholder="Year established."
+        value={values ? values.getIn(['yearEstablished', 'value']) : ''}
+        onChange={(e) => handleChange('yearEstablished', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="numberEmployees">Number of Employees</label><br />
+      <input
+        id="numberEmployees"
+        type="text"
+        placeholder="Number of Employees."
+        value={values ? values.getIn(['numberEmployees', 'value']) : ''}
+        onChange={(e) => handleChange('numberEmployees', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="annualRevenue">Annual Revenue</label><br />
+      <input
+        id="annualRevenue"
+        type="text"
+        placeholder="Annual Revenue."
+        value={values ? values.getIn(['annualRevenue', 'value']) : ''}
+        onChange={(e) => handleChange('annualRevenue', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="businessOwnership">Business Ownership</label><br />
+      <input
+        id="businessOwnership"
+        type="text"
+        placeholder="Business Ownership."
+        value={values ? values.getIn(['businessOwnership', 'value']) : ''}
+        onChange={(e) => handleChange('businessOwnership', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="contactInfo">Contact Info</label><br />
+      <textarea
+        id="contactInfo"
+        type="text"
+        placeholder="Contact Info."
+        value={values ? values.getIn(['contactInfo', 'value']) : ''}
+        onChange={(e) => handleChange('contactInfo', e.target.value)}
       />
     </fieldset>
     <fieldset>
@@ -136,15 +226,18 @@ export default (company) => withForm({
     url: company.get('url') || '',
     email: company.get('email') || '',
     description: company.get('description') || '',
+    country: company.get('country') || '',
+    fax: company.get('fax') || '',
+    lastContacted: company.get('lastContacted') || '',
+    lastUpdated: company.get('lastUpdated') || '',
+    yearEstablished: company.get('yearEstablished') || '',
+    numberEmployees: company.get('numberEmployees') || '',
+    annualRevenue: company.get('annualRevenue') || '',
+    businessOwnership: company.get('businessOwnership') || '',
+    contactInfo: company.get('contactInfo') || '',
   },
   validation: {
     name: (value) => !isNull(value),
-    street: (value) => !isNull(value),
-    city: (value) => !isNull(value),
-    state: (value) => !isNull(value),
-    zip: (value) => !isNull(value),
-    phone: (value) => !isNull(value),
-    url: (value) => !isNull(value),
     email: (value) => !isNull(value),
     description: (value) => !isNull(value),
   },

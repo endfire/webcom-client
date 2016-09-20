@@ -4,8 +4,8 @@ import { ModalDialog } from 'components';
 import listItem from 'styles/listItem';
 
 const EditPersonModal = withModal(
-  ({ isOpen, openModal, item }) => (
-    <p active={isOpen} onClick={openModal} style={listItem}>
+  ({ openModal, item }) => (
+    <p onClick={openModal} style={listItem}>
       {item.get('name')}
     </p>
   ),

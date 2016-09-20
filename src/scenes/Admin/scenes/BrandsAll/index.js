@@ -38,13 +38,18 @@ class Brands extends Component {
           />
         </div>
         <div className={styles.container}>
-          {brands
+          {!brands.isEmpty()
             ? <List
-              items={brands}
+              items={brands.sortBy(brand => brand.get('name'))}
               handleDelete={this.handleDelete}
               canUserDelete={canUserDelete}
             />
-            : 'Loading...'}
+            : <div className={styles.wrapperLoading}>
+              <div>
+                  Loading...
+              </div>
+            </div>
+          }
         </div>
       </div>
     );

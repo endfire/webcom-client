@@ -14,14 +14,17 @@ export default class Sdk {
     this.port = port;
   }
 
-  find(type, query) {
+  find(type, query, pagination) {
     const { host, api } = this;
 
     const endpoint = getApiEndpoint({
       host,
       api,
       type,
-      query,
+      query: {
+        ...query,
+        ...pagination,
+      },
     });
 
     const request = {
@@ -34,9 +37,9 @@ export default class Sdk {
       .then(toJSON);
   }
 
-  fetch(type, id) {
+  fetch(type, id, pagination) {
     const { host, api } = this;
-    const endpoint = getApiEndpoint({ host, api, type, id });
+    const endpoint = getApiEndpoint({ host, api, type, id, query: pagination });
     const request = {
       headers: {
         authorization: localStorage.token,
@@ -47,9 +50,9 @@ export default class Sdk {
       .then(toJSON);
   }
 
-  fetchRelated(type, id, field) {
+  fetchRelated(type, id, field, pagination) {
     const { host, api } = this;
-    const endpoint = getApiEndpoint({ host, api, type, id, field });
+    const endpoint = getApiEndpoint({ host, api, type, id, field, query: pagination });
     const request = {
       headers: {
         authorization: localStorage.token,
