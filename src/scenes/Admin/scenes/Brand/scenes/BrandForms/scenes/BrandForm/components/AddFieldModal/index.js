@@ -26,6 +26,7 @@ class AddFieldDialog extends Component {
 
     this.state = {
       label: '',
+      priority: '',
       type: 'text',
       options: [],
       currentOption: '',
@@ -48,13 +49,15 @@ class AddFieldDialog extends Component {
     e.preventDefault();
 
     const { formID, createField, isCreateLoading, closeModal } = this.props;
-    const { label, type, options } = this.state;
+    const { label, priority, type, options } = this.state;
 
     if (isCreateLoading) return;
 
     createField({
       form: formID,
+      isRequired: true,
       label,
+      priority,
       type,
       options,
     });
@@ -153,6 +156,17 @@ class AddFieldDialog extends Component {
               onChange={handleChange}
               value={this.state.label}
               required
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="priority">Priority</label><br />
+            <input
+              type="number"
+              id="priority"
+              name="priority"
+              min="0"
+              onChange={handleChange}
+              value={this.state.priority}
             />
           </fieldset>
           <fieldset>
