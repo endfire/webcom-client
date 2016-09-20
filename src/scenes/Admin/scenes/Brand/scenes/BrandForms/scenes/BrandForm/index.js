@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import store from 'configureStore';
 import { Icon } from 'react-fa';
 import { Link } from 'react-router';
 import { Button, ButtonGroup } from 'paintcan';
@@ -93,15 +94,18 @@ class BrandForm extends Component {
   }
 
   renderFields() {
+    const state = store.getState();
     const {
-      fields,
+      form,
       updateField,
       isUpdateLoading,
       deleteField,
       isDeleteLoading,
     } = this.props;
 
-    if (!fields) return null;
+    if (!form) return null;
+
+    const fields = getCurrentFormFields(form.get('id'))(state);
 
     return fields.sortBy(field => field.get('priority')).map(field =>
       <Field
@@ -175,29 +179,29 @@ class BrandForm extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   form: getCurrentForm(ownProps.params.formID)(state),
-  fields: getCurrentFormFields(ownProps.params.formID)(state),
   items: getCurrentFormPaymentItems(ownProps.params.formID)(state),
   isCreateLoading: getIsCreateLoading(state),
   isUpdateLoading: getIsUpdateLoading(state),
   isDeleteLoading: getIsDeleteLoading(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchForm: (id) => dispatch(actions.fetchRecord('form', id)),
   fetchPayment: (id) => dispatch(actions.fetchRecord('payment', id)),
   createField: (data) => dispatch(actions.createRecord('field', data)),
   createItem: (data) => dispatch(actions.createRecord('item', data)),
   updateForm: (id, data) => dispatch(actions.updateRecord('form', id, data)),
   updateItem: (id, data) => dispatch(actions.updateRecord('item', id, data)),
-  updateField: (id, data) => dispatch(actions.updateRecord('field', id, data)),
   deleteItem: (id) => dispatch(actions.deleteRecord('item', 'items', id)),
-  deleteField: (id) => dispatch(actions.deleteRecord('field', 'fields', id)),
+  updateField: (id, data) =>
+    dispatch(actions.updateAndFetch('field', id, data, 'form', ownProps.params.formID)),
+  deleteField: (id) =>
+    dispatch(actions.deleteAndFetch('field', 'fields', id, 'form', ownProps.params.formID)),
 });
 
 BrandForm.propTypes = {
   params: PropTypes.object,
   form: PropTypes.object,
-  fields: PropTypes.object,
   items: PropTypes.object,
   isCreateLoading: PropTypes.bool,
   isUpdateLoading: PropTypes.bool,
