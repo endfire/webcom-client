@@ -1,0 +1,31 @@
+.card {
+  border-radius: 0.25rem;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background: rgba(0, 0, 0, 0.03);
+  padding: 1rem;
+
+  &:not(:last-child) {
+    margin-bottom: 1rem;
+  }
+}
+
+.item {
+  composes: card;
+}
+
+.item-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.item-heading {
+  margin: 0;
+}
+
+.item-editable {
+  background: white;
+  margin: -1rem;
+  padding: 1rem;
+}

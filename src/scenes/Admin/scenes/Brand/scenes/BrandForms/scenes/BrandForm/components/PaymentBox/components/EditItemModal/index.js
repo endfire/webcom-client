@@ -3,51 +3,45 @@ import { Icon } from 'react-fa';
 import { Button, ButtonGroup, withModal } from 'paintcan';
 import { ModalDialog } from 'components';
 
-const AddFieldModal = withModal(
+const EditItemModal = withModal(
   ({ openModal }) => (
     <Button size="sm" onClick={openModal} color="primary">
-      <Icon name="plus" /> Add payment item
+      <Icon name="edit" /> Edit payment item
     </Button>
   ),
-  ({ closeModal, paymentID, createItem, isCreateLoading }) => (
-    <AddFieldDialog
+  ({ closeModal, item, updateItem, isUpdateLoading }) => (
+    <EditItemDialog
       closeModal={closeModal}
-      paymentID={paymentID}
-      createItem={createItem}
-      isCreateLoading={isCreateLoading}
+      item={item}
+      updateItem={updateItem}
+      isUpdateLoading={isUpdateLoading}
     />
   ),
 );
 
-class AddFieldDialog extends Component {
+class EditItemDialog extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      label: '',
-      price: '',
-      description: '',
+      label: props.item.get('label'),
+      price: props.item.get('price'),
+      description: props.item.get('description'),
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange(e) {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  }
-
   handleSubmit(e) {
     e.preventDefault();
 
-    const { paymentID, createItem, isCreateLoading, closeModal } = this.props;
+    const { item, updateItem, isUpdateLoading, closeModal } = this.props;
     const { label, price, description } = this.state;
 
-    if (isCreateLoading) return;
+    if (isUpdateLoading) return;
 
-    createItem({
-      payment: paymentID,
+    updateItem(item.get('id'), {
       label,
       price,
       description,
@@ -56,38 +50,46 @@ class AddFieldDialog extends Component {
     closeModal();
   }
 
+  handleChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
+
   render() {
-    const { closeModal } = this.props;
     const { handleSubmit, handleChange } = this;
+    const { closeModal } = this.props;
 
     return (
-      <ModalDialog title="Add a payment item" size="sm" closeModal={closeModal}>
+      <ModalDialog title="Edit item" size="sm" closeModal={closeModal}>
         <form onSubmit={handleSubmit}>
           <fieldset>
-            <label htmlFor="label">Label</label>
+            <label htmlFor="label">Label</label><br />
             <input
               type="text"
               id="label"
               name="label"
               onChange={handleChange}
+              value={this.state.label}
             />
           </fieldset>
           <fieldset>
-            <label htmlFor="price">Price</label>
+            <label htmlFor="price">Price</label><br />
             <input
               type="text"
               id="price"
               name="price"
               onChange={handleChange}
+              value={this.state.price}
             />
           </fieldset>
           <fieldset>
-            <label htmlFor="description">Description</label>
+            <label htmlFor="description">Description</label><br />
             <input
               type="text"
               id="description"
               name="description"
               onChange={handleChange}
+              value={this.state.description}
             />
           </fieldset>
           <fieldset>
@@ -106,11 +108,11 @@ class AddFieldDialog extends Component {
   }
 }
 
-AddFieldDialog.propTypes = {
-  paymentID: PropTypes.string,
-  createItem: PropTypes.func,
-  isCreateLoading: PropTypes.bool,
+EditItemDialog.propTypes = {
   closeModal: PropTypes.func,
+  item: PropTypes.object,
+  updateItem: PropTypes.func,
+  isUpdateLoading: PropTypes.bool,
 };
 
-export default AddFieldModal;
+export default EditItemModal;
