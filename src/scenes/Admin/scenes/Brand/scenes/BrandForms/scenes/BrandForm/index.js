@@ -138,7 +138,7 @@ class BrandForm extends Component {
       isDeleteLoading,
     } = this.props;
 
-    if (!form || !items) return null;
+    if (!form.get('payment')) return null;
 
     return (
       <PaymentBox
