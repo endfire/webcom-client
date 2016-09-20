@@ -11,7 +11,7 @@ import { App, Welcome } from 'components';
 import { Admin, Company, Signup, OBG, Form } from 'scenes';
 import { LoginAdmin, LoginCompany } from 'scenes/Login/scenes';
 import { Listings, People, Settings } from 'scenes/Company/scenes';
-import { SubmissionForm, NotPublished } from 'scenes/Form/scenes';
+import { SubmissionForm, NotPublished, SubmitSuccess } from 'scenes/Form/scenes';
 
 import { Brand, BrandsAll, CompanyOne, CompaniesAll, Users } from 'scenes/Admin/scenes';
 import {
@@ -48,6 +48,10 @@ export default {
     {
       path: 'not-published',
       component: NotPublished,
+    },
+    {
+      path: 'submit-success',
+      component: SubmitSuccess,
     },
     {
       path: 'form',

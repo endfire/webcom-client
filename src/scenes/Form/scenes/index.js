@@ -1,4 +1,5 @@
 import SubmissionForm from './SubmissionForm';
 import NotPublished from './NotPublished';
+import SubmitSuccess from './SubmitSuccess';
 
-export { SubmissionForm, NotPublished };
+export { SubmissionForm, NotPublished, SubmitSuccess };

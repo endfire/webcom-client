@@ -9,9 +9,11 @@
 
     return (
       <fieldset>
-        <label htmlFor={id}>{label}</label>
-        <h3>{price}</h3>
-        <p>{description}</p>
+        <p>{label}</p>
+        <label htmlFor={id}>
+          Price: ${price}<br />
+          Description: {description}
+        </label>
         <input
           type="number"
           id={id}
@@ -19,6 +21,7 @@
           min="0"
           onChange={onChange}
           value={quantity}
+          placeholder="quantity"
           required
         />
       </fieldset>
