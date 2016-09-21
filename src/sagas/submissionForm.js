@@ -26,9 +26,18 @@ function* submitSubmissionForm(action) {
   const state = store.getState();
   const record = state.submissionForm.get(formID).toJS();
 
-  yield put(actions.createRecord('submission', record));
+  try {
+    const createdRecord = yield api.create('submission', {
+      ...record,
+      createdOn: Date.now(),
+    });
 
-  forwardTo('/submit-success');
+    yield put(actions.syncStore('submission', createdRecord));
+
+    forwardTo('/submit-success');
+  } catch (e) {
+    yield put({ type: types.SUBMIT_SUBMISSION_FORM_ERROR, payload: e, error: true });
+  }
 }
 
 export function* watchSubmitSubmissionForm() {

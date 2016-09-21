@@ -4,6 +4,7 @@ import * as types from 'constants/actionTypes';
 
 const init = Map({
   submissions: List(),
+  errors: List(),
 });
 
 export default (state = init, action) => {
@@ -92,6 +93,10 @@ export default (state = init, action) => {
 
     case types.SUBMIT_SUBMISSION_FORM: {
       return state.update('submissions', submissions => submissions.push(payload));
+    }
+
+    case types.SUBMIT_SUBMISSION_FORM_ERROR: {
+      return state.update('errors', errors => errors.push(payload));
     }
 
     default:

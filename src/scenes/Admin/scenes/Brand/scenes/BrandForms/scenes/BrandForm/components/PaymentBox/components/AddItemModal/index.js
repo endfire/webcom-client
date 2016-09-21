@@ -73,7 +73,7 @@ class AddFieldDialog extends Component {
             />
           </fieldset>
           <fieldset>
-            <label htmlFor="price">Price</label>
+            <label htmlFor="price">Price (USD)</label>
             <input
               type="text"
               id="price"

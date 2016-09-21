@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Button } from 'paintcan';
 import { Icon } from 'react-fa';
 import { Fields, PaymentAndItems } from './components';
+import { getLastSubmissionFormError } from 'selectors/submissionForm';
+import { AuthErrorCard } from 'components';
 import * as actions from 'actions/submissionForm';
 
 import styles from './styles.scss';
@@ -55,7 +57,9 @@ class FormSubmission extends Component {
     editItem(submissionFormID, name, value);
   }
 
-  handleSubmission() {
+  handleSubmission(e) {
+    e.preventDefault();
+
     const { submitSubmissionForm, params: { submissionFormID } } = this.props;
 
     submitSubmissionForm(submissionFormID);
@@ -115,14 +119,18 @@ class FormSubmission extends Component {
   }
 
   render() {
+    const { error } = this.props;
+    const { handleSubmission, renderFields, renderPaymentAndItems } = this;
+
     return (
       <div className={styles.wrapper}>
-        <form onSubmit={this.handleSubmission}>
-          {this.renderFields()}
-          {this.renderPaymentAndItems()}
+        <form onSubmit={handleSubmission}>
+          {renderFields()}
+          {renderPaymentAndItems()}
           <Button type="submit" size="sm">
             Submit Form
           </Button>
+          {error && <AuthErrorCard message={error.message} />}
         </form>
       </div>
     );
@@ -131,6 +139,7 @@ class FormSubmission extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   submissionForm: state.submissionForm.get(ownProps.params.submissionFormID),
+  error: getLastSubmissionFormError(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -146,6 +155,7 @@ const mapDispatchToProps = (dispatch) => ({
 FormSubmission.propTypes = {
   params: PropTypes.object,
   submissionForm: PropTypes.object,
+  error: PropTypes.object,
   initializeSubmissionFormItems: PropTypes.func,
   hydrateSubmissionForm: PropTypes.func,
   submitSubmissionForm: PropTypes.func,
