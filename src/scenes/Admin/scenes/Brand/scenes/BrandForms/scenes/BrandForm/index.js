@@ -1,27 +1,27 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
+import store from 'configureStore';
 import { Icon } from 'react-fa';
 import { Link } from 'react-router';
 import { Button, ButtonGroup } from 'paintcan';
-import { getFormFields } from 'selectors/dynamicForms';
-import { getCurrentForm } from 'selectors/adminBrands';
+import {
+  getCurrentForm,
+  getCurrentFormFields,
+  getCurrentFormPaymentItems,
+} from 'selectors/dynamicForm';
 import * as actions from 'actions/store';
-import store from 'configureStore';
 import { Field, AddFieldModal, PaymentBox } from './components';
 import createFieldInitializerForm from './createFieldInitializerForm';
+import { getIsDeleteLoading, getIsCreateLoading, getIsUpdateLoading } from 'selectors/loading';
 import styles from './styles.scss';
 
 class BrandForm extends Component {
   constructor(props) {
     super(props);
 
-    this.handleAddField = this.handleAddField.bind(this);
-    this.handleAddFieldChange = this.handleAddFieldChange.bind(this);
-    this.handleSave = this.handleSave.bind(this);
     this.handlePublish = this.handlePublish.bind(this);
-    this.handleTemplateChange = this.handleTemplateChange.bind(this);
+    this.handleUnpublish = this.handleUnpublish.bind(this);
     this.renderControls = this.renderControls.bind(this);
-    this.renderInfo = this.renderInfo.bind(this);
     this.renderEndpoint = this.renderEndpoint.bind(this);
     this.renderFieldInitializer = this.renderFieldInitializer.bind(this);
     this.renderFields = this.renderFields.bind(this);
@@ -34,43 +34,25 @@ class BrandForm extends Component {
     fetchForm(formID);
   }
 
-  handleAddFieldChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
-  }
-
-  handleAddField(e) {
-    e.preventDefault();
-
-    const { form, createField } = this.props;
-    const { label } = this.state;
-
-    createField({
-      form: form.get('id'),
-      createdOn: Date.now(),
-      type: 'text',
-      label,
-    });
-  }
-
-  handleSave() {
-    // const { form, saveForm } = this.props;
-  }
-
   handlePublish() {
-    const { form, saveForm } = this.props;
+    const { form, updateForm } = this.props;
 
-    saveForm(form.get('id'), {
+    updateForm(form.get('id'), {
       didPublish: true,
     });
   }
 
-  handleTemplateChange() {
-    console.log('handleTemplateChange');
+  handleUnpublish() {
+    const { form, updateForm } = this.props;
+
+    updateForm(form.get('id'), {
+      didPublish: false,
+    });
   }
 
   renderControls() {
-    const { form } = this.props;
-    const { handleAddField, handleAddFieldChange, handlePublish } = this;
+    const { form, createField, isCreateLoading } = this.props;
+    const { handlePublish, handleUnpublish } = this;
 
     if (!form) {
       return <Icon name="spinner" spin />;
@@ -79,35 +61,19 @@ class BrandForm extends Component {
     return (
       <ButtonGroup spaced>
         <AddFieldModal
-          handleAddField={handleAddField}
-          handleAddFieldChange={handleAddFieldChange}
+          formID={form.get('id')}
+          createField={createField}
+          isCreateLoading={isCreateLoading}
         />
-        {!form.get('didPublish') ?
-          <Button size="sm" onClick={handlePublish} color="success">
-            <Icon name="cloud-upload" /> Publish this form
+        {form.get('didPublish')
+          ? <Button size="sm" onClick={handleUnpublish} color="success">
+            <Icon name="check" /> Published (click to unpublish)
           </Button>
-        :
-          <Button size="sm" color="success" disabled>
-            <Icon name="check" /> Published
+          : <Button size="sm" onClick={handlePublish} color="success">
+            <Icon name="cloud-upload" /> Publish this form
           </Button>
         }
       </ButtonGroup>
-    );
-  }
-
-  renderInfo() {
-    const { form } = this.props;
-
-    if (!form) return null;
-
-    return (
-      <div className={styles.info}>
-        <form>
-          <fieldset>
-            <input type="text" />
-          </fieldset>
-        </form>
-      </div>
     );
   }
 
@@ -128,19 +94,27 @@ class BrandForm extends Component {
   }
 
   renderFields() {
-    const { form, updateField, deleteField } = this.props;
     const state = store.getState();
+    const {
+      form,
+      updateField,
+      isUpdateLoading,
+      deleteField,
+      isDeleteLoading,
+    } = this.props;
 
     if (!form) return null;
 
-    const fields = getFormFields(form)(state);
+    const fields = getCurrentFormFields(form.get('id'))(state);
 
-    return fields.map(field =>
+    return fields.sortBy(field => field.get('priority')).map(field =>
       <Field
         key={field.get('id')}
         field={field}
         updateField={updateField}
+        isUpdateLoading={isUpdateLoading}
         deleteField={deleteField}
+        isDeleteLoading={isDeleteLoading}
       />
     );
   }
@@ -156,14 +130,33 @@ class BrandForm extends Component {
   }
 
   renderPayment() {
-    const { form } = this.props;
+    const {
+      fetchPayment,
+      form,
+      items,
+      createItem,
+      updateItem,
+      deleteItem,
+      isCreateLoading,
+      isUpdateLoading,
+      isDeleteLoading,
+    } = this.props;
 
-    if (!form) return null;
     if (!form.get('payment')) return null;
 
-    const payment = form.get('payment');
-
-    return <PaymentBox payment={payment} />;
+    return (
+      <PaymentBox
+        fetchPayment={fetchPayment}
+        paymentID={form.get('payment')}
+        items={items}
+        createItem={createItem}
+        updateItem={updateItem}
+        deleteItem={deleteItem}
+        isCreateLoading={isCreateLoading}
+        isUpdateLoading={isUpdateLoading}
+        isDeleteLoading={isDeleteLoading}
+      />
+    );
   }
 
   render() {
@@ -177,8 +170,8 @@ class BrandForm extends Component {
         </div>
         {this.renderEndpoint()}
         {this.renderFieldInitializer()}
+        {this.renderPayment()}<br />
         {this.renderFields()}
-        {this.renderPayment()}
       </div>
     );
   }
@@ -186,26 +179,42 @@ class BrandForm extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   form: getCurrentForm(ownProps.params.formID)(state),
+  items: getCurrentFormPaymentItems(ownProps.params.formID)(state),
+  isCreateLoading: getIsCreateLoading(state),
+  isUpdateLoading: getIsUpdateLoading(state),
+  isDeleteLoading: getIsDeleteLoading(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch, ownProps) => ({
   fetchForm: (id) => dispatch(actions.fetchRecord('form', id)),
   fetchPayment: (id) => dispatch(actions.fetchRecord('payment', id)),
   createField: (data) => dispatch(actions.createRecord('field', data)),
-  updateField: (id, data) => dispatch(actions.updateRecord('field', id, data)),
-  deleteField: (id) => dispatch(actions.deleteRecord('field', 'fields', id)),
-  saveForm: (id, data) => dispatch(actions.updateRecord('form', id, data)),
+  createItem: (data) => dispatch(actions.createRecord('item', data)),
+  updateForm: (id, data) => dispatch(actions.updateRecord('form', id, data)),
+  updateItem: (id, data) => dispatch(actions.updateRecord('item', id, data)),
+  deleteItem: (id) => dispatch(actions.deleteRecord('item', 'items', id)),
+  updateField: (id, data) =>
+    dispatch(actions.updateAndFetch('field', id, data, 'form', ownProps.params.formID)),
+  deleteField: (id) =>
+    dispatch(actions.deleteAndFetch('field', 'fields', id, 'form', ownProps.params.formID)),
 });
 
 BrandForm.propTypes = {
   params: PropTypes.object,
   form: PropTypes.object,
+  items: PropTypes.object,
+  isCreateLoading: PropTypes.bool,
+  isUpdateLoading: PropTypes.bool,
+  isDeleteLoading: PropTypes.bool,
   fetchForm: PropTypes.func,
   fetchPayment: PropTypes.func,
-  updateField: PropTypes.func,
-  deleteField: PropTypes.func,
   createField: PropTypes.func,
-  saveForm: PropTypes.func,
+  createItem: PropTypes.func,
+  updateForm: PropTypes.func,
+  updateItem: PropTypes.func,
+  updateField: PropTypes.func,
+  deleteItem: PropTypes.func,
+  deleteField: PropTypes.func,
 };
 
 export default connect(

@@ -5,6 +5,7 @@ import login from './login';
 import store from './store';
 import form from './form';
 import signup from './signup';
+import submissionForm from './submissionForm';
 import * as types from 'constants/actionTypes';
 
 const appReducer = combineReducers({
@@ -13,6 +14,7 @@ const appReducer = combineReducers({
   store,
   form,
   signup,
+  submissionForm,
 });
 
 export default (state, action) => {

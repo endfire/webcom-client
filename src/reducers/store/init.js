@@ -22,6 +22,8 @@ export default Map({
     submissions: Map(),
     fields: Map(),
     forms: Map(),
+    payments: Map(),
+    items: Map(),
     people: Map(),
     users: Map(),
   }),

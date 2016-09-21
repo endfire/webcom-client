@@ -70,7 +70,7 @@ class AddFormDialog extends Component {
                 Cancel
               </Button>
               <Button type="submit" color="primary">
-                Save Change
+                Create
               </Button>
             </ButtonGroup>
           </fieldset>

@@ -5,11 +5,14 @@ import checkAuth from './checkAuth';
 import requiresUserAuth from './requiresUserAuth';
 import requiresCompanyAuth from './requiresCompanyAuth';
 import canAccessOBG from './canAccessOBG';
+import checkIfPublished from './checkIfPublished';
+import fetchDynamicPathEntity from './fetchDynamicPathEntity';
 
 import { App, Welcome } from 'components';
-import { Admin, Company, Signup, OBG } from 'scenes';
+import { Admin, Company, Signup, OBG, Form } from 'scenes';
 import { LoginAdmin, LoginCompany } from 'scenes/Login/scenes';
 import { Listings, People, Settings } from 'scenes/Company/scenes';
+import { SubmissionForm, NotPublished, SubmitSuccess } from 'scenes/Form/scenes';
 
 import { Brand, BrandsAll, CompanyOne, CompaniesAll, Users } from 'scenes/Admin/scenes';
 import {
@@ -44,6 +47,25 @@ export default {
       component: OBG,
     },
     {
+      path: 'not-published',
+      component: NotPublished,
+    },
+    {
+      path: 'submit-success',
+      component: SubmitSuccess,
+    },
+    {
+      path: 'form',
+      component: Form,
+      childRoutes: [
+        {
+          path: ':submissionFormID',
+          component: SubmissionForm,
+          onEnter: checkIfPublished(store, api),
+        },
+      ],
+    },
+    {
       path: 'admin',
       component: requiresUserAuth(Admin),
       indexRoute: { component: Welcome },
@@ -55,6 +77,7 @@ export default {
         {
           path: 'brands/:brandID',
           component: Brand,
+          onEnter: fetchDynamicPathEntity(store, api, 'brand', 'brandID'),
           indexRoute: {
             onEnter: ({ params }, replace) => replace(`/admin/brands/${params.brandID}/forms`),
           },
@@ -87,6 +110,7 @@ export default {
         {
           path: 'companies/:companyID',
           component: CompanyOne,
+          onEnter: fetchDynamicPathEntity(store, api, 'company', 'companyID'),
           indexRoute: {
             onEnter: ({ params }, replace) =>
               replace(`/admin/companies/${params.companyID}/listings`),

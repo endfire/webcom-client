@@ -3,6 +3,7 @@ import * as formSagas from './form';
 import * as sessionSagas from './session';
 import * as downloadSagas from './download';
 import * as signupSagas from './signup';
+import * as submissionFormSagas from './submissionForm';
 
 const mapImportsToArray = (imports) => Object.keys(imports).map(key => imports[key]());
 
@@ -13,5 +14,6 @@ export default function*() {
     ...mapImportsToArray(sessionSagas),
     ...mapImportsToArray(downloadSagas),
     ...mapImportsToArray(signupSagas),
+    ...mapImportsToArray(submissionFormSagas),
   ];
 }

@@ -40,17 +40,18 @@ function* submitFieldInitializerForm(action) {
       const createdField = yield api.create('field', {
         ...field,
         form: id,
-        createdOn: Date.now(),
       });
 
       yield put(syncStore('field', createdField));
     }
 
     if (payment) {
-      console.log('yay payment!!!');
-      yield api.create('payment', {
+      const createdPayment = yield api.create('payment', {
         form: id,
+        items: [],
       });
+
+      yield put(syncStore('payment', createdPayment));
     }
 
     const updatedForm = yield api.update('form', id, {
