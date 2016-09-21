@@ -57,7 +57,9 @@ export const getCategorySelectOptions = createSelector(
   [getCategories],
   (categories) => categories.map(category => ({
     value: category.get('id'),
-    label: category.get('name'),
+    label: `${category.get('heading')} - ${category.get('name')}`,
     brand: category.get('brand'),
-  })).toArray()
+  })).sortBy(category => (
+    category.label
+  )).toArray()
 );

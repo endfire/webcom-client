@@ -7,11 +7,12 @@ export default class Sdk {
     'Content-Type': 'application/json',
   }
 
-  constructor({ host, api = 'api', auth = 'auth', port = '' }) {
+  constructor({ host, api = 'api', auth = 'auth', download = 'download', port = '' }) {
     this.host = host;
     this.api = api;
     this.auth = auth;
     this.port = port;
+    this.download = download;
   }
 
   find(type, query, pagination) {
@@ -137,6 +138,21 @@ export default class Sdk {
         'user-type': type,
       },
       body: JSON.stringify({ token: localStorage.token }),
+    };
+
+    return fetch(endpoint, request)
+      .then(toJSON);
+  }
+
+  downloadRecords(type) {
+    const { host, download } = this;
+    const endpoint = getApiEndpoint({ host, download, type });
+
+    const request = {
+      method: 'POST',
+      headers: {
+        authorization: localStorage.token,
+      },
     };
 
     return fetch(endpoint, request)

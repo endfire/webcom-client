@@ -3,7 +3,6 @@ import { Button, ButtonGroup } from 'paintcan';
 import { withForm } from 'components';
 import * as names from 'constants/formNames';
 import isNull from 'validator/lib/isNull';
-import isHexColor from 'validator/lib/isHexColor';
 
 const BrandSettingsForm = ({
   handleSubmit,
@@ -21,6 +20,16 @@ const BrandSettingsForm = ({
         placeholder="Antennas"
         value={values ? values.getIn(['name', 'value']) : ''}
         onChange={(e) => handleChange('name', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="url">URL</label><br />
+      <input
+        id="url"
+        type="text"
+        placeholder="http://url.com"
+        value={values ? values.getIn(['url', 'value']) : ''}
+        onChange={(e) => handleChange('url', e.target.value)}
       />
     </fieldset>
     <fieldset>
@@ -90,6 +99,7 @@ export default (brand) => withForm({
   initialValues: {
     name: brand.get('name') || '',
     image: brand.get('image') || '',
+    url: brand.get('url') || '',
     background: brand.get('background') || '',
     text: brand.get('text') || '',
     secondary: brand.get('secondary') || '',
@@ -97,8 +107,6 @@ export default (brand) => withForm({
   validation: {
     name: (value) => !isNull(value),
     image: (value) => !isNull(value),
-    background: (value) => isHexColor(value),
-    text: (value) => isHexColor(value),
-    secondary: (value) => isHexColor(value),
+    url: (value) => !isNull(value),
   },
 })(BrandSettingsForm);

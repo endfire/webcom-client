@@ -16,6 +16,7 @@ export const getApiEndpoint = ({
   type,
   id,
   api = '',
+  download = '',
   port = '',
   field = '',
   query = {},
@@ -32,12 +33,13 @@ export const getApiEndpoint = ({
   query = qs.stringify(query);
 
   if (api) api = `/${api}`;
+  if (download) download = `/${download}`;
   if (port) port = `:${port}`;
   if (id) id = `/${id}`;
   if (field) field = `/${field}`;
   if (query) query = `?${query}`;
 
-  return [host, port, api, type, id, field, query].join('');
+  return [host, port, api, download, type, id, field, query].join('');
 };
 
 export function toJSON(res) {

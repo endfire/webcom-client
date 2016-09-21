@@ -6,22 +6,32 @@ import styles from './styles.scss';
 const ObgList = ({ listings, ads, category }) => (
   <div>
     <div className={styles.container}>
-      <AdList
-        items={ads.filter(ad => (
-          ad.get('categories').includes(category)
-        )).sortBy(ad => (
-          ad.get('priority')
-        ))}
-      />
+      {!ads.isEmpty()
+        ? <AdList
+          items={ads.filter(ad => (
+            ad.get('categories').includes(category)
+          )).sortBy(ad => (
+            ad.get('priority')
+          ))}
+        />
+        : <div>
+          Loading ads...
+        </div>
+      }
     </div><br />
     <div className={styles.container}>
-      <ListingList
-        items={listings.filter(listing => (
-          listing.categories.includes(category) && listing.company.get('approved')
-        )).sortBy(listing => (
-          listing.company.get('name')
-        ))}
-      />
+      {!listings.isEmpty()
+        ? <ListingList
+          items={listings.filter(listing => (
+            listing.categories.includes(category) && listing.company.get('approved')
+          )).sortBy(listing => (
+            listing.company.get('name')
+          ))}
+        />
+        : <div>
+          Loading listings...
+        </div>
+      }
     </div>
   </div>
 );

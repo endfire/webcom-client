@@ -16,13 +16,12 @@ function* submitBrandSettingsForm(action) {
   try {
     if (!fields.getIn(['name', 'isValid'])) throw new Error('Please input a brand name');
     if (!fields.getIn(['image', 'isValid'])) throw new Error('Please input an image URL');
-    if (!fields.getIn(['background', 'isValid'])) throw new Error('Please input a hex color');
-    if (!fields.getIn(['text', 'isValid'])) throw new Error('Please input a hex color');
-    if (!fields.getIn(['secondary', 'isValid'])) throw new Error('Please input a hex color');
+    if (!fields.getIn(['url', 'isValid'])) throw new Error('Please input a URL');
 
     const updatedRecord = yield api.update('brand', brandID, {
       name: fields.getIn(['name', 'value']),
       image: fields.getIn(['image', 'value']),
+      url: fields.getIn(['url', 'value']),
       background: fields.getIn(['background', 'value']),
       text: fields.getIn(['text', 'value']),
       secondary: fields.getIn(['secondary', 'value']),
