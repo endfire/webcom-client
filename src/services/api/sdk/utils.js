@@ -41,7 +41,11 @@ export const getApiEndpoint = ({
 };
 
 export function toJSON(res) {
-  const response = res.json();
-  if (res.status >= 400) throw new Error(response.message);
-  return response;
+  return res.json()
+    .then(r => {
+      if (res.status >= 400) {
+        throw new Error(r.message);
+      }
+      return r;
+    });
 }
