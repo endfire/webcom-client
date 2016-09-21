@@ -25,6 +25,7 @@ class AddFieldDialog extends Component {
 
     this.state = {
       label: '',
+      priority: '',
       price: '',
       description: '',
     };
@@ -42,13 +43,14 @@ class AddFieldDialog extends Component {
     e.preventDefault();
 
     const { paymentID, createItem, isCreateLoading, closeModal } = this.props;
-    const { label, price, description } = this.state;
+    const { label, priority, price, description } = this.state;
 
     if (isCreateLoading) return;
 
     createItem({
       payment: paymentID,
       label,
+      priority,
       price,
       description,
     });
@@ -70,6 +72,20 @@ class AddFieldDialog extends Component {
               id="label"
               name="label"
               onChange={handleChange}
+              value={this.state.label}
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="priority">Priority</label><br />
+            <input
+              type="number"
+              id="priority"
+              name="priority"
+              min="0"
+              onChange={handleChange}
+              value={this.state.priority}
+              required
             />
           </fieldset>
           <fieldset>
@@ -79,6 +95,8 @@ class AddFieldDialog extends Component {
               id="price"
               name="price"
               onChange={handleChange}
+              value={this.state.price}
+              required
             />
           </fieldset>
           <fieldset>
@@ -88,6 +106,8 @@ class AddFieldDialog extends Component {
               id="description"
               name="description"
               onChange={handleChange}
+              value={this.state.description}
+              required
             />
           </fieldset>
           <fieldset>

@@ -61,6 +61,7 @@ class AddFieldDialog extends Component {
       type,
       options,
     });
+
     closeModal();
   }
 
@@ -167,6 +168,7 @@ class AddFieldDialog extends Component {
               min="0"
               onChange={handleChange}
               value={this.state.priority}
+              required
             />
           </fieldset>
           <fieldset>

@@ -6,7 +6,6 @@ import { Fields, PaymentAndItems } from './components';
 import { getLastSubmissionFormError } from 'selectors/submissionForm';
 import { AuthErrorCard } from 'components';
 import * as actions from 'actions/submissionForm';
-
 import styles from './styles.scss';
 
 class FormSubmission extends Component {

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { ItemField } from './components';
 
 const Items = ({ items, onChange }) => {
-  const keys = items.keySeq();
+  const keys = items.sortBy(item => item.get('priority')).keySeq();
 
   return (
     <div>

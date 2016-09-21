@@ -120,6 +120,7 @@ export default {
   },
   [types.SUBMISSION]: {
     attributes: {
+      name: true,
       fields: true,
       items: true,
       payment: true,
@@ -167,6 +168,7 @@ export default {
       quantity: true,
       description: true,
       label: true,
+      priority: true,
       createdOn: true,
     },
     relationships: {

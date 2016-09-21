@@ -25,6 +25,7 @@ class EditItemDialog extends Component {
 
     this.state = {
       label: props.item.get('label'),
+      priority: props.item.get('priority'),
       price: props.item.get('price'),
       description: props.item.get('description'),
     };
@@ -37,12 +38,13 @@ class EditItemDialog extends Component {
     e.preventDefault();
 
     const { item, updateItem, isUpdateLoading, closeModal } = this.props;
-    const { label, price, description } = this.state;
+    const { label, priority, price, description } = this.state;
 
     if (isUpdateLoading) return;
 
     updateItem(item.get('id'), {
       label,
+      priority,
       price,
       description,
     });
@@ -70,6 +72,17 @@ class EditItemDialog extends Component {
               name="label"
               onChange={handleChange}
               value={this.state.label}
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="priority">Priority</label><br />
+            <input
+              type="number"
+              id="priority"
+              name="priority"
+              min="0"
+              onChange={handleChange}
+              value={this.state.priority}
             />
           </fieldset>
           <fieldset>
