@@ -5,7 +5,7 @@ import * as types from 'constants/actionTypes';
 function* download(action) {
   const { type } = action.payload;
 
-  yield api.download(type);
+  yield api.downloadRecords(type);
 }
 
 export function* watchDownloadRequest() {

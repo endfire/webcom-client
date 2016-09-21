@@ -34,7 +34,6 @@ class Listings extends Component {
       listings,
       brands,
       categories,
-      findCategories,
       createListing,
       isCreateLoading,
       updateListing,
@@ -46,17 +45,19 @@ class Listings extends Component {
     return (
       <div className={styles.wrapper}>
         <div className={styles.header}>
-          <AddListingModal
-            createListing={createListing}
-            isCreateLoading={isCreateLoading}
-            companyID={companyID}
-            brands={brands}
-            categories={categories}
-            findCategories={findCategories}
-          />
+          {brands.length > 0
+            ? <AddListingModal
+              createListing={createListing}
+              isCreateLoading={isCreateLoading}
+              companyID={companyID}
+              brands={brands}
+              categories={categories}
+            />
+            : 'Loading...'
+          }
         </div>
         <div className={styles.container}>
-          {!listings.isEmpty()
+          {(!listings.isEmpty() && categories.length > 0)
             ? <List
               items={listings}
               handleDelete={this.handleDelete}
@@ -96,9 +97,6 @@ const mapDispatchToProps = (dispatch) => ({
     actions.fetchRelated('company', companyID, 'listings', 'listing')
   ),
   findBrands: () => dispatch(actions.findRecords('brand')),
-  findCategories: (brandId) => dispatch(
-    actions.fetchRelated('brand', brandId, 'categories', 'category')
-  ),
   createListing: ({ brand, brandId, categories, companyID }) =>
     dispatch(actions.createRecord('listing', {
       brand,
@@ -115,7 +113,6 @@ Listings.propTypes = {
   companyID: PropTypes.string,
   findListings: PropTypes.func,
   findBrands: PropTypes.func,
-  findCategories: PropTypes.func,
   isDeleteLoading: PropTypes.bool,
   deleteListing: PropTypes.func,
   isCreateLoading: PropTypes.bool,

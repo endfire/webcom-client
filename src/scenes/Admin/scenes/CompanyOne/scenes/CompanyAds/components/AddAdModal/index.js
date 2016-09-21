@@ -17,7 +17,6 @@ const AddAdModal = withModal(
     companyID,
     brands,
     categories,
-    findCategories,
   }) => (
     <AddAdDialog
       closeModal={closeModal}
@@ -26,7 +25,6 @@ const AddAdModal = withModal(
       companyID={companyID}
       brands={brands}
       categories={categories}
-      findCategories={findCategories}
     />
   ),
 );
@@ -120,7 +118,6 @@ class AddAdDialog extends Component {
     this.setState({ categories: [] });
 
     if (val) {
-      this.props.findCategories(val.value);
       this.setState({ brandId: val.value });
       this.setState({ brand: val.label });
     } else {
@@ -174,7 +171,10 @@ class AddAdDialog extends Component {
               placeholder="Please select a brand"
             />
           </fieldset>
-          {this.renderCategorySelect(handleMultiChange)}
+          {this.state.categoryOptions.length > 0
+            ? this.renderCategorySelect(handleMultiChange)
+            : ''
+          }
           <fieldset>
             <label htmlFor="name">Image URL</label><br />
             <input
@@ -244,7 +244,6 @@ AddAdDialog.propTypes = {
   isCreateLoading: PropTypes.bool,
   companyID: PropTypes.string,
   brands: PropTypes.array,
-  findCategories: PropTypes.func,
   categories: PropTypes.array,
 };
 

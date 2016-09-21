@@ -14,8 +14,15 @@ class CompaniesAll extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      clickedCompany: false,
+      clickedPeople: false,
+    };
+
     this.handleDelete = this.handleDelete.bind(this);
     this.loadMore = this.loadMore.bind(this);
+    this.clickPeople = this.clickPeople.bind(this);
+    this.clickCompany = this.clickCompany.bind(this);
   }
 
   componentDidMount() {
@@ -53,12 +60,20 @@ class CompaniesAll extends Component {
     browserHistory.push(`/admin/companies?limit=${limit}&skip=${next}`);
   }
 
+  clickPeople() {
+    this.setState({ clickedPeople: true });
+    this.props.downloadPeople();
+  }
+
+  clickCompany() {
+    this.setState({ clickedCompany: true });
+    this.props.downloadCompanies();
+  }
+
   render() {
     const {
       companies,
       canUserDelete,
-      downloadPeople,
-      downloadCompanies,
       createCompany,
       isCreateLoading,
     } = this.props;
@@ -71,8 +86,12 @@ class CompaniesAll extends Component {
             createCompany={createCompany}
             isCreateLoading={isCreateLoading}
           /> &nbsp;
-          <Button onClick={downloadPeople} color="success">Download All People</Button> &nbsp;
-          <Button onClick={downloadCompanies} color="success">Download All Companies</Button>
+          <Button onClick={this.clickPeople} color="success" disabled={this.state.clickedPeople}>
+            Download All People
+          </Button> &nbsp;
+          <Button onClick={this.clickCompany} color="success" disabled={this.state.clickedCompany}>
+            Download All Companies
+          </Button>
         </div>
         <div className={styles.container}>
           {!companies.isEmpty()

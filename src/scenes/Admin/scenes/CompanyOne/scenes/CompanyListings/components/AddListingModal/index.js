@@ -15,7 +15,6 @@ const AddListingModal = withModal(
     companyID,
     brands,
     categories,
-    findCategories,
   }) => (
     <AddListingDialog
       closeModal={closeModal}
@@ -24,7 +23,6 @@ const AddListingModal = withModal(
       companyID={companyID}
       brands={brands}
       categories={categories}
-      findCategories={findCategories}
     />
   ),
 );
@@ -68,7 +66,6 @@ class AddListingDialog extends Component {
     this.setState({ categories: [] });
 
     if (val) {
-      this.props.findCategories(val.value);
       this.setState({ brandId: val.value });
       this.setState({ brand: val.label });
     } else {
@@ -137,7 +134,6 @@ AddListingDialog.propTypes = {
   isCreateLoading: PropTypes.bool,
   companyID: PropTypes.string,
   brands: PropTypes.array,
-  findCategories: PropTypes.func,
   categories: PropTypes.array,
 };
 

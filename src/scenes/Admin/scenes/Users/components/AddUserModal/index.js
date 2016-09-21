@@ -26,7 +26,7 @@ class AddUserDialog extends Component {
     this.state = {
       name: '',
       email: '',
-      role: '',
+      role: '1',
       password: '',
     };
 

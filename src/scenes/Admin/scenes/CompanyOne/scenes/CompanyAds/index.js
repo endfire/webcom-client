@@ -35,7 +35,6 @@ class Ads extends Component {
       ads,
       brands,
       categories,
-      findCategories,
       createAd,
       isCreateLoading,
       updateAd,
@@ -47,17 +46,19 @@ class Ads extends Component {
     return (
       <div className={styles.wrapper}>
         <div className={styles.header}>
-          <AddAdModal
-            createAd={createAd}
-            isCreateLoading={isCreateLoading}
-            companyID={companyID}
-            brands={brands}
-            categories={categories}
-            findCategories={findCategories}
-          />
+          {brands.length > 0
+            ? <AddAdModal
+              createAd={createAd}
+              isCreateLoading={isCreateLoading}
+              companyID={companyID}
+              brands={brands}
+              categories={categories}
+            />
+            : 'Loading...'
+          }
         </div>
         <div className={styles.container}>
-          {!ads.isEmpty()
+          {(!ads.isEmpty() && categories.length > 0)
             ? <List
               items={ads}
               handleDelete={this.handleDelete}
@@ -97,9 +98,6 @@ const mapDispatchToProps = (dispatch) => ({
     actions.fetchRelated('company', companyID, 'ads', 'ad')
   ),
   findBrands: () => dispatch(actions.findRecords('brand')),
-  findCategories: (brandId) => dispatch(
-    actions.fetchRelated('brand', brandId, 'categories', 'category')
-  ),
   createAd: ({
     brand,
     brandId,
@@ -130,7 +128,6 @@ Ads.propTypes = {
   companyID: PropTypes.string,
   findAds: PropTypes.func,
   findBrands: PropTypes.func,
-  findCategories: PropTypes.func,
   isDeleteLoading: PropTypes.bool,
   deleteAd: PropTypes.func,
   isCreateLoading: PropTypes.bool,

@@ -119,77 +119,80 @@ class EditAdDialog extends Component {
 
     return (
       <ModalDialog title={`Edit ${ad.get('brand')} Ad`} size="sm" closeModal={closeModal}>
-        <form onSubmit={handleSubmit}>
-          <fieldset>
-            <label>Select all categories for this ad</label><br />
-            <Select
-              name="categories"
-              value={this.state.categories}
-              options={this.state.categoryOptions.filter(category => (
-                category.brand === this.state.brandId
-              ))}
-              onChange={handleMultiChange}
-              multi
-            />
-          </fieldset>
-          <fieldset>
-            <label htmlFor="name">Image URL</label><br />
-            <input
-              type="text"
-              id="image"
-              name="image"
-              onChange={handleChange}
-              value={this.state.image}
-              placeholder="http://example.com/image.jpg"
-            />
-          </fieldset>
-          <fieldset>
-            <label htmlFor="name">Ad URL</label><br />
-            <input
-              type="text"
-              id="url"
-              name="url"
-              onChange={handleChange}
-              value={this.state.url}
-              placeholder="http://example.com"
-            />
-          </fieldset>
-          <fieldset>
-            <label>Start date</label><br />
-            <DatePicker
-              selected={this.state.start}
-              onChange={handleStartChange}
-            />
-          </fieldset>
-          <fieldset>
-            <label>End date</label><br />
-            <DatePicker
-              selected={this.state.end}
-              onChange={handleEndChange}
-            />
-          </fieldset>
-          <fieldset>
-            <label htmlFor="priority">Priority</label><br />
-            <input
-              type="number"
-              id="priority"
-              name="priority"
-              onChange={handleChange}
-              value={this.state.priority}
-              placeholder="1 - 100"
-            />
-          </fieldset>
-          <fieldset>
-            <ButtonGroup spaced>
-              <Button type="submit" color="primary">
-                Submit
-              </Button>
-              <Button type="button" color="danger" onClick={closeModal}>
-                Cancel
-              </Button>
-            </ButtonGroup>
-          </fieldset>
-        </form>
+        {this.state.categoryOptions.length > 0
+          ? <form onSubmit={handleSubmit}>
+            <fieldset>
+              <label>Select all categories for this ad</label><br />
+              <Select
+                name="categories"
+                value={this.state.categories}
+                options={this.state.categoryOptions.filter(category => (
+                  category.brand === this.state.brandId
+                ))}
+                onChange={handleMultiChange}
+                multi
+              />
+            </fieldset>
+            <fieldset>
+              <label htmlFor="name">Image URL</label><br />
+              <input
+                type="text"
+                id="image"
+                name="image"
+                onChange={handleChange}
+                value={this.state.image}
+                placeholder="http://example.com/image.jpg"
+              />
+            </fieldset>
+            <fieldset>
+              <label htmlFor="name">Ad URL</label><br />
+              <input
+                type="text"
+                id="url"
+                name="url"
+                onChange={handleChange}
+                value={this.state.url}
+                placeholder="http://example.com"
+              />
+            </fieldset>
+            <fieldset>
+              <label>Start date</label><br />
+              <DatePicker
+                selected={this.state.start}
+                onChange={handleStartChange}
+              />
+            </fieldset>
+            <fieldset>
+              <label>End date</label><br />
+              <DatePicker
+                selected={this.state.end}
+                onChange={handleEndChange}
+              />
+            </fieldset>
+            <fieldset>
+              <label htmlFor="priority">Priority</label><br />
+              <input
+                type="number"
+                id="priority"
+                name="priority"
+                onChange={handleChange}
+                value={this.state.priority}
+                placeholder="1 - 100"
+              />
+            </fieldset>
+            <fieldset>
+              <ButtonGroup spaced>
+                <Button type="submit" color="primary">
+                  Submit
+                </Button>
+                <Button type="button" color="danger" onClick={closeModal}>
+                  Cancel
+                </Button>
+              </ButtonGroup>
+            </fieldset>
+          </form>
+          : 'Loading...'
+        }
       </ModalDialog>
     );
   }
