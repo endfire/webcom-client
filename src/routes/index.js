@@ -28,7 +28,6 @@ import { BrandForm } from 'scenes/Admin/scenes/Brand/scenes/BrandForms/scenes';
 export default {
   path: '/',
   component: App,
-  onEnter: checkAuth(store, api),
   childRoutes: [
     {
       path: 'admin-login',
@@ -68,6 +67,7 @@ export default {
     {
       path: 'admin',
       component: requiresUserAuth(Admin),
+      onEnter: checkAuth(store, api),
       indexRoute: { component: Welcome },
       childRoutes: [
         {
@@ -143,6 +143,7 @@ export default {
     {
       path: 'company',
       component: requiresCompanyAuth(Company),
+      onEnter: checkAuth(store, api),
       indexRoute: { component: Welcome },
       childRoutes: [
         {
