@@ -21,6 +21,7 @@ class CompaniesAll extends Component {
 
     this.handleDelete = this.handleDelete.bind(this);
     this.loadMore = this.loadMore.bind(this);
+    this.loadAlotMore = this.loadAlotMore.bind(this);
     this.clickPeople = this.clickPeople.bind(this);
     this.clickCompany = this.clickCompany.bind(this);
   }
@@ -54,8 +55,16 @@ class CompaniesAll extends Component {
 
   loadMore() {
     const skip = Number(this.props.location.query.skip) || 0;
-    const limit = Number(this.props.location.query.limit) || 80;
-    const next = skip + limit;
+    const limit = 80;
+    const next = skip + (Number(this.props.location.query.limit) || 80);
+
+    browserHistory.push(`/admin/companies?limit=${limit}&skip=${next}`);
+  }
+
+  loadAlotMore() {
+    const skip = Number(this.props.location.query.skip) || 0;
+    const limit = 500;
+    const next = skip + (Number(this.props.location.query.limit) || 500);
 
     browserHistory.push(`/admin/companies?limit=${limit}&skip=${next}`);
   }
@@ -108,7 +117,8 @@ class CompaniesAll extends Component {
           }
         </div>
         <div className={styles.bottom}>
-          <Button onClick={this.loadMore}>Load More</Button>
+          <Button onClick={this.loadMore}>Load More</Button> &nbsp;
+          <Button onClick={this.loadAlotMore}>Load Alot More</Button>
         </div>
       </div>
     );
