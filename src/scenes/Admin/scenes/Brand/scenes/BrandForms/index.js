@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { AddFormModal, List } from './components';
 import { getCanUserDelete } from 'selectors/admin';
 import { getCurrentBrandForms } from 'selectors/adminBrands';
-import { getIsDeleteLoading, getIsCreateLoading } from 'selectors/loading';
+import { getIsCreateLoading, getIsUpdateLoading, getIsDeleteLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
 import styles from './styles.scss';
 
@@ -29,7 +29,15 @@ class BrandForms extends Component {
   }
 
   render() {
-    const { forms, createForm, isCreateLoading, canUserDelete, params: { brandID } } = this.props;
+    const {
+      forms,
+      createForm,
+      isCreateLoading,
+      canUserDelete,
+      updateForm,
+      isUpdateLoading,
+      params: { brandID },
+    } = this.props;
 
     return (
       <div className={styles.wrapper}>
@@ -46,6 +54,8 @@ class BrandForms extends Component {
               brandID={brandID}
               handleDelete={this.handleDelete}
               canUserDelete={canUserDelete}
+              updateForm={updateForm}
+              isUpdateLoading={isUpdateLoading}
             />
             : 'Loading...'}
         </div>
@@ -56,14 +66,16 @@ class BrandForms extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   forms: getCurrentBrandForms(ownProps.params.brandID)(state),
-  isDeleteLoading: getIsDeleteLoading(state),
-  isCreateLoading: getIsCreateLoading(state),
   canUserDelete: getCanUserDelete(state),
+  isCreateLoading: getIsCreateLoading(state),
+  isUpdateLoading: getIsUpdateLoading(state),
+  isDeleteLoading: getIsDeleteLoading(state),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  deleteForm: (id) => dispatch(actions.deleteRecord('form', 'forms', id)),
   findForms: (brandID) => dispatch(actions.findRecords('form', { brand: brandID })),
+  deleteForm: (id) => dispatch(actions.deleteRecord('form', 'forms', id)),
+  updateForm: (id, data) => dispatch(actions.updateRecord('form', id, data)),
   createForm: (name) => dispatch(actions.createRecord('form', {
     name,
     didPublish: false,
@@ -77,10 +89,12 @@ BrandForms.propTypes = {
   params: PropTypes.object,
   forms: PropTypes.object,
   canUserDelete: PropTypes.bool,
-  isDeleteLoading: PropTypes.bool,
   isCreateLoading: PropTypes.bool,
+  isUpdateLoading: PropTypes.bool,
+  isDeleteLoading: PropTypes.bool,
   findForms: PropTypes.func,
   deleteForm: PropTypes.func,
+  updateForm: PropTypes.func,
   createForm: PropTypes.func,
 };
 

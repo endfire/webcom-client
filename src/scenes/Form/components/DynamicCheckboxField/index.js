@@ -11,6 +11,10 @@ const DynamicCheckboxField = ({ field, onChange }) => {
       {options.map(option => (
         <div key={option}>
           <input
+            style={{
+              width: '1rem',
+              marginRight: '0.25rem',
+            }}
             type="checkbox"
             id={option}
             name={id}

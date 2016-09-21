@@ -5,6 +5,7 @@ import {
   getCurrentFormDidPublish,
   getCurrentFormFields,
   getCurrentFormPayment,
+  getCurrentFormRecipients,
 } from 'selectors/dynamicForm';
 
 export default (formID) => {
@@ -14,8 +15,12 @@ export default (formID) => {
   const didPublish = getCurrentFormDidPublish(formID)(state);
   const fields = getCurrentFormFields(formID)(state);
   const payment = getCurrentFormPayment(formID)(state);
+  const recipients = getCurrentFormRecipients(formID)(state);
 
   return Map({
+    recipientOne: recipients.get('recipientOne'),
+    recipientTwo: recipients.get('recipientTwo'),
+    recipientThree: recipients.get('recipientThree'),
     name,
     didPublish,
     fields,

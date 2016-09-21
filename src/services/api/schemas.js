@@ -109,6 +109,9 @@ export default {
       name: true,
       didPublish: true,
       didInitialize: true,
+      recipientOne: true,
+      recipientTwo: true,
+      recipientThree: true,
       createdOn: true,
     },
     relationships: {

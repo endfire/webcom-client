@@ -16,6 +16,9 @@ export default (state = init, action) => {
       const values = mapFormIDToValues(formID);
 
       return state
+        .setIn([formID, 'recipientOne'], values.get('recipientOne'))
+        .setIn([formID, 'recipientTwo'], values.get('recipientTwo'))
+        .setIn([formID, 'recipientThree'], values.get('recipientThree'))
         .setIn([formID, 'name'], values.get('name'))
         .setIn([formID, 'didPublish'], values.get('didPublish'))
         .setIn([formID, 'fields'], values.get('fields'))

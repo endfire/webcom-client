@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
-import ListItem from './components/ListItem';
+import { ListItem } from './components';
 
-const List = ({ items, brandID, handleDelete, canUserDelete }) => {
+const List = ({ items, brandID, handleDelete, canUserDelete, updateForm, isUpdateLoading }) => {
   const keys = items.keySeq();
 
   return (<div>
@@ -11,6 +11,8 @@ const List = ({ items, brandID, handleDelete, canUserDelete }) => {
       brandID={brandID}
       handleDelete={handleDelete}
       canUserDelete={canUserDelete}
+      updateForm={updateForm}
+      isUpdateLoading={isUpdateLoading}
     />)
     )}
   </div>);
@@ -21,6 +23,8 @@ List.propTypes = {
   brandID: PropTypes.string,
   handleDelete: PropTypes.func,
   canUserDelete: PropTypes.bool,
+  updateForm: PropTypes.func,
+  isUpdateLoading: PropTypes.bool,
 };
 
 export default List;

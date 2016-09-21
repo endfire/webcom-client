@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { Map } from 'immutable';
 
 const getStore = (state) => state.store;
 
@@ -40,6 +41,20 @@ export const getCurrentFormDidPublish = (formID) => (
   createSelector(
     [getForms],
     (forms) => forms.getIn([formID, 'didPublish'])
+  )
+);
+
+export const getCurrentFormRecipients = (formID) => (
+  createSelector(
+    [getForms],
+    (forms) => Map({
+      recipientOne: forms.getIn([formID, 'recipientOne'])
+        || 'infowebcomcommunications@gmail.com',
+      recipientTwo: forms.getIn([formID, 'recipientTwo'])
+        || 'infowebcomcommunications@gmail.com',
+      recipientThree: forms.getIn([formID, 'recipientThree'])
+        || 'infowebcomcommunications@gmail.com',
+    })
   )
 );
 
