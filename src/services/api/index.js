@@ -1,7 +1,7 @@
 import Sdk from './sdk';
 
 const api = new Sdk({
-  host: 'http://localhost:4200',
+  host: 'https://webcom-server.herokuapp.com',
 });
 
 export { api };

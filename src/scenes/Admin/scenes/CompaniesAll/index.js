@@ -111,7 +111,7 @@ class CompaniesAll extends Component {
             />
             : <div className={styles.wrapperLoading}>
               <div>
-                  Loading...
+                  No companies
               </div>
             </div>
           }
