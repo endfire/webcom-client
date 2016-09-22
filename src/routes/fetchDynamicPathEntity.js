@@ -1,7 +1,7 @@
 import * as actions from 'actions/store';
 
 export default (store, api, entity, dynamicPath) => (nextState, replace, callback) => {
-  const id = nextState.params[dynamicPath];
+  const id = dynamicPath ? nextState.params[dynamicPath] : localStorage.id;
   const done = () => callback();
 
   return api.fetch(entity, id)

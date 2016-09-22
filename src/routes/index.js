@@ -157,6 +157,7 @@ export default {
         {
           path: 'settings',
           component: Settings,
+          onEnter: fetchDynamicPathEntity(store, api, 'company'),
         },
       ],
     },
