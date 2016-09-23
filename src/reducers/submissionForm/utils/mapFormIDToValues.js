@@ -21,9 +21,9 @@ export default (formID) => {
     recipientOne: recipients.get('recipientOne'),
     recipientTwo: recipients.get('recipientTwo'),
     recipientThree: recipients.get('recipientThree'),
+    payment: payment.set('country', 'United States'),
     name,
     didPublish,
     fields,
-    payment,
   });
 };

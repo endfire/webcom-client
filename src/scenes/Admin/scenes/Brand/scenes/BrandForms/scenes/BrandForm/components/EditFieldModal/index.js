@@ -66,7 +66,7 @@ class EditFieldDialog extends Component {
       <ModalDialog title={`Edit ${field.get('type')} field`} size="sm" closeModal={closeModal}>
         <form onSubmit={handleSubmit}>
           <fieldset>
-            <label htmlFor="label">Name</label><br />
+            <label htmlFor="label">Label</label><br />
             <input
               type="text"
               id="label"

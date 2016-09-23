@@ -159,6 +159,13 @@ export default {
       firstName: true,
       lastName: true,
       email: true,
+      company: true,
+      address: true,
+      city: true,
+      state: true,
+      zip: true,
+      country: true,
+      phone: true,
       createdOn: true,
     },
     relationships: {
