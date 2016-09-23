@@ -118,11 +118,11 @@ class EditAdDialog extends Component {
     const { ad, closeModal } = this.props;
 
     return (
-      <ModalDialog title={`Edit ${ad.get('brand')} Ad`} size="sm" closeModal={closeModal}>
+      <ModalDialog title={`Edit ${ad.get('brand')} OBG`} size="sm" closeModal={closeModal}>
         {this.state.categoryOptions.length > 0
           ? <form onSubmit={handleSubmit}>
             <fieldset>
-              <label>Select all categories for this ad</label><br />
+              <label>Select all categories for this OBG</label><br />
               <Select
                 name="categories"
                 value={this.state.categories}
@@ -145,7 +145,7 @@ class EditAdDialog extends Component {
               />
             </fieldset>
             <fieldset>
-              <label htmlFor="name">Ad URL</label><br />
+              <label htmlFor="name">OBG URL</label><br />
               <input
                 type="text"
                 id="url"

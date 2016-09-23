@@ -8,7 +8,7 @@ import { ModalDialog } from 'components';
 const AddAdModal = withModal(
   ({ isOpen, openModal }) => (
     <Button active={isOpen} onClick={openModal} color="primary">
-      Add a new ad
+      Add an OBG
     </Button>
   ),
   ({ closeModal,
@@ -159,7 +159,7 @@ class AddAdDialog extends Component {
     const { closeModal } = this.props;
 
     return (
-      <ModalDialog title="Add a new ad" size="sm" closeModal={closeModal}>
+      <ModalDialog title="Add a new OBG" size="sm" closeModal={closeModal}>
         <form onSubmit={handleSubmit}>
           <fieldset>
             <label htmlFor="name">Select a brand</label><br />
@@ -187,7 +187,7 @@ class AddAdDialog extends Component {
             />
           </fieldset>
           <fieldset>
-            <label htmlFor="name">Ad URL</label><br />
+            <label htmlFor="name">OBG URL</label><br />
             <input
               type="text"
               id="url"

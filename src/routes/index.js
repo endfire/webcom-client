@@ -121,7 +121,7 @@ export default {
               component: CompanyListings,
             },
             {
-              path: 'ads',
+              path: 'obgs',
               component: CompanyAds,
             },
             {
