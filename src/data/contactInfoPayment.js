@@ -5,7 +5,7 @@ const { keys } = Object;
 
 const statesArray = ['', 'Not applicable', ...keys(states)];
 const countriesObject = countries.getNames('en');
-const countriesArray = ['', ...keys(countriesObject).map(country => countriesObject[country])];
+const countriesArray = keys(countriesObject).map(country => countriesObject[country]);
 
 export default [{
   type: 'text',
@@ -46,6 +46,7 @@ export default [{
   type: 'select',
   label: 'Country',
   options: countriesArray,
+  value: 'United States',
   priority: 9,
   isRequired: true,
 }, {
