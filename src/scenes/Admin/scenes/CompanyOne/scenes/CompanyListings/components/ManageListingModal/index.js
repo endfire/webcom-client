@@ -65,7 +65,7 @@ class EditListingDialog extends Component {
 
     return (
       // this could be a presentational component that is a sibling in this 'components' folder
-      <ModalDialog title={`Edit ${listing.get('brand')} Listing`} size="sm" closeModal={closeModal}>
+      <ModalDialog title={`Edit ${listing.get('brand')} Listing`} size="lg" closeModal={closeModal}>
         <form onSubmit={handleSubmit}>
           <fieldset>
             <label htmlFor="name">Remove or add categories for this listing</label>

@@ -70,7 +70,7 @@ class EditListingDialog extends Component {
     return (
       <ModalDialog
         title={`Edit ${listing.get('brand')} Listing`}
-        size="sm"
+        size="lg"
         closeModal={closeModal}
       >
         <form onSubmit={handleSubmit}>
