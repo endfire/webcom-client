@@ -24,6 +24,7 @@ const CompanyInfo = ({ company, error, approveCompany }) => {
           ? <p>
             <strong>Old Name:</strong> {company.get('oldName')} <br />
             <strong>Old Street:</strong> {company.get('oldStreet')} <br />
+            <strong>Old Street2:</strong> {company.get('oldStreetTwo')} <br />
             <strong>Old City:</strong> {company.get('oldCity')} <br />
             <strong>Old State:</strong> {company.get('oldState')} <br />
             <strong>Old Zip:</strong> {company.get('oldZip')} <br />

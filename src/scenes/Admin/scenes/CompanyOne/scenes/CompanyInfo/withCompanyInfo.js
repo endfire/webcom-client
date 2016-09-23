@@ -3,6 +3,7 @@ import { Button, ButtonGroup } from 'paintcan';
 import { withForm } from 'components';
 import * as names from 'constants/formNames';
 import isNull from 'validator/lib/isNull';
+import styles from './settings.scss';
 
 const CompanyInfoForm = ({
   handleSubmit,
@@ -30,6 +31,16 @@ const CompanyInfoForm = ({
         placeholder="123 Maple Street"
         value={values ? values.getIn(['street', 'value']) : ''}
         onChange={(e) => handleChange('street', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="streetTwo">Street 2</label><br />
+      <input
+        id="streetTwo"
+        type="text"
+        placeholder="Suite 200"
+        value={values ? values.getIn(['streetTwo', 'value']) : ''}
+        onChange={(e) => handleChange('streetTwo', e.target.value)}
       />
     </fieldset>
     <fieldset>
@@ -115,6 +126,7 @@ const CompanyInfoForm = ({
     <fieldset>
       <label htmlFor="description">Description</label><br />
       <textarea
+        className={styles.textarea}
         id="description"
         type="text"
         placeholder="Description of company"
@@ -185,6 +197,7 @@ const CompanyInfoForm = ({
     <fieldset>
       <label htmlFor="contactInfo">Contact Info</label><br />
       <textarea
+        className={styles.textarea}
         id="contactInfo"
         type="text"
         placeholder="Contact Info."
@@ -219,6 +232,7 @@ export default (company) => withForm({
   initialValues: {
     name: company.get('name') || '',
     street: company.get('street') || '',
+    streetTwo: company.get('streetTwo') || '',
     city: company.get('city') || '',
     state: company.get('state') || '',
     zip: company.get('zip') || '',

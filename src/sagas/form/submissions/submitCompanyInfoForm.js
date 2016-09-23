@@ -28,6 +28,7 @@ function* submitCompanyInfoForm(action) {
     const updatedRecord = yield api.update('company', companyID, {
       name: fields.getIn(['name', 'value']),
       street: fields.getIn(['street', 'value']),
+      streetTwo: fields.getIn(['streetTwo', 'value']),
       city: fields.getIn(['city', 'value']),
       state: fields.getIn(['state', 'value']),
       zip: fields.getIn(['zip', 'value']),
