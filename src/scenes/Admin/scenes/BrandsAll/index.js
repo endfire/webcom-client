@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'paintcan';
+import { Icon } from 'react-fa';
 import { AddBrandModal, List } from './components';
 import { getCanUserDelete } from 'selectors/admin';
 import { getBrands } from 'selectors/adminBrands';
@@ -11,7 +13,12 @@ class Brands extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isDeleteEnabled: false,
+    };
+
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleToggleDelete = this.handleToggleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -26,8 +33,16 @@ class Brands extends Component {
     deleteBrand(id);
   }
 
+  handleToggleDelete() {
+    const { isDeleteEnabled } = this.state;
+
+    this.setState({ isDeleteEnabled: !isDeleteEnabled });
+  }
+
   render() {
     const { brands, createBrand, isCreateLoading, canUserDelete } = this.props;
+    const { handleDelete, handleToggleDelete } = this;
+    const { isDeleteEnabled } = this.state;
 
     return (
       <div className={styles.wrapper}>
@@ -35,14 +50,18 @@ class Brands extends Component {
           <AddBrandModal
             createBrand={createBrand}
             isCreateLoading={isCreateLoading}
-          />
+          /> &nbsp;
+          <Button color="danger" onClick={handleToggleDelete}>
+            <Icon name="warning" /> {isDeleteEnabled ? 'Disable deletion' : 'Enable deletion'}
+          </Button>
         </div>
         <div className={styles.container}>
           {!brands.isEmpty()
             ? <List
               items={brands.sortBy(brand => brand.get('name'))}
-              handleDelete={this.handleDelete}
+              handleDelete={handleDelete}
               canUserDelete={canUserDelete}
+              isDeleteEnabled={isDeleteEnabled}
             />
             : <div className={styles.wrapperLoading}>
               <div>

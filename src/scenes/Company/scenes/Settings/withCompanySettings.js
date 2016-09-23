@@ -4,6 +4,7 @@ import { Button, ButtonGroup } from 'paintcan';
 import { withForm } from 'components';
 import * as names from 'constants/formNames';
 import isNull from 'validator/lib/isNull';
+import styles from './settings.scss';
 
 const CompanySettingsForm = ({
   handleSubmit,
@@ -31,6 +32,16 @@ const CompanySettingsForm = ({
         placeholder="123 Maple Street"
         value={values ? values.getIn(['street', 'value']) : ''}
         onChange={(e) => handleChange('street', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="streetTwo">Street 2</label><br />
+      <input
+        id="streetTwo"
+        type="text"
+        placeholder="Suite 200"
+        value={values ? values.getIn(['streetTwo', 'value']) : ''}
+        onChange={(e) => handleChange('streetTwo', e.target.value)}
       />
     </fieldset>
     <fieldset>
@@ -115,7 +126,8 @@ const CompanySettingsForm = ({
     </fieldset>
     <fieldset>
       <label htmlFor="description">Description</label><br />
-      <input
+      <textarea
+        className={styles.textarea}
         id="description"
         type="text"
         placeholder="We provide XYZ to customers all over the US"
@@ -125,6 +137,7 @@ const CompanySettingsForm = ({
     </fieldset>
     <input id="oldName" value={values ? values.getIn(['oldName', 'value']) : ''} type="text" hidden />
     <input id="oldStreet" value={values ? values.getIn(['oldStreet', 'value']) : ''} type="text" hidden />
+    <input id="oldStreetTwo" value={values ? values.getIn(['oldStreetTwo', 'value']) : ''} type="text" hidden />
     <input id="oldCity" value={values ? values.getIn(['oldCity', 'value']) : ''} type="text" hidden />
     <input id="oldState" value={values ? values.getIn(['oldState', 'value']) : ''} type="text" hidden />
     <input id="oldZip" value={values ? values.getIn(['oldZip', 'value']) : ''} type="text" hidden />
@@ -161,6 +174,7 @@ export default (company) => withForm({
   initialValues: {
     name: company.get('name') || '',
     street: company.get('street') || '',
+    streetTwo: company.get('streetTwo') || '',
     city: company.get('city') || '',
     state: company.get('state') || '',
     zip: company.get('zip') || '',
@@ -172,6 +186,7 @@ export default (company) => withForm({
     description: company.get('description') || '',
     oldName: company.get('name') || '',
     oldStreet: company.get('street') || '',
+    oldStreetTwo: company.get('streetTwo') || '',
     oldCity: company.get('city') || '',
     oldState: company.get('state') || '',
     oldZip: company.get('zip') || '',

@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { Button } from 'paintcan';
 import { List, EditCategoryModal, AddCategoryModal, EditOBGModal } from './components';
 import { getCurrentBrand, getCurrentBrandCategories } from 'selectors/adminBrands';
@@ -9,6 +10,7 @@ import * as actions from 'actions/store';
 import styles from './styles.scss';
 
 const BrandOBG = ({
+  params,
   brand,
   categories,
   initializeOBG,
@@ -22,6 +24,7 @@ const BrandOBG = ({
   isUpdateLoading,
   isDeleteLoading,
 }) => {
+  const { brandID } = params;
   const handleDelete = (id) => {
     if (isDeleteLoading || !canUserDelete) return;
 
@@ -48,6 +51,7 @@ const BrandOBG = ({
           updateOBG={updateOBG}
           isUpdateLoading={isUpdateLoading}
         /> &nbsp;
+        <Link to={`/obg/${brandID}`}><Button>To OBG</Button></Link> &nbsp;
         <Button onClick={uninitializeOBG} color="success">Uninitialize OBG</Button>
       </div>
       <div className={styles.container}>
@@ -97,6 +101,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 
 BrandOBG.propTypes = {
+  params: PropTypes.object,
   brand: PropTypes.object,
   categories: PropTypes.object,
   initializeOBG: PropTypes.func,

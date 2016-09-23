@@ -2,15 +2,16 @@ import React, { PropTypes, Component } from 'react';
 import { Icon } from 'react-fa';
 import { Button, ButtonGroup, withModal } from 'paintcan';
 import { ModalDialog } from 'components';
+import styles from './styles.scss';
 
-const EditFormRecipientsModal = withModal(
+const EditFormDetailsModal = withModal(
   ({ openModal }) => (
     <Button size="sm" onClick={openModal} color="primary">
-      <Icon name="edit" /> Edit form recipients
+      <Icon name="edit" /> Edit form details
     </Button>
   ),
   ({ closeModal, form, updateForm, isUpdateLoading }) => (
-    <EditFormRecipientsDialog
+    <EditFormDetailsDialog
       closeModal={closeModal}
       form={form}
       updateForm={updateForm}
@@ -19,7 +20,7 @@ const EditFormRecipientsModal = withModal(
   ),
 );
 
-class EditFormRecipientsDialog extends Component {
+class EditFormDetailsDialog extends Component {
   constructor(props) {
     super(props);
 
@@ -27,6 +28,7 @@ class EditFormRecipientsDialog extends Component {
       recipientOne: props.form.get('recipientOne'),
       recipientTwo: props.form.get('recipientTwo'),
       recipientThree: props.form.get('recipientThree'),
+      description: props.form.get('description'),
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -37,7 +39,7 @@ class EditFormRecipientsDialog extends Component {
     e.preventDefault();
 
     const { closeModal, form, updateForm, isUpdateLoading } = this.props;
-    const { recipientOne, recipientTwo, recipientThree } = this.state;
+    const { recipientOne, recipientTwo, recipientThree, description } = this.state;
 
     if (isUpdateLoading) return;
 
@@ -45,6 +47,7 @@ class EditFormRecipientsDialog extends Component {
       recipientOne,
       recipientTwo,
       recipientThree,
+      description,
     });
 
     closeModal();
@@ -60,7 +63,7 @@ class EditFormRecipientsDialog extends Component {
     const { closeModal } = this.props;
 
     return (
-      <ModalDialog title="Add a form" size="sm" closeModal={closeModal}>
+      <ModalDialog title="Edit form details" size="sm" closeModal={closeModal}>
         <form onSubmit={handleSubmit}>
           <fieldset>
             <label htmlFor="recipientOne">Recipient One Email</label>
@@ -96,6 +99,18 @@ class EditFormRecipientsDialog extends Component {
             />
           </fieldset>
           <fieldset>
+            <label htmlFor="description">Description</label><br />
+            <textarea
+              className={styles.textarea}
+              type="text"
+              id="description"
+              name="description"
+              onChange={handleChange}
+              value={this.state.description}
+              placeholder="Description"
+            />
+          </fieldset>
+          <fieldset>
             <ButtonGroup spaced>
               <Button onClick={closeModal} color="danger">
                 Cancel
@@ -111,11 +126,11 @@ class EditFormRecipientsDialog extends Component {
   }
 }
 
-EditFormRecipientsDialog.propTypes = {
+EditFormDetailsDialog.propTypes = {
   closeModal: PropTypes.func,
   form: PropTypes.object,
   updateForm: PropTypes.func,
   isUpdateLoading: PropTypes.bool,
 };
 
-export default EditFormRecipientsModal;
+export default EditFormDetailsModal;

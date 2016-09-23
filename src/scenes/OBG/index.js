@@ -1,5 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import * as actions from 'actions/store';
 import { ObgContent } from './scenes';
 import {
@@ -40,6 +41,10 @@ class OBG extends Component {
           />
         </div>
         <div className={styles.header}>
+          <div className={styles.nav}>
+            <Link to="/signup">Submit a free listing</Link> &nbsp; &nbsp;
+            <Link to="/company-login">Login</Link><br />
+          </div>
           <p>
             {brand.get('obgDescription')}
           </p>

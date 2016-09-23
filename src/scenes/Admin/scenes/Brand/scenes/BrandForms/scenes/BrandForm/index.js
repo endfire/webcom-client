@@ -66,8 +66,8 @@ class BrandForm extends Component {
           isCreateLoading={isCreateLoading}
         />
         {form.get('didPublish')
-          ? <Button size="sm" onClick={handleUnpublish} color="success">
-            <Icon name="check" /> Published (click to unpublish)
+          ? <Button size="sm" onClick={handleUnpublish} color="danger">
+            <Icon name="warning" /> Unpublish
           </Button>
           : <Button size="sm" onClick={handlePublish} color="success">
             <Icon name="cloud-upload" /> Publish this form
@@ -87,7 +87,8 @@ class BrandForm extends Component {
       <div className={styles.endpoint}>
         <Icon name="check" size="3x" />
         <span className={styles.endpointMessage}>
-          This form has been published. Visit it <Link to={`/form/${form.get('id')}`}>here</Link>.
+          This form has been published. &nbsp;
+          <Link to={`/form/${form.get('id')}`}><Button size="sm">To published form</Button></Link>
         </span>
       </div>
     );

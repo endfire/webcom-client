@@ -5,6 +5,7 @@ import { api } from 'services/api';
 import { syncStore } from 'actions/store';
 import { getFields, getRecordID } from 'selectors/form';
 import { submitFormError, submitFormSuccess } from 'actions/form';
+import { browserHistory } from 'react-router';
 import moment from 'moment';
 import * as types from 'constants/actionTypes';
 
@@ -28,6 +29,7 @@ function* submitCompanySettingsForm(action) {
     const updatedRecord = yield api.update('company', companyID, {
       name: fields.getIn(['name', 'value']),
       street: fields.getIn(['street', 'value']),
+      streetTwo: fields.getIn(['streetTwo', 'value']),
       city: fields.getIn(['city', 'value']),
       state: fields.getIn(['state', 'value']),
       zip: fields.getIn(['zip', 'value']),
@@ -39,6 +41,7 @@ function* submitCompanySettingsForm(action) {
       description: fields.getIn(['description', 'value']),
       oldName: fields.getIn(['oldName', 'value']),
       oldStreet: fields.getIn(['oldStreet', 'value']),
+      oldStreetTwo: fields.getIn(['oldStreetTwo', 'value']),
       oldCity: fields.getIn(['oldCity', 'value']),
       oldState: fields.getIn(['oldState', 'value']),
       oldZip: fields.getIn(['oldZip', 'value']),
@@ -54,6 +57,8 @@ function* submitCompanySettingsForm(action) {
 
     yield put(syncStore('company', updatedRecord));
     yield put(submitFormSuccess(form));
+
+    browserHistory.push('/company/listings');
   } catch (e) {
     yield put(submitFormError(form, e));
   }

@@ -70,7 +70,7 @@ class Ads extends Component {
             /></List>
             : <div className={styles.wrapperLoading}>
               <div>
-                  No ads
+                  No OBGs
               </div>
             </div>
           }

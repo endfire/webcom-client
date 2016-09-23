@@ -46,9 +46,9 @@ class CompanyOne extends Component {
                 <Link
                   className={styles.navbarLink}
                   activeClassName={styles.isActive}
-                  to={`/admin/companies/${companyID}/ads`}
+                  to={`/admin/companies/${companyID}/obgs`}
                 >
-                  Ads
+                  OBG
                 </Link>
               </li>
               <li className={styles.navbarItem}>

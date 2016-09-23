@@ -112,6 +112,7 @@ export default {
       recipientOne: true,
       recipientTwo: true,
       recipientThree: true,
+      description: true,
       createdOn: true,
     },
     relationships: {

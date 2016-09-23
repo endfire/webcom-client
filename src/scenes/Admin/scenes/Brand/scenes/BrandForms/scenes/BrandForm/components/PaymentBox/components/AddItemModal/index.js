@@ -49,6 +49,7 @@ class AddFieldDialog extends Component {
 
     createItem({
       payment: paymentID,
+      quantity: '0',
       label,
       priority,
       price,

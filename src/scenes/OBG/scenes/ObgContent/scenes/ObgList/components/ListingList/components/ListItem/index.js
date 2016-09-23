@@ -4,12 +4,12 @@ import styles from './styles.scss';
 
 const ListItem = ({ item }) => (
   <div className={styles.wrapper}>
-    <div>
+    <div className={styles.title}>
       <p>
         <strong>{item.company.get('name')}</strong>
       </p>
     </div>
-    <div>
+    <div className={styles.info}>
       <p>
         {item.company.get('description')}
       </p>
