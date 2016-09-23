@@ -5,6 +5,7 @@ import { api } from 'services/api';
 import { syncStore } from 'actions/store';
 import { getFields, getRecordID } from 'selectors/form';
 import { submitFormError, submitFormSuccess } from 'actions/form';
+import { browserHistory } from 'react-router';
 import moment from 'moment';
 import * as types from 'constants/actionTypes';
 
@@ -54,6 +55,8 @@ function* submitCompanySettingsForm(action) {
 
     yield put(syncStore('company', updatedRecord));
     yield put(submitFormSuccess(form));
+
+    browserHistory.push('/company/listings');
   } catch (e) {
     yield put(submitFormError(form, e));
   }

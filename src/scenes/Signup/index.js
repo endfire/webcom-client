@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { Button, Col, Container, Row } from 'paintcan';
+import { Button } from 'paintcan';
 
 import { PasswordInput, ValidatedInput } from './components';
 import { AuthErrorCard } from 'components';
@@ -55,64 +55,56 @@ class Signup extends Component {
     const { handleSubmit } = this;
 
     return (
-      <Container fluid full className={styles.wrapper}>
-        <Row>
-          <Col
-            size={{ xs: 12, sm: 8, md: 6, lg: 4 }}
-            offset={{ sm: 2, md: 3, lg: 4 }}
-            className={styles.signup}
-          >
-            <form onSubmit={handleSubmit}>
-              <Link className={styles.brand} to="http://webcomcommunications.com">Webcom</Link>
-              <p className={styles.marketing}>
-                Signing up to submit a free listing.
-              </p>
-              {error && <AuthErrorCard message={error.message} />}
-              <fieldset>
-                <label>Full name</label>
-                <ValidatedInput
-                  field={name}
-                  placeholder="John Doe"
-                  onChange={onChange}
-                  autoFocus
-                />
-              </fieldset>
-              <fieldset>
-                <label>Email address</label>
-                <ValidatedInput
-                  field={email}
-                  placeholder="john@doe.com"
-                  onChange={onChange}
-                />
-              </fieldset>
-              <fieldset>
-                <label>Password</label>
-                <PasswordInput
-                  field={password}
-                  onChange={onChange}
-                />
-              </fieldset>
-              <fieldset>
-                <label>Confirm password</label>
-                <ValidatedInput
-                  field={confirm}
-                  type="password"
-                  placeholder="password"
-                  onChange={onChange}
-                />
-              </fieldset>
-              <fieldset>
-                <Button type="submit" color="danger" loading={isLoading} block>
-                  Sign up
-                </Button>
-              </fieldset>
-              <Link to="/company-login" className="pull-xs-left">
-                Already have an account?
-              </Link>
-            </form>
-          </Col>
-        </Row>
-      </Container>
+      <div className={styles.wrapper}>
+        <div className={styles.container}>
+          <Link className={styles.brand} to="http://webcomcommunications.com">Webcom</Link>
+          <h3 className={styles.heading}>Signup to submit a free listing</h3>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            {error && <AuthErrorCard message={error.message} />}
+            <fieldset className={styles.formGroup}>
+              <label className={styles.formLabel}>Company name</label>
+              <ValidatedInput
+                field={name}
+                placeholder="Apple"
+                onChange={onChange}
+                autoFocus
+              />
+            </fieldset>
+            <fieldset className={styles.formGroup}>
+              <label className={styles.formLabel}>Email address</label>
+              <ValidatedInput
+                field={email}
+                placeholder="john@apple.com"
+                onChange={onChange}
+              />
+            </fieldset>
+            <fieldset className={styles.formGroup}>
+              <label className={styles.formLabel}>Password</label>
+              <PasswordInput
+                field={password}
+                onChange={onChange}
+              />
+            </fieldset>
+            <fieldset className={styles.formGroup}>
+              <label className={styles.formLabel}>Confirm password</label>
+              <ValidatedInput
+                field={confirm}
+                type="password"
+                placeholder="••••••••"
+                onChange={onChange}
+              />
+            </fieldset>
+            <fieldset className={styles.formGroup}>
+              <Button type="submit" loading={isLoading} block>
+                Sign up
+              </Button>
+            </fieldset>
+            <Link to="/company-login" className="pull-xs-left" className={styles.exists}>
+              Already have an account?
+            </Link>
+          </form>
+        </div>
+      </div>
     );
   }
 }

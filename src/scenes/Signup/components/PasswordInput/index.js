@@ -9,7 +9,7 @@ const PasswordInput = ({ field, onChange }) => (
     <input
       type="password"
       value={field.get('value')}
-      placeholder="password"
+      placeholder="••••••••"
       onChange={(e) => onChange(e, field)}
     />
     {renderFeedback(field.get('didStartTyping'), field.get('feedback'), field.get('score'))}
