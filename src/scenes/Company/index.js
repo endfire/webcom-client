@@ -38,10 +38,10 @@ class Company extends Component {
                 </Link>
               </li>
               <li className={styles.navbarItem}>
-                <Link className={styles.navbarLink} to="/company/listings">Listings</Link>
+                <Link className={styles.navbarLink} to="/company/listings">Add listings</Link>
               </li>
               <li className={styles.navbarItem}>
-                <Link className={styles.navbarLink} to="/company/people">People</Link>
+                <Link className={styles.navbarLink} to="/company/people">Add key people</Link>
               </li>
               <li className={styles.navbarItem}>
                 <Link className={styles.navbarLink} to="/company/settings">Settings</Link>

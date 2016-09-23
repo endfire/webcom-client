@@ -159,7 +159,7 @@ class AddAdDialog extends Component {
     const { closeModal } = this.props;
 
     return (
-      <ModalDialog title="Add a new OBG" size="sm" closeModal={closeModal}>
+      <ModalDialog title="Add a new OBG" size="lg" closeModal={closeModal}>
         <form onSubmit={handleSubmit}>
           <fieldset>
             <label htmlFor="name">Select a brand</label><br />

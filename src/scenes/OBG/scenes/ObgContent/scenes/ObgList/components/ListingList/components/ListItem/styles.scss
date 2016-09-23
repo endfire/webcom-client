@@ -1,7 +1,7 @@
 .wrapper {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: left;
   padding: 1rem;
 
   &:hover {
@@ -10,5 +10,17 @@
 
   &:not(:last-child) {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+}
+
+.title {
+  width: 25%;
+}
+
+.info {
+  width: 75%;
+
+  p {
+    padding-left: 10px;
   }
 }

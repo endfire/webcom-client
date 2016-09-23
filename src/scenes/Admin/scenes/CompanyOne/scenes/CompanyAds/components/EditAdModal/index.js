@@ -118,7 +118,7 @@ class EditAdDialog extends Component {
     const { ad, closeModal } = this.props;
 
     return (
-      <ModalDialog title={`Edit ${ad.get('brand')} OBG`} size="sm" closeModal={closeModal}>
+      <ModalDialog title={`Edit ${ad.get('brand')} OBG`} size="lg" closeModal={closeModal}>
         {this.state.categoryOptions.length > 0
           ? <form onSubmit={handleSubmit}>
             <fieldset>

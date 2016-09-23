@@ -99,7 +99,7 @@ class AddListingDialog extends Component {
     const { closeModal } = this.props;
 
     return (
-      <ModalDialog title="Add a new listing" size="sm" closeModal={closeModal}>
+      <ModalDialog title="Add a new listing" size="lg" closeModal={closeModal}>
         <form onSubmit={handleSubmit}>
           <fieldset>
             <label htmlFor="name">Select a brand</label><br />

@@ -1,53 +1,86 @@
-$blue: #0982E9;
-$red: #E64B42;
-$green: #35CF51;
-$dark: #32384A;
-$navy: #14364C;
-
-$lightest: #FAFAFB;
-$lighter: lighten($dark, 50%);
-$light: lighten($dark, 20%);
-
 .wrapper {
-  background: $navy;
+  height: 100vh;
+  padding-top: 4rem;
+  background-image: linear-gradient(-180deg, #3B75AA 0%, #3BAA9B 100%);
 }
 
-.signup {
-  color: #FFF;
-  margin-top: 4rem;
-  margin-bottom: 4rem;
+.container {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
 
-  a {
-    color: #FFF;
-    font-size: 0.85rem;
-  }
+.heading {
+  font-weight: 100;
+  color: white;
+}
 
-  input {
-    background: transparent;
-    padding-left: 0;
+.form {
+  background: transparentize(white, 0.8);
+  border: 1px solid transparentize(white, 0.5);
+  border-radius: 0.25rem;
+  box-shadow: 0 0 1rem 0 rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+}
+
+.error {
+  padding: 1rem;
+  color: white;
+  background: transparentize(#D03333, 0.65);
+  border: 1px solid transparentize(#D03333, 0.5);
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.form-group {
+  border: 0;
+  padding: 0.5rem 0;
+}
+
+.form-label {
+  color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.form-input {
+  margin-top: 0.25rem;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  border-bottom: 1px solid transparentize(white, 0.6);
+  color: white;
+  padding: 0.25rem 0;
+  transition: 0.1s ease-in-out;
+
+  &:focus {
+    outline: 0;
     border: 0;
-    border-radius: 0;
-    border-bottom: 1px solid transparentize(white, 0.75);
-    color: white;
-    transition: 0.5s ease-in-out;
-
-    &:focus {
-      border-bottom: 1px solid transparentize(white, 0.5);
-    }
+    padding: 0.25rem 0;
+    border-bottom: 1px solid transparentize(white, 0.3);
   }
 
-  fieldset {
-    margin-bottom: 1.5rem;
+  &:-webkit-autofill {
+    padding: 0.25rem;
+    background: red;
+    border-radius: 0.1rem;
+    background: transparentize(#FAFFBD, 0.4);
+    border: 1px solid transparentize(#FAFFBD, 0.2);
   }
 }
 
 .brand {
   font-weight: bold;
   font-size: 1.5rem !important;
+  text-decoration: none;
+  color: white;
 }
 
-.marketing {
-  color: transparentize(white, 0.5);
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+.exists {
+  padding-top: 10px;
+  color: white;
 }
