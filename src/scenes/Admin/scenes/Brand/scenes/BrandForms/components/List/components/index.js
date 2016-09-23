@@ -1,4 +1,4 @@
-import EditFormRecipientsModal from './EditFormRecipientsModal';
+import EditFormDetailsModal from './EditFormDetailsModal';
 import ListItem from './ListItem';
 
-export { EditFormRecipientsModal, ListItem };
+export { EditFormDetailsModal, ListItem };
