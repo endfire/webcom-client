@@ -28,6 +28,7 @@ import { BrandForm } from 'scenes/Admin/scenes/Brand/scenes/BrandForms/scenes';
 export default {
   path: '/',
   component: App,
+  indexRoute: { component: Signup },
   childRoutes: [
     {
       path: 'admin-login',
