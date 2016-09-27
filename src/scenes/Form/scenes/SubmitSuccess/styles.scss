@@ -1,0 +1,24 @@
+.wrapper {
+  height: 100vh;
+  padding-top: 4rem;
+  background-image: linear-gradient(-180deg, #3B75AA 0%, #3BAA9B 100%);
+}
+
+.container {
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgba(255,255,255,0.1);
+  padding: 20px;
+  border-radius: 1rem;
+  color: white;
+}
+
+.heading {
+  max-width: 400px;
+  font-weight: 100;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3rem;
+  color: white;
+}

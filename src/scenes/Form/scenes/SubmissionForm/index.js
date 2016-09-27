@@ -82,7 +82,6 @@ class FormSubmission extends Component {
 
     return (
       <div>
-        <h2>Form: {submissionForm.get('name')}</h2>
         <Fields
           fields={fields}
           handleEditFormField={handleEditFormField}
@@ -118,15 +117,21 @@ class FormSubmission extends Component {
   }
 
   render() {
-    const { error } = this.props;
-    const { handleSubmission, renderFields, renderPaymentAndItems } = this;
+    const { error, submissionForm } = this.props;
+    const { handleSubmission, renderFields, renderPaymentAndItems, renderSpinner } = this;
 
     return (
       <div className={styles.wrapper}>
+        <h2>
+          {submissionForm
+            ? submissionForm.get('name')
+            : renderSpinner()
+          }
+        </h2>
         <form onSubmit={handleSubmission}>
-          {renderFields()}
           {renderPaymentAndItems()}
-          <Button type="submit" size="sm">
+          {renderFields()}
+          <Button type="submit" size="md" color="primary">
             Submit Form
           </Button>
           {error && <AuthErrorCard message={error.message} />}

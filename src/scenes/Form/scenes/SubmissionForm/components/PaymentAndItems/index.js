@@ -14,7 +14,11 @@ class PaymentAndItems extends Component {
 
     if (!items) return renderSpinner();
 
-    return <Items items={items} onChange={handleEditFormItem} />;
+    return (
+      <div>
+        <Items items={items} onChange={handleEditFormItem} />
+      </div>
+    );
   }
 
   render() {
@@ -22,7 +26,6 @@ class PaymentAndItems extends Component {
 
     return (
       <div>
-        <h3>Payment Items</h3>
         {this.renderItems()}
         <h3>Payment Information</h3>
         <Payment payment={payment} onChange={handleEditFormPayment} />

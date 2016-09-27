@@ -1,11 +1,12 @@
 import React, { PropTypes } from 'react';
 import { ItemField } from './components';
+import styles from './styles.scss';
 
 const Items = ({ items, onChange }) => {
   const keys = items.sortBy(item => item.get('priority')).keySeq();
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       {keys.map(key => {
         const item = items.get(key);
 
