@@ -20,29 +20,17 @@ class CompaniesAll extends Component {
     };
 
     this.handleDelete = this.handleDelete.bind(this);
-    this.loadMore = this.loadMore.bind(this);
-    this.loadAlotMore = this.loadAlotMore.bind(this);
     this.clickPeople = this.clickPeople.bind(this);
     this.clickCompany = this.clickCompany.bind(this);
   }
 
   componentDidMount() {
-    this.props.findCompanies(
-      this.props.location.query.skip,
-      this.props.location.query.limit
-    );
+    this.props.findCompanies(false, 'Energy');
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      (prevProps.location.query.skip !== this.props.location.query.skip) ||
-      (prevProps.location.query.limit !== this.props.location.query.limit)
-    ) {
-      this.props.findCompanies(
-        this.props.location.query.skip,
-        this.props.location.query.limit
-      );
-    }
+    console.log(prevProps);
+    console.log('Did update');
   }
 
   handleDelete(id) {
@@ -51,22 +39,6 @@ class CompaniesAll extends Component {
     if (isDeleteLoading || !canUserDelete) return;
 
     deleteCompany(id);
-  }
-
-  loadMore() {
-    const skip = Number(this.props.location.query.skip) || 0;
-    const limit = 80;
-    const next = skip + (Number(this.props.location.query.limit) || 80);
-
-    browserHistory.push(`/admin/companies?limit=${limit}&skip=${next}`);
-  }
-
-  loadAlotMore() {
-    const skip = Number(this.props.location.query.skip) || 0;
-    const limit = 500;
-    const next = skip + (Number(this.props.location.query.limit) || 500);
-
-    browserHistory.push(`/admin/companies?limit=${limit}&skip=${next}`);
   }
 
   clickPeople() {
@@ -95,12 +67,17 @@ class CompaniesAll extends Component {
             createCompany={createCompany}
             isCreateLoading={isCreateLoading}
           /> &nbsp;
-          <Button onClick={this.clickPeople} color="success" disabled={this.state.clickedPeople}>
+          <Button onClick={this.clickPeople} color="success" disabled>
             Download All People
           </Button> &nbsp;
-          <Button onClick={this.clickCompany} color="success" disabled={this.state.clickedCompany}>
+          <Button onClick={this.clickCompany} color="success" disabled>
             Download All Companies
           </Button>
+        </div>
+        <div className={styles.search}>
+          <form>
+
+          </form>
         </div>
         <div className={styles.container}>
           {!companies.isEmpty()
@@ -111,14 +88,10 @@ class CompaniesAll extends Component {
             />
             : <div className={styles.wrapperLoading}>
               <div>
-                  No companies
+                  Loading...
               </div>
             </div>
           }
-        </div>
-        <div className={styles.bottom}>
-          <Button onClick={this.loadMore}>Load More</Button> &nbsp;
-          <Button onClick={this.loadAlotMore}>Load Alot More</Button>
         </div>
       </div>
     );
@@ -133,10 +106,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  findCompanies: (skip, limit) => dispatch(actions.findRecords('company', {}, {
-    limit,
-    skip,
-  })),
+  findCompanies: (sideload, name) => dispatch(actions.findRecords('company', { name }, sideload)),
   deleteCompany: (id) => dispatch(actions.deleteRecord('company', 'companies', id)),
   createCompany: (data) => dispatch(actions.createRecord('company', data)),
   downloadPeople: () => dispatch({

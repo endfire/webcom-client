@@ -98,8 +98,10 @@ class FormSubmission extends Component {
       params: { submissionFormID },
     } = this.props;
 
+    const { keys } = Object;
+
     if (!submissionForm) return null;
-    if (submissionForm.get('payment').isEmpty()) return null;
+    if (keys(submissionForm.get('payment').toJS()).length === 1) return null;
 
     const payment = submissionForm.get('payment');
 
