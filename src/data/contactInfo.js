@@ -3,7 +3,10 @@ import countries from 'i18n-iso-countries';
 
 const { keys } = Object;
 
-const statesArray = ['', 'Not applicable', ...keys(states)];
+const canadianProvinces =
+  ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
+const statesArray = ['', 'Not applicable', ...keys(states), ...canadianProvinces];
+
 const countriesObject = countries.getNames('en');
 const countriesArray = keys(countriesObject).map(country => countriesObject[country]);
 
