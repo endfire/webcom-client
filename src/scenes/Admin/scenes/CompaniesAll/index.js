@@ -17,15 +17,15 @@ class CompaniesAll extends Component {
     this.state = {
       clickedCompany: false,
       clickedPeople: false,
+      search: '',
+      approval: false,
     };
 
     this.handleDelete = this.handleDelete.bind(this);
     this.clickPeople = this.clickPeople.bind(this);
     this.clickCompany = this.clickCompany.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.findCompanies(false, 'Energy');
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
   }
 
   componentDidUpdate(prevProps) {
@@ -51,14 +51,28 @@ class CompaniesAll extends Component {
     this.props.downloadCompanies();
   }
 
+  handleSearchChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
+
+  handleSearch(e) {
+    e.preventDefault();
+
+    const search = this.state.search;
+    const { findCompanies } = this.props;
+
+    findCompanies(false, search);
+    browserHistory.push(`/admin/companies/?search=${search}`);
+  }
+
   render() {
     const {
       companies,
-      canUserDelete,
       createCompany,
+      canUserDelete,
       isCreateLoading,
     } = this.props;
-
 
     return (
       <div className={styles.wrapper}>
@@ -75,8 +89,24 @@ class CompaniesAll extends Component {
           </Button>
         </div>
         <div className={styles.search}>
-          <form>
-
+          <form onSubmit={this.handleSearch}>
+            <fieldset>
+              <input
+                type="text"
+                id="search"
+                name="search"
+                onChange={this.handleSearchChange}
+                value={this.state.search}
+                pattern=".{3,}"
+                placeholder="Please search with at least 3 characters."
+                required
+              />
+            </fieldset>
+            <fieldset>
+              <Button type="submit" color="primary">
+                Search
+              </Button>
+            </fieldset>
           </form>
         </div>
         <div className={styles.container}>
@@ -88,7 +118,7 @@ class CompaniesAll extends Component {
             />
             : <div className={styles.wrapperLoading}>
               <div>
-                  Loading...
+                  {this.state.search === '' ? 'Please search for a company.' : 'Loading...'}
               </div>
             </div>
           }
@@ -98,8 +128,8 @@ class CompaniesAll extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  companies: getCompanies(state),
+const mapStateToProps = (state, ownProps) => ({
+  companies: getCompanies(ownProps.location.query.search || '')(state),
   canUserDelete: getCanUserDelete(state),
   isDeleteLoading: getIsDeleteLoading(state),
   isCreateLoading: getIsCreateLoading(state),

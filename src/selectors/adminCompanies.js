@@ -2,9 +2,13 @@ import { createSelector } from 'reselect';
 
 const getStore = (state) => state.store;
 
-export const getCompanies = createSelector(
-  [getStore],
-  (store) => store.getIn(['entities', 'companies'])
+export const getCompanies = (name) => (
+  createSelector(
+    [getStore],
+    (store) => store.getIn(['entities', 'companies']).filter(company => (
+      company.get('name').substring(0, name.length) === name
+    ))
+  )
 );
 
 export const getCurrentCompany = (companyID) => (
