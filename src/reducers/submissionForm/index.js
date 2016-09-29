@@ -103,6 +103,10 @@ export default (state = init, action) => {
       return state.update('errors', errors => errors.push(payload));
     }
 
+    case types.SUBMIT_SUBMISSION_FORM_NO_ERROR: {
+      return state.update('errors', errors => errors.push(null));
+    }
+
     default:
       return state;
   }
