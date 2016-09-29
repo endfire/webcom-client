@@ -2,9 +2,14 @@ import React, { PropTypes } from 'react';
 import { states } from 'us';
 import countries from 'i18n-iso-countries';
 
-const statesArray = ['', 'Not applicable', ...Object.keys(states)];
+const { keys } = Object;
+
+const canadianProvinces =
+  ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
+const statesArray = ['', 'Not applicable', ...keys(states), ...canadianProvinces];
+
 const countriesObject = countries.getNames('en');
-const countriesArray = Object.keys(countriesObject).map(country => countriesObject[country]);
+const countriesArray = keys(countriesObject).map(country => countriesObject[country]);
 
 const Payment = ({ payment, onChange }) => {
   const firstName = payment.get('firstName');

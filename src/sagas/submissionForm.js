@@ -33,6 +33,7 @@ function* submitSubmissionForm(action) {
     });
 
     yield put(actions.syncStore('submission', createdRecord));
+    yield put({ type: types.SUBMIT_SUBMISSION_FORM_NO_ERROR });
 
     forwardTo('/submit-success');
   } catch (e) {
