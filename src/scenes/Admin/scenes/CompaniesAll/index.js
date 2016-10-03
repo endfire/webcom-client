@@ -4,7 +4,7 @@ import { Button } from 'paintcan';
 import { browserHistory } from 'react-router';
 import { List, AddCompanyModal } from './components/';
 import { getCanUserDelete } from 'selectors/admin';
-import { getCompanies } from 'selectors/adminCompanies';
+import { getCompaniesByName } from 'selectors/adminCompanies';
 import { getIsDeleteLoading, getIsCreateLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
 import * as types from 'constants/actionTypes';
@@ -18,7 +18,6 @@ class CompaniesAll extends Component {
       clickedCompany: false,
       clickedPeople: false,
       search: '',
-      approval: false,
     };
 
     this.handleDelete = this.handleDelete.bind(this);
@@ -26,11 +25,6 @@ class CompaniesAll extends Component {
     this.clickCompany = this.clickCompany.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
-  }
-
-  componentDidUpdate(prevProps) {
-    console.log(prevProps);
-    console.log('Did update');
   }
 
   handleDelete(id) {
@@ -129,7 +123,7 @@ class CompaniesAll extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  companies: getCompanies(ownProps.location.query.search || '')(state),
+  companies: getCompaniesByName(ownProps.location.query.search || '')(state),
   canUserDelete: getCanUserDelete(state),
   isDeleteLoading: getIsDeleteLoading(state),
   isCreateLoading: getIsCreateLoading(state),

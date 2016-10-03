@@ -135,6 +135,46 @@ const CompanySettingsForm = ({
         onChange={(e) => handleChange('description', e.target.value)}
       />
     </fieldset>
+    <fieldset>
+      <label htmlFor="yearEstablished">Year Established</label><br />
+      <input
+        id="yearEstablished"
+        type="text"
+        placeholder="Year established."
+        value={values ? values.getIn(['yearEstablished', 'value']) : ''}
+        onChange={(e) => handleChange('yearEstablished', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="numberEmployees">Number of Employees</label><br />
+      <input
+        id="numberEmployees"
+        type="text"
+        placeholder="Number of Employees."
+        value={values ? values.getIn(['numberEmployees', 'value']) : ''}
+        onChange={(e) => handleChange('numberEmployees', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="annualRevenue">Annual Revenue</label><br />
+      <input
+        id="annualRevenue"
+        type="text"
+        placeholder="Annual Revenue."
+        value={values ? values.getIn(['annualRevenue', 'value']) : ''}
+        onChange={(e) => handleChange('annualRevenue', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
+      <label htmlFor="businessOwnership">Business Ownership</label><br />
+      <input
+        id="businessOwnership"
+        type="text"
+        placeholder="Private/Public"
+        value={values ? values.getIn(['businessOwnership', 'value']) : ''}
+        onChange={(e) => handleChange('businessOwnership', e.target.value)}
+      />
+    </fieldset>
     <input id="oldName" value={values ? values.getIn(['oldName', 'value']) : ''} type="text" hidden />
     <input id="oldStreet" value={values ? values.getIn(['oldStreet', 'value']) : ''} type="text" hidden />
     <input id="oldStreetTwo" value={values ? values.getIn(['oldStreetTwo', 'value']) : ''} type="text" hidden />
@@ -184,6 +224,10 @@ export default (company) => withForm({
     url: company.get('url') || '',
     email: company.get('email') || '',
     description: company.get('description') || '',
+    yearEstablished: company.get('yearEstablished') || '',
+    numberEmployees: company.get('numberEmployees') || '',
+    annualRevenue: company.get('annualRevenue') || '',
+    businessOwnership: company.get('businessOwnership') || '',
     oldName: company.get('name') || '',
     oldStreet: company.get('street') || '',
     oldStreetTwo: company.get('streetTwo') || '',
