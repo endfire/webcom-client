@@ -1,6 +1,6 @@
 import React, { PropTypes, Component } from 'react';
 import Select from 'react-select';
-import { ObgList } from './scenes';
+import { ObgList } from './components';
 
 class ObgContent extends Component {
   constructor(props) {

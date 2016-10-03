@@ -10,21 +10,30 @@ const ItemField = ({ item, onChange }) => {
 
   return (
     <div className={styles.item}>
-      <h4>{label} - ${price}</h4>
-      <p>{description}</p>
-      <label htmlFor={id}>
-        Quantity
-      </label>
-      <input
-        type="number"
-        id={id}
-        name={id}
-        min="0"
-        onChange={onChange}
-        value={quantity}
-        placeholder="quantity"
-        required
-      />
+      <div className={styles.quantity}>
+        <label htmlFor={id}>
+          Quantity
+        </label>
+        <input
+          type="number"
+          id={id}
+          name={id}
+          min="0"
+          onChange={onChange}
+          value={quantity}
+          placeholder="quantity"
+          required
+        />
+      </div>
+      <div className={styles.title}>
+        {label}
+      </div>
+      <div className={styles.info}>
+        <p>{description}</p>
+      </div>
+      <div className={styles.price}>
+        <strong>${price}</strong>
+      </div>
     </div>
   );
 };

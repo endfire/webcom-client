@@ -17,32 +17,20 @@ class CompaniesAll extends Component {
     this.state = {
       clickedCompany: false,
       clickedPeople: false,
+      search: '',
+      approval: false,
     };
 
     this.handleDelete = this.handleDelete.bind(this);
-    this.loadMore = this.loadMore.bind(this);
-    this.loadAlotMore = this.loadAlotMore.bind(this);
     this.clickPeople = this.clickPeople.bind(this);
     this.clickCompany = this.clickCompany.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.findCompanies(
-      this.props.location.query.skip,
-      this.props.location.query.limit
-    );
+    this.handleSearch = this.handleSearch.bind(this);
+    this.handleSearchChange = this.handleSearchChange.bind(this);
   }
 
   componentDidUpdate(prevProps) {
-    if (
-      (prevProps.location.query.skip !== this.props.location.query.skip) ||
-      (prevProps.location.query.limit !== this.props.location.query.limit)
-    ) {
-      this.props.findCompanies(
-        this.props.location.query.skip,
-        this.props.location.query.limit
-      );
-    }
+    console.log(prevProps);
+    console.log('Did update');
   }
 
   handleDelete(id) {
@@ -51,22 +39,6 @@ class CompaniesAll extends Component {
     if (isDeleteLoading || !canUserDelete) return;
 
     deleteCompany(id);
-  }
-
-  loadMore() {
-    const skip = Number(this.props.location.query.skip) || 0;
-    const limit = 80;
-    const next = skip + (Number(this.props.location.query.limit) || 80);
-
-    browserHistory.push(`/admin/companies?limit=${limit}&skip=${next}`);
-  }
-
-  loadAlotMore() {
-    const skip = Number(this.props.location.query.skip) || 0;
-    const limit = 500;
-    const next = skip + (Number(this.props.location.query.limit) || 500);
-
-    browserHistory.push(`/admin/companies?limit=${limit}&skip=${next}`);
   }
 
   clickPeople() {
@@ -79,14 +51,28 @@ class CompaniesAll extends Component {
     this.props.downloadCompanies();
   }
 
+  handleSearchChange(e) {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
+  }
+
+  handleSearch(e) {
+    e.preventDefault();
+
+    const search = this.state.search;
+    const { findCompanies } = this.props;
+
+    findCompanies(false, search);
+    browserHistory.push(`/admin/companies/?search=${search}`);
+  }
+
   render() {
     const {
       companies,
-      canUserDelete,
       createCompany,
+      canUserDelete,
       isCreateLoading,
     } = this.props;
-
 
     return (
       <div className={styles.wrapper}>
@@ -95,12 +81,33 @@ class CompaniesAll extends Component {
             createCompany={createCompany}
             isCreateLoading={isCreateLoading}
           /> &nbsp;
-          <Button onClick={this.clickPeople} color="success" disabled={this.state.clickedPeople}>
+          <Button onClick={this.clickPeople} color="success" disabled>
             Download All People
           </Button> &nbsp;
-          <Button onClick={this.clickCompany} color="success" disabled={this.state.clickedCompany}>
+          <Button onClick={this.clickCompany} color="success" disabled>
             Download All Companies
           </Button>
+        </div>
+        <div className={styles.search}>
+          <form onSubmit={this.handleSearch}>
+            <fieldset>
+              <input
+                type="text"
+                id="search"
+                name="search"
+                onChange={this.handleSearchChange}
+                value={this.state.search}
+                pattern=".{3,}"
+                placeholder="Please search with at least 3 characters."
+                required
+              />
+            </fieldset>
+            <fieldset>
+              <Button type="submit" color="primary">
+                Search
+              </Button>
+            </fieldset>
+          </form>
         </div>
         <div className={styles.container}>
           {!companies.isEmpty()
@@ -111,32 +118,25 @@ class CompaniesAll extends Component {
             />
             : <div className={styles.wrapperLoading}>
               <div>
-                  No companies
+                  {this.state.search === '' ? 'Please search for a company.' : 'Loading...'}
               </div>
             </div>
           }
-        </div>
-        <div className={styles.bottom}>
-          <Button onClick={this.loadMore}>Load More</Button> &nbsp;
-          <Button onClick={this.loadAlotMore}>Load Alot More</Button>
         </div>
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  companies: getCompanies(state),
+const mapStateToProps = (state, ownProps) => ({
+  companies: getCompanies(ownProps.location.query.search || '')(state),
   canUserDelete: getCanUserDelete(state),
   isDeleteLoading: getIsDeleteLoading(state),
   isCreateLoading: getIsCreateLoading(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  findCompanies: (skip, limit) => dispatch(actions.findRecords('company', {}, {
-    limit,
-    skip,
-  })),
+  findCompanies: (sideload, name) => dispatch(actions.findRecords('company', { name }, sideload)),
   deleteCompany: (id) => dispatch(actions.deleteRecord('company', 'companies', id)),
   createCompany: (data) => dispatch(actions.createRecord('company', data)),
   downloadPeople: () => dispatch({

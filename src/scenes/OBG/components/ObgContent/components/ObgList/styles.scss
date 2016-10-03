@@ -1,4 +1,11 @@
-.wrapper {
+.container {
+  margin-top: 1rem;
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 0.25rem;
+}
+
+.wrapperLoading {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -11,9 +18,4 @@
   &:not(:last-child) {
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
-}
-
-.link {
-  color: white;
-  text-decoration: none;
 }

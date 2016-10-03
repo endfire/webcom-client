@@ -58,6 +58,28 @@ class BrandForm extends Component {
       return <Icon name="spinner" spin />;
     }
 
+    const unpublishButton = (
+      <Button size="sm" onClick={handleUnpublish} color="danger">
+        <Icon name="warning" /> Unpublish
+      </Button>
+    );
+
+    const renderPublishButton = (items) => {
+      if (form.get('payment') && items.isEmpty()) {
+        return (
+          <Button size="sm" color="danger">
+            <Icon name="warning" /> Add an item
+          </Button>
+        );
+      }
+
+      return (
+        <Button size="sm" onClick={handlePublish} color="success">
+          <Icon name="cloud-upload" /> Publish this form
+        </Button>
+      );
+    };
+
     return (
       <ButtonGroup spaced>
         <AddFieldModal
@@ -65,14 +87,7 @@ class BrandForm extends Component {
           createField={createField}
           isCreateLoading={isCreateLoading}
         />
-        {form.get('didPublish')
-          ? <Button size="sm" onClick={handleUnpublish} color="danger">
-            <Icon name="warning" /> Unpublish
-          </Button>
-          : <Button size="sm" onClick={handlePublish} color="success">
-            <Icon name="cloud-upload" /> Publish this form
-          </Button>
-        }
+        {form.get('didPublish') ? unpublishButton : renderPublishButton(this.props.items)}
       </ButtonGroup>
     );
   }

@@ -14,8 +14,8 @@ const ObgList = ({ listings, ads, category }) => (
             ad.get('priority')
           ))}
         />
-        : <div>
-          Loading ads...
+        : <div className={styles.wrapperLoading}>
+          <div></div>
         </div>
       }
     </div><br />
@@ -28,8 +28,10 @@ const ObgList = ({ listings, ads, category }) => (
             listing.company.get('name')
           ))}
         />
-        : <div>
-          Loading listings...
+        : <div className={styles.wrapperLoading}>
+          <div>
+              Loading...
+          </div>
         </div>
       }
     </div>

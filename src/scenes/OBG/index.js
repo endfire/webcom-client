@@ -2,7 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as actions from 'actions/store';
-import { ObgContent } from './scenes';
+import { ObgContent } from './components';
 import {
   getCurrentBrand,
   getCategorySelectOptions,
