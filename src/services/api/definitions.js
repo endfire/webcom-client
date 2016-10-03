@@ -18,7 +18,7 @@ brand.define({ forms: arrayOf(form), categories: arrayOf(category) });
 category.define({ brand, listings: arrayOf(listing), ads: arrayOf(ad) });
 company.define({ listings: arrayOf(listing), ads: arrayOf(ad), people: arrayOf(person) });
 listing.define({ categories: arrayOf(category), company });
-submission.define({ form, fields: arrayOf(field) });
+submission.define({ form });
 field.define({ form });
 form.define({ brand, payment, fields: arrayOf(field), submissions: arrayOf(submission) });
 payment.define({ form, items: arrayOf(item) });
