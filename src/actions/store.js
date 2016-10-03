@@ -37,8 +37,6 @@ export const createRecord = (entityType, record) => {
 export const fetchRecord = (entityType, id) => {
   const type = types.FETCH_REQUEST;
 
-  console.log('Hello in action');
-
   if (!entityType) throw missingRequiredParamError(type, 'entityType');
   if (!id) throw missingRequiredParamError(type, 'id');
 

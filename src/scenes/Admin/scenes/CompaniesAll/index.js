@@ -56,7 +56,7 @@ class CompaniesAll extends Component {
     const search = this.state.search;
     const { findCompanies } = this.props;
 
-    findCompanies(true, search);
+    findCompanies(false, search);
     browserHistory.push(`/admin/companies/?search=${search}`);
   }
 

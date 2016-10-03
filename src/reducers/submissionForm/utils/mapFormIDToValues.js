@@ -6,11 +6,13 @@ import {
   getCurrentFormFields,
   getCurrentFormPayment,
   getCurrentFormRecipients,
+  getCurrentFormBrand,
 } from 'selectors/dynamicForm';
 
 export default (formID) => {
   const state = store.getState();
 
+  const brand = getCurrentFormBrand(formID)(state);
   const name = getCurrentFormName(formID)(state);
   const didPublish = getCurrentFormDidPublish(formID)(state);
   const fields = getCurrentFormFields(formID)(state);
@@ -25,5 +27,6 @@ export default (formID) => {
     name,
     didPublish,
     fields,
+    brand,
   });
 };

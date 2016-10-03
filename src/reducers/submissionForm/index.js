@@ -23,7 +23,8 @@ export default (state = init, action) => {
         .setIn([formID, 'didPublish'], values.get('didPublish'))
         .setIn([formID, 'fields'], values.get('fields'))
         .setIn([formID, 'payment'], values.get('payment'))
-        .setIn([formID, 'form'], formID);
+        .setIn([formID, 'form'], formID)
+        .setIn([formID, 'brand'], values.get('brand'));
     }
 
     case types.HYDRATE_SUBMISSION_FORM_ITEMS: {

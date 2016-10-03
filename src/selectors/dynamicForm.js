@@ -3,6 +3,11 @@ import { Map } from 'immutable';
 
 const getStore = (state) => state.store;
 
+const getBrands = createSelector(
+  [getStore],
+  (store) => store.getIn(['entities', 'brands'])
+);
+
 const getFields = createSelector(
   [getStore],
   (store) => store.getIn(['entities', 'fields'])
@@ -27,6 +32,15 @@ export const getCurrentForm = (formID) => (
   createSelector(
     [getForms],
     (forms) => forms.get(formID)
+  )
+);
+
+export const getCurrentFormBrand = (formID) => (
+  createSelector(
+    [getForms, getBrands],
+    (forms, brands) => brands.get(
+      forms.getIn([formID, 'brand'])
+    )
   )
 );
 

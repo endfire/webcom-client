@@ -105,6 +105,8 @@ class FormSubmission extends Component {
 
     const payment = submissionForm.get('payment');
 
+    console.log();
+
     return (
       <PaymentAndItems
         payment={payment}
@@ -130,6 +132,15 @@ class FormSubmission extends Component {
             : renderSpinner()
           }
         </h2>
+        <div className={styles.headImage}>
+          {submissionForm
+            ? <img
+              src={submissionForm.getIn(['brand', 'image'])}
+              alt={submissionForm.getIn(['brand', 'name'])}
+            />
+            : renderSpinner()
+          }
+        </div>
         <form onSubmit={handleSubmission}>
           {renderPaymentAndItems()}
           {renderFields()}
