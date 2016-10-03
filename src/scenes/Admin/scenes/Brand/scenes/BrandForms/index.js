@@ -79,6 +79,9 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   createForm: (name) => dispatch(actions.createRecord('form', {
     name,
     didPublish: false,
+    recipientOne: 'marcv@webcomcommunications.com',
+    recipientTwo: 'marshag@webcomcommunications.com',
+    recipientThree: 'julieh@webcomcommunications.com',
     brand: ownProps.params.brandID,
     fields: [],
     submissions: [],
