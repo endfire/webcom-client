@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import * as types from 'constants/actionTypes';
 import missingRequiredParamError from './missingRequiredParamError';
 
@@ -8,6 +9,12 @@ export const syncStore = (entityType, recordOrRecords, shouldRemove = false) => 
   if (!recordOrRecords) throw missingRequiredParamError(type, 'recordOrRecords');
 
   const key = Array.isArray(recordOrRecords) ? 'records' : 'record';
+
+  if (key === 'records') {
+    recordOrRecords = recordOrRecords.filter(record => (
+      record.meta.archived === false
+    ));
+  }
 
   return {
     type,
