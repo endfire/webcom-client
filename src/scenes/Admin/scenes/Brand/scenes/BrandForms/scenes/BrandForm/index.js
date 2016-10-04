@@ -28,12 +28,6 @@ class BrandForm extends Component {
     this.renderPayment = this.renderPayment.bind(this);
   }
 
-  componentDidMount() {
-    const { fetchForm, params: { formID } } = this.props;
-
-    fetchForm(formID);
-  }
-
   handlePublish() {
     const { form, updateForm } = this.props;
 
@@ -202,7 +196,6 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchForm: (id) => dispatch(actions.fetchRecord('form', id)),
   fetchPayment: (id) => dispatch(actions.fetchRecord('payment', id)),
   createField: (data) => dispatch(actions.createRecord('field', data)),
   createItem: (data) => dispatch(actions.createRecord('item', data)),

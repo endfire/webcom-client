@@ -4,16 +4,9 @@ import { Icon } from 'react-fa';
 import cx from 'classnames';
 import { Link } from 'react-router';
 import { getCurrentBrand } from 'selectors/adminBrands';
-import * as actions from 'actions/store';
 import styles from './brand.scss';
 
 class Brand extends Component {
-  componentDidMount() {
-    const { fetchBrand, params: { brandID } } = this.props;
-
-    fetchBrand(brandID);
-  }
-
   renderSpinner() {
     return (
       <span>
@@ -74,10 +67,6 @@ const mapStateToProps = (state, ownProps) => ({
   brand: getCurrentBrand(ownProps.params.brandID)(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchBrand: (id) => dispatch(actions.fetchRecord('brand', id)),
-});
-
 Brand.propTypes = {
   children: PropTypes.any,
   params: PropTypes.object,
@@ -85,7 +74,4 @@ Brand.propTypes = {
   fetchBrand: PropTypes.func,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(Brand);
+export default connect(mapStateToProps)(Brand);

@@ -14,12 +14,6 @@ class BrandForms extends Component {
     this.handleDelete = this.handleDelete.bind(this);
   }
 
-  componentDidMount() {
-    const { findForms, params: { brandID } } = this.props;
-
-    findForms(brandID);
-  }
-
   handleDelete(id) {
     const { isDeleteLoading, deleteForm, canUserDelete } = this.props;
 
@@ -73,7 +67,6 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  findForms: (brandID) => dispatch(actions.findRecords('form', { brand: brandID })),
   deleteForm: (id) => dispatch(actions.deleteRecord('form', 'forms', id)),
   updateForm: (id, data) => dispatch(actions.updateRecord('form', id, data)),
   createForm: (name) => dispatch(actions.createRecord('form', {
