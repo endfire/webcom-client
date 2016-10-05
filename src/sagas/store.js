@@ -5,8 +5,8 @@ import { syncStore } from 'actions/store';
 import * as types from 'constants/actionTypes';
 
 function* fetch(action) {
-  const { type, id } = action.payload;
-  const record = yield api.fetch(type, id);
+  const { type, id, options } = action.payload;
+  const record = yield api.fetch(type, id, options);
 
   try {
     yield put({ type: types.FETCH_SUCCESS, payload: action.payload });
@@ -21,8 +21,8 @@ export function* watchFetchRequest() {
 }
 
 function* fetchRelated(action) {
-  const { type, id, field, relatedType } = action.payload;
-  const records = yield api.fetchRelated(type, id, field);
+  const { type, id, field, relatedType, options } = action.payload;
+  const records = yield api.fetchRelated(type, id, field, options);
 
   try {
     yield put({ type: types.RELATED_SUCCESS, payload: action.payload });
@@ -37,8 +37,8 @@ export function* watchFetchRelatedRequest() {
 }
 
 function* find(action) {
-  const { type, filters, sideload } = action.payload;
-  const records = yield api.find(type, filters, sideload);
+  const { type, filters, options } = action.payload;
+  const records = yield api.find(type, filters, options);
 
   try {
     yield put({ type: types.FIND_SUCCESS, payload: action.payload });

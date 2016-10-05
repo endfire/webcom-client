@@ -88,10 +88,39 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  fetchBrand: () => dispatch(actions.fetchRecord('brand', ownProps.params.brandID)),
-  fetchAds: (categoryID) => dispatch(actions.fetchRelated('category', categoryID, 'ads', 'ad')),
+  fetchBrand: () => dispatch(actions.fetchRecord('brand', ownProps.params.brandID, {
+    without: {
+      categories: {
+        listings: true,
+        ads: true,
+      },
+    },
+  })),
+  fetchAds: (categoryID) => dispatch(
+    actions.fetchRelated('category', categoryID, 'ads', 'ad', {
+      sideload: {
+        categories: false,
+      },
+      without: {
+        categories: {
+          listings: true,
+          ads: true,
+        },
+      },
+    })
+  ),
   fetchListings: (categoryID) => dispatch(
-    actions.fetchRelated('category', categoryID, 'listings', 'listing')
+    actions.fetchRelated('category', categoryID, 'listings', 'listing', {
+      sideload: {
+        categories: false,
+      },
+      without: {
+        categories: {
+          listings: true,
+          ads: true,
+        },
+      },
+    })
   ),
 });
 

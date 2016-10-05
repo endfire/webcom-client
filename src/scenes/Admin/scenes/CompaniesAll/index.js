@@ -56,7 +56,7 @@ class CompaniesAll extends Component {
     const search = this.state.search;
     const { findCompanies } = this.props;
 
-    findCompanies(false, search);
+    findCompanies(search);
     browserHistory.push(`/admin/companies/?search=${search}`);
   }
 
@@ -130,7 +130,13 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  findCompanies: (sideload, name) => dispatch(actions.findRecords('company', { name }, sideload)),
+  findCompanies: (name) => dispatch(actions.findRecords('company', { name }, {
+    sideload: false,
+    without: {
+      listings: true,
+      people: true,
+    },
+  })),
   deleteCompany: (id) => dispatch(actions.deleteRecord('company', 'companies', id)),
   createCompany: (data) => dispatch(actions.createRecord('company', data)),
   downloadPeople: () => dispatch({

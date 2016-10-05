@@ -78,7 +78,14 @@ export default {
         {
           path: 'brands/:brandID',
           component: Brand,
-          onEnter: fetchDynamicPathEntity(store, api, 'brand', 'brandID'),
+          onEnter: fetchDynamicPathEntity(store, api, 'brand', 'brandID', {
+            without: {
+              categories: {
+                listings: true,
+                ads: true,
+              },
+            },
+          }),
           indexRoute: {
             onEnter: ({ params }, replace) => replace(`/admin/brands/${params.brandID}/forms`),
           },
@@ -111,7 +118,13 @@ export default {
         {
           path: 'companies/:companyID',
           component: CompanyOne,
-          onEnter: fetchDynamicPathEntity(store, api, 'company', 'companyID'),
+          onEnter: fetchDynamicPathEntity(store, api, 'company', 'companyID', {
+            without: {
+              listings: {
+                categories: true,
+              },
+            },
+          }),
           indexRoute: {
             onEnter: ({ params }, replace) =>
               replace(`/admin/companies/${params.companyID}/listings`),

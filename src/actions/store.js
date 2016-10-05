@@ -41,7 +41,7 @@ export const createRecord = (entityType, record) => {
   };
 };
 
-export const fetchRecord = (entityType, id) => {
+export const fetchRecord = (entityType, id, options = {}) => {
   const type = types.FETCH_REQUEST;
 
   if (!entityType) throw missingRequiredParamError(type, 'entityType');
@@ -51,12 +51,13 @@ export const fetchRecord = (entityType, id) => {
     type,
     payload: {
       id,
+      options,
       type: entityType,
     },
   };
 };
 
-export const findRecords = (entityType, filters = {}, sideload = true) => {
+export const findRecords = (entityType, filters = {}, options = {}) => {
   const type = types.FIND_REQUEST;
 
   if (!entityType) throw missingRequiredParamError(type, 'entityType');
@@ -65,13 +66,13 @@ export const findRecords = (entityType, filters = {}, sideload = true) => {
     type,
     payload: {
       filters,
-      sideload,
+      options,
       type: entityType,
     },
   };
 };
 
-export const fetchRelated = (entityType, id, field, relatedType) => {
+export const fetchRelated = (entityType, id, field, relatedType, options = {}) => {
   const type = types.RELATED_REQUEST;
 
   if (!entityType) throw missingRequiredParamError(type, 'entityType');
@@ -84,6 +85,7 @@ export const fetchRelated = (entityType, id, field, relatedType) => {
       id,
       field,
       relatedType,
+      options,
       type: entityType,
     },
   };

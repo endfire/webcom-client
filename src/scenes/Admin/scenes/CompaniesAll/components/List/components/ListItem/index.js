@@ -9,7 +9,14 @@ const ListItem = ({ item, handleDelete, canUserDelete }) => (
   <div className={styles.wrapper}>
     <div>
       <Link to={`/admin/companies/${item.get('id')}/info`}>{item.get('name')}</Link><br /><br />
-      <div className={styles.date}>Last Updated: {item.get('lastUpdated')}</div>
+      <div className={styles.date}>
+        <strong>Last Updated:</strong>
+        &nbsp; {item.get('lastUpdated')}
+      </div><br />
+      <div className={styles.date}>
+        {item.get('street')} <br />
+        {item.get('city')}, {item.get('state')}
+      </div>
     </div>
     <div>
       {!item.get('approved') &&

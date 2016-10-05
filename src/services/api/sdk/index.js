@@ -15,7 +15,7 @@ export default class Sdk {
     this.download = download;
   }
 
-  find(type, query, sideload) {
+  find(type, query, options = {}) {
     const { host, api } = this;
 
     const endpoint = getApiEndpoint({
@@ -24,7 +24,7 @@ export default class Sdk {
       type,
       query: {
         ...query,
-        sideload,
+        options,
       },
     });
 
@@ -38,9 +38,17 @@ export default class Sdk {
       .then(toJSON);
   }
 
-  fetch(type, id) {
+  fetch(type, id, options = {}) {
     const { host, api } = this;
-    const endpoint = getApiEndpoint({ host, api, type, id });
+    const endpoint = getApiEndpoint({
+      host,
+      api,
+      type,
+      id,
+      query: {
+        options,
+      },
+    });
     const request = {
       headers: {
         authorization: localStorage.token,
@@ -51,9 +59,18 @@ export default class Sdk {
       .then(toJSON);
   }
 
-  fetchRelated(type, id, field) {
+  fetchRelated(type, id, field, options) {
     const { host, api } = this;
-    const endpoint = getApiEndpoint({ host, api, type, id, field });
+    const endpoint = getApiEndpoint({
+      host,
+      api,
+      type,
+      id,
+      field,
+      query: {
+        options,
+      },
+    });
     const request = {
       headers: {
         authorization: localStorage.token,

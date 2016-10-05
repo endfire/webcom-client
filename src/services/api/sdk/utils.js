@@ -25,10 +25,6 @@ export const getApiEndpoint = ({
   if (!host) throw invalidEndpointError('missing the \'host\' argument');
   if (!type) throw invalidEndpointError('missing the \'type\' argument');
 
-  if (id && Object.keys(query).length) {
-    throw invalidEndpointError('\'id\' and \'query\' cannot be present together');
-  }
-
   type = `/${type}`;
   query = qs.stringify(query);
 

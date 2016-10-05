@@ -90,9 +90,23 @@ const mapDispatchToProps = (dispatch) => ({
   updateListing: (id, data) => dispatch(actions.updateRecord('listing', id, data)),
   deleteListing: (id) => dispatch(actions.deleteRecord('listing', 'listings', id)),
   findListings: (companyID) => dispatch(
-    actions.fetchRelated('company', companyID, 'listings', 'listing')
+    actions.fetchRelated('company', companyID, 'listings', 'listing', {
+      without: {
+        categories: {
+          listings: true,
+          ads: true,
+        },
+      },
+    })
   ),
-  findBrands: () => dispatch(actions.findRecords('brand')),
+  findBrands: () => dispatch(actions.findRecords('brand', {}, {
+    without: {
+      categories: {
+        listings: true,
+        ads: true,
+      },
+    },
+  })),
   createListing: ({ brand, brandId, categories, companyID }) =>
     dispatch(actions.createRecord('listing', {
       brand,

@@ -83,7 +83,12 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  findBrands: () => dispatch(actions.findRecords('brand', {}, false)),
+  findBrands: () => dispatch(actions.findRecords('brand', {}, {
+    sideload: false,
+    without: {
+      categories: true,
+    },
+  })),
   deleteBrand: (id) => dispatch(actions.deleteRecord('brand', 'brands', id)),
   createBrand: (name, image) => dispatch(actions.createRecord('brand', {
     name,

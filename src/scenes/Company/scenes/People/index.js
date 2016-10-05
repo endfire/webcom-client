@@ -113,7 +113,9 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   updatePerson: (id, data) => dispatch(actions.updateRecord('person', id, data)),
   deletePerson: (id) => dispatch(actions.deleteRecord('person', 'people', id)),
-  findPeople: (companyID) => dispatch(actions.findRecords('person', { company: companyID })),
+  findPeople: (companyID) => dispatch(
+    actions.fetchRelated('company', companyID, 'people', 'person')
+  ),
   createPerson: (name, email, phone, job, companyID) => dispatch(actions.createRecord('person', {
     name,
     email,
