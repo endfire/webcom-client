@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import ListItem from './components/ListItem';
 
 const ListingList = ({ items }) => {
-  const keys = items.keySeq();
+  const keys = items.keySeq().toArray();
 
   return (
     <div>

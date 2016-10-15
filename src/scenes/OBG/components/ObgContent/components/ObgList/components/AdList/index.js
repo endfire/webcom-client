@@ -3,7 +3,7 @@ import ListItem from './components/ListItem';
 import styles from './styles.scss';
 
 const AdList = ({ items }) => {
-  const keys = items.keySeq();
+  const keys = items.keySeq().toArray();
 
   return (
     <div className={styles.wrapper}>

@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import { ListItem } from './components';
 
 const List = ({ items, brandID, handleDelete, canUserDelete, updateForm, isUpdateLoading }) => {
-  const keys = items.keySeq();
+  const keys = items.keySeq().toArray();
 
   return (<div>
     {keys.map(key => (<ListItem

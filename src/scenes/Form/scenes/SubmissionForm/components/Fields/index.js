@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import mapTypeToDynamicField from './mapTypeToDynamicField';
 
 const Fields = ({ fields, handleEditFormField, handleEditFormCheckbox }) => {
-  const keys = fields.sortBy(field => field.get('priority')).keySeq();
+  const keys = fields.sortBy(field => field.get('priority')).keySeq().toArray();
 
   return (
     <div>

@@ -3,7 +3,7 @@ import { ItemField } from './components';
 import styles from './styles.scss';
 
 const Items = ({ items, onChange }) => {
-  const keys = items.sortBy(item => item.get('priority')).keySeq();
+  const keys = items.sortBy(item => item.get('priority')).keySeq().toArray();
 
   return (
     <div className={styles.wrapper}>
