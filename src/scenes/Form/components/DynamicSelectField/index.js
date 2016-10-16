@@ -17,7 +17,7 @@ const DynamicSelectField = ({ field, onChange }) => {
         value={value}
         required={isRequired}
       >
-        {options.map(option => (
+        {options.toArray().map(option => (
           <option key={option} value={option}>
             {option}
           </option>)

@@ -8,7 +8,7 @@ const DynamicCheckboxField = ({ field, onChange }) => {
   return (
     <fieldset>
       <label >{label}</label>
-      {options.map(option => (
+      {options.toArray().map(option => (
         <div key={option}>
           <input
             style={{

@@ -117,7 +117,7 @@ class EditFieldDialog extends Component {
             && <fieldset>
               <label>Finalized Options (cannot change)</label>
               <select>
-                {field.get('options').map(option => (
+                {field.get('options').toArray().map(option => (
                   <option key={v4()}>
                     {option}
                   </option>)

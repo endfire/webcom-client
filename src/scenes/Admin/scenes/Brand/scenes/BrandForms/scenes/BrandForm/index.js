@@ -4,11 +4,13 @@ import store from 'configureStore';
 import { Icon } from 'react-fa';
 import { Link } from 'react-router';
 import { Button, ButtonGroup } from 'paintcan';
+
 import {
   getCurrentForm,
   getCurrentFormFields,
   getCurrentFormPaymentItems,
 } from 'selectors/dynamicForm';
+
 import * as actions from 'actions/store';
 import { Field, AddFieldModal, PaymentBox } from './components';
 import createFieldInitializerForm from './createFieldInitializerForm';
@@ -123,7 +125,7 @@ class BrandForm extends Component {
 
     const fields = getCurrentFormFields(form.get('id'))(state);
 
-    return fields.sortBy(field => field.get('priority')).map(field =>
+    return fields.sortBy(field => field.get('priority')).toArray().map(field =>
       <Field
         key={field.get('id')}
         field={field}

@@ -31,7 +31,7 @@ class PaymentBox extends Component {
           createItem={createItem}
           isCreateLoading={isCreateLoading}
         /><br /><br />
-        {items.sortBy(item => item.get('priority')).map(item =>
+        {items.sortBy(item => item.get('priority')).toArray().map(item =>
           <Item
             key={item.get('id')}
             item={item}
