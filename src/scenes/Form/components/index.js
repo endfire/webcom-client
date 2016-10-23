@@ -1,5 +1,4 @@
-import DynamicCheckboxField from './DynamicCheckboxField';
-import DynamicSelectField from './DynamicSelectField';
-import DynamicTextField from './DynamicTextField';
-
-export { DynamicCheckboxField, DynamicSelectField, DynamicTextField };
+export { default as DynamicCheckboxField } from './DynamicCheckboxField';
+export { default as DynamicSelectField } from './DynamicSelectField';
+export { default as DynamicTextareaField } from './DynamicTextareaField';
+export { default as DynamicTextField } from './DynamicTextField';

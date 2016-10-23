@@ -86,7 +86,7 @@ class EditFieldDialog extends Component {
               value={this.state.priority}
             />
           </fieldset>
-          {field.get('type') === 'text'
+          {(field.get('type') === 'text' || field.get('type') === 'textarea')
             && <fieldset>
               <label htmlFor="placeholder">Placeholder</label><br />
               <input
@@ -113,7 +113,7 @@ class EditFieldDialog extends Component {
               </select>
             </fieldset>
           }
-          {field.get('type') !== 'text' && field.get('options')
+          {(field.get('type') === 'checkbox' || field.get('type') === 'select')
             && <fieldset>
               <label>Finalized Options (cannot change)</label>
               <select>

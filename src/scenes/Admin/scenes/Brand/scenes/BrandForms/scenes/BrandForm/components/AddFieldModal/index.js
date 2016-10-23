@@ -53,15 +53,22 @@ class AddFieldDialog extends Component {
 
     if (isCreateLoading) return;
 
-    createField({
+    let data = {
       form: formID,
       isRequired: true,
       label,
-      priority,
+      priority: Number(priority),
       type,
-      options,
-    });
+    };
 
+    if (type === 'select' || type === 'checkbox') {
+      data = {
+        ...data,
+        options,
+      };
+    }
+
+    createField(data);
     closeModal();
   }
 
@@ -101,7 +108,7 @@ class AddFieldDialog extends Component {
       handleRemoveFirstOption,
     } = this;
 
-    if (!type || type === 'text') return null;
+    if (!type || type === 'text' || type === 'textarea') return null;
 
     return (
       <fieldset>
@@ -181,6 +188,7 @@ class AddFieldDialog extends Component {
               required
             >
               <option value="text">Text</option>
+              <option value="textarea">Textarea</option>
               <option value="select">Select</option>
               <option value="checkbox">Checkbox</option>
             </select>
