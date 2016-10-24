@@ -28,6 +28,7 @@ class EditPersonDialog extends Component {
       email: props.person.get('email'),
       phone: props.person.get('phone'),
       job: props.person.get('job'),
+      title: props.person.get('title'),
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,7 +40,7 @@ class EditPersonDialog extends Component {
 
     const { isUpdateLoading, updatePerson, closeModal } = this.props;
     const id = this.props.person.get('id');
-    const { name, email, phone, job } = this.state;
+    const { name, email, phone, job, title } = this.state;
 
     if (isUpdateLoading) return;
 
@@ -48,6 +49,7 @@ class EditPersonDialog extends Component {
       email,
       phone,
       job,
+      title,
     });
     closeModal();
   }
@@ -72,6 +74,17 @@ class EditPersonDialog extends Component {
               name="name"
               onChange={handleChange}
               value={this.state.name}
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="title">Job Title</label><br />
+            <input
+              type="text"
+              id="title"
+              name="title"
+              onChange={handleChange}
+              value={this.state.title}
+              placeholder="VP of Marketing"
             />
           </fieldset>
           <fieldset>
