@@ -1,9 +1,20 @@
 import React, { PropTypes } from 'react';
 import { Button, ButtonGroup } from 'paintcan';
+import { states } from 'us';
+import countries from 'i18n-iso-countries';
 import { withForm } from 'components';
 import * as names from 'constants/formNames';
 import isNull from 'validator/lib/isNull';
 import styles from './settings.scss';
+
+const { keys } = Object;
+
+const canadianProvinces =
+  ['AB', 'BC', 'MB', 'NB', 'NL', 'NT', 'NS', 'NU', 'ON', 'PE', 'QC', 'SK', 'YT'];
+const statesArray = ['', 'Not applicable', ...keys(states), ...canadianProvinces];
+
+const countriesObject = countries.getNames('en');
+const countriesArray = keys(countriesObject).map(country => countriesObject[country]);
 
 const CompanyInfoForm = ({
   handleSubmit,
@@ -64,14 +75,19 @@ const CompanyInfoForm = ({
       />
     </fieldset>
     <fieldset>
-      <label htmlFor="state">State</label><br />
-      <input
+      <label htmlFor="state">State</label>
+      <select
         id="state"
-        type="state"
-        placeholder="Colorado"
+        name="state"
         value={values ? values.getIn(['state', 'value']) : ''}
         onChange={(e) => handleChange('state', e.target.value)}
-      />
+      >
+        {statesArray.map(option => (
+          <option key={option} value={option}>
+            {option}
+          </option>)
+        )}
+      </select>
     </fieldset>
     <fieldset>
       <label htmlFor="zip">Zip Code</label><br />
@@ -84,14 +100,19 @@ const CompanyInfoForm = ({
       />
     </fieldset>
     <fieldset>
-      <label htmlFor="country">Country</label><br />
-      <input
+      <label htmlFor="country">Country</label>
+      <select
         id="country"
-        type="text"
-        placeholder="USA"
+        name="country"
         value={values ? values.getIn(['country', 'value']) : ''}
         onChange={(e) => handleChange('country', e.target.value)}
-      />
+      >
+        {countriesArray.map(option => (
+          <option key={option} value={option}>
+            {option}
+          </option>)
+        )}
+      </select>
     </fieldset>
     <fieldset>
       <label htmlFor="phone">Phone Number</label><br />
@@ -257,7 +278,7 @@ export default (company) => withForm({
     url: company.get('url') || '',
     email: company.get('email') || '',
     description: company.get('description') || '',
-    country: company.get('country') || '',
+    country: company.get('country') || 'United States',
     fax: company.get('fax') || '',
     lastContacted: company.get('lastContacted') || '',
     lastUpdated: company.get('lastUpdated') || '',
