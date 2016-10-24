@@ -77,6 +77,17 @@ class EditPersonDialog extends Component {
             />
           </fieldset>
           <fieldset>
+            <label htmlFor="title">Job Title</label><br />
+            <input
+              type="text"
+              id="title"
+              name="title"
+              onChange={handleChange}
+              value={this.state.title}
+              placeholder="VP of Marketing"
+            />
+          </fieldset>
+          <fieldset>
             <label htmlFor="email">Email</label><br />
             <input
               type="text"
@@ -110,17 +121,6 @@ class EditPersonDialog extends Component {
                 SALES/MKTG/CUS SVC
               </option>
             </select>
-          </fieldset>
-          <fieldset>
-            <label htmlFor="title">Job Title</label><br />
-            <input
-              type="text"
-              id="title"
-              name="title"
-              onChange={handleChange}
-              value={this.state.title}
-              placeholder="VP of Marketing"
-            />
           </fieldset>
           <fieldset>
             <ButtonGroup spaced>

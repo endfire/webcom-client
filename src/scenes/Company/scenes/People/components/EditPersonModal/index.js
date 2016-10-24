@@ -88,6 +88,17 @@ class EditPersonDialog extends Component {
             />
           </fieldset>
           <fieldset>
+            <label htmlFor="title">Job Title</label><br />
+            <input
+              type="text"
+              id="title"
+              name="title"
+              onChange={handleChange}
+              value={this.state.title}
+              placeholder="VP of Marketing"
+            />
+          </fieldset>
+          <fieldset>
             <label htmlFor="email">Email</label><br />
             <input
               type="text"
@@ -115,17 +126,6 @@ class EditPersonDialog extends Component {
               options={jobSelectOptions}
               onChange={handleSelectChange}
               placeholder="Please select job functions"
-            />
-          </fieldset>
-          <fieldset>
-            <label htmlFor="title">Job Title</label><br />
-            <input
-              type="text"
-              id="title"
-              name="title"
-              onChange={handleChange}
-              value={this.state.title}
-              placeholder="VP of Marketing"
             />
           </fieldset>
           <fieldset>
