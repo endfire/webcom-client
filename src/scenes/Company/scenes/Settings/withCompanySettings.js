@@ -167,13 +167,19 @@ const CompanySettingsForm = ({
     </fieldset>
     <fieldset>
       <label htmlFor="businessOwnership">Business Ownership</label><br />
-      <input
+      <select
         id="businessOwnership"
         type="text"
         placeholder="Private/Public"
         value={values ? values.getIn(['businessOwnership', 'value']) : ''}
         onChange={(e) => handleChange('businessOwnership', e.target.value)}
-      />
+      >
+        <option value="">Select an option</option>
+        <option value="GOVERNMENT">GOVERNMENT</option>
+        <option value="NON-PROFIT">NON-PROFIT</option>
+        <option value="PRIVATE">PRIVATE</option>
+        <option value="PUBLIC">PUBLIC</option>
+      </select>
     </fieldset>
     <input id="oldName" value={values ? values.getIn(['oldName', 'value']) : ''} type="text" hidden />
     <input id="oldStreet" value={values ? values.getIn(['oldStreet', 'value']) : ''} type="text" hidden />
