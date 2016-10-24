@@ -11,6 +11,13 @@ export const getCompaniesByName = (name) => (
   )
 );
 
+export const getUnapprovedCompanies = createSelector(
+  [getStore],
+  (store) => store.getIn(['entities', 'companies']).filter(company => (
+    !company.get('approved')
+  ))
+);
+
 const getCompanies = createSelector(
   [getStore],
   (store) => store.getIn(['entities', 'companies'])

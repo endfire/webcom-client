@@ -4,7 +4,7 @@ import { Button } from 'paintcan';
 import { browserHistory } from 'react-router';
 import { List, AddCompanyModal } from './components/';
 import { getCanUserDelete } from 'selectors/admin';
-import { getCompaniesByName } from 'selectors/adminCompanies';
+import { getCompaniesByName, getUnapprovedCompanies } from 'selectors/adminCompanies';
 import { getIsDeleteLoading, getIsCreateLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
 import styles from './styles.scss';
@@ -16,12 +16,15 @@ class CompaniesAll extends Component {
     this.state = {
       counter: 0,
       search: '',
+      unapproved: false,
     };
 
     this.handleDelete = this.handleDelete.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
     this.incrementCounter = this.incrementCounter.bind(this);
+    this.showUnapprovedCompanies = this.showUnapprovedCompanies.bind(this);
+    this.renderCompaniesList = this.renderCompaniesList.bind(this);
   }
 
   handleDelete(id) {
@@ -43,6 +46,7 @@ class CompaniesAll extends Component {
     const search = this.state.search;
     const { findCompanies } = this.props;
 
+    this.setState({ unapproved: false });
     findCompanies(search);
     browserHistory.push(`/admin/companies/?search=${search}`);
   }
@@ -53,11 +57,55 @@ class CompaniesAll extends Component {
     this.setState({ counter });
   }
 
+  showUnapprovedCompanies() {
+    this.props.findUnapprovedCompanies();
+    this.setState({ unapproved: true });
+  }
+
+  renderCompaniesList() {
+    const { companies, unapprovedCompanies, canUserDelete } = this.props;
+    const { unapproved, search } = this.state;
+
+    if (unapproved) {
+      return (
+        <div>
+          {!unapprovedCompanies.isEmpty()
+            ? <List
+              items={unapprovedCompanies.sortBy(company => company.get('name'))}
+              handleDelete={this.handleDelete}
+              canUserDelete={canUserDelete}
+            />
+            : <div className={styles.wrapperLoading}>
+              <div>
+                  No unapproved companies.
+              </div>
+            </div>
+          }
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        {!companies.isEmpty()
+          ? <List
+            items={companies.sortBy(company => company.get('name'))}
+            handleDelete={this.handleDelete}
+            canUserDelete={canUserDelete}
+          />
+          : <div className={styles.wrapperLoading}>
+            <div>
+                {search === '' ? 'Please search for a company.' : 'No results.'}
+            </div>
+          </div>
+        }
+      </div>
+    );
+  }
+
   render() {
     const {
-      companies,
       createCompany,
-      canUserDelete,
       isCreateLoading,
     } = this.props;
 
@@ -69,7 +117,10 @@ class CompaniesAll extends Component {
           <AddCompanyModal
             createCompany={createCompany}
             isCreateLoading={isCreateLoading}
-          />
+          /> &nbsp;
+          <Button onClick={this.showUnapprovedCompanies} color="success">
+            View all unapproved companies
+          </Button> &nbsp;
         </div>
         <p>
           Note: Download counter of '0' will download the first 10,000.
@@ -120,18 +171,7 @@ class CompaniesAll extends Component {
           </form>
         </div>
         <div className={styles.container}>
-          {!companies.isEmpty()
-            ? <List
-              items={companies.sortBy(company => company.get('name'))}
-              handleDelete={this.handleDelete}
-              canUserDelete={canUserDelete}
-            />
-            : <div className={styles.wrapperLoading}>
-              <div>
-                  {this.state.search === '' ? 'Please search for a company.' : 'Loading...'}
-              </div>
-            </div>
-          }
+          {this.renderCompaniesList()}
         </div>
       </div>
     );
@@ -140,6 +180,7 @@ class CompaniesAll extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   companies: getCompaniesByName(ownProps.location.query.search || '')(state),
+  unapprovedCompanies: getUnapprovedCompanies(state),
   canUserDelete: getCanUserDelete(state),
   isDeleteLoading: getIsDeleteLoading(state),
   isCreateLoading: getIsCreateLoading(state),
@@ -153,15 +194,24 @@ const mapDispatchToProps = (dispatch) => ({
       people: true,
     },
   })),
+  findUnapprovedCompanies: () => dispatch(actions.findRecords('company', { approved: false }, {
+    sideload: false,
+    without: {
+      listings: true,
+      people: true,
+    },
+  })),
   deleteCompany: (id) => dispatch(actions.deleteRecord('company', 'companies', id)),
   createCompany: (data) => dispatch(actions.createRecord('company', data)),
 });
 
 CompaniesAll.propTypes = {
   companies: PropTypes.object,
+  unapprovedCompanies: PropTypes.object,
   canUserDelete: PropTypes.bool,
   isDeleteLoading: PropTypes.bool,
   findCompanies: PropTypes.func,
+  findUnapprovedCompanies: PropTypes.func,
   createCompany: PropTypes.func,
   deleteCompany: PropTypes.func,
   isCreateLoading: PropTypes.bool,
