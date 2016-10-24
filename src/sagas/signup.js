@@ -36,7 +36,7 @@ function* authSignupRequest(action) {
     localStorage.id = user.id;
     localStorage.userOrCompany = 'company';
 
-    browserHistory.push('/company/settings');
+    browserHistory.push('/company/listings');
   } catch (e) {
     yield put({ type: types.SIGNUP_ERROR, payload: e, error: true });
   }

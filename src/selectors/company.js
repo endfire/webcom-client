@@ -50,7 +50,10 @@ export const getBrandSelectOptions = createSelector(
   )).map(brand => ({
     value: brand.get('id'),
     label: brand.get('name'),
-  })).toArray()
+  })).sortBy(brand => (
+    brand.label
+  ))
+  .toArray()
 );
 
 export const getCategorySelectOptions = createSelector(

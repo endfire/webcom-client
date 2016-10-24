@@ -7,7 +7,6 @@ import { getCanUserDelete } from 'selectors/admin';
 import { getCompaniesByName } from 'selectors/adminCompanies';
 import { getIsDeleteLoading, getIsCreateLoading } from 'selectors/loading';
 import * as actions from 'actions/store';
-import * as types from 'constants/actionTypes';
 import styles from './styles.scss';
 
 class CompaniesAll extends Component {
@@ -15,16 +14,14 @@ class CompaniesAll extends Component {
     super(props);
 
     this.state = {
-      clickedCompany: false,
-      clickedPeople: false,
+      counter: 0,
       search: '',
     };
 
     this.handleDelete = this.handleDelete.bind(this);
-    this.clickPeople = this.clickPeople.bind(this);
-    this.clickCompany = this.clickCompany.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleSearchChange = this.handleSearchChange.bind(this);
+    this.incrementCounter = this.incrementCounter.bind(this);
   }
 
   handleDelete(id) {
@@ -33,16 +30,6 @@ class CompaniesAll extends Component {
     if (isDeleteLoading || !canUserDelete) return;
 
     deleteCompany(id);
-  }
-
-  clickPeople() {
-    this.setState({ clickedPeople: true });
-    this.props.downloadPeople();
-  }
-
-  clickCompany() {
-    this.setState({ clickedCompany: true });
-    this.props.downloadCompanies();
   }
 
   handleSearchChange(e) {
@@ -60,6 +47,12 @@ class CompaniesAll extends Component {
     browserHistory.push(`/admin/companies/?search=${search}`);
   }
 
+  incrementCounter() {
+    let { counter } = this.state;
+    counter += 10000;
+    this.setState({ counter });
+  }
+
   render() {
     const {
       companies,
@@ -68,19 +61,42 @@ class CompaniesAll extends Component {
       isCreateLoading,
     } = this.props;
 
+    const { counter } = this.state;
+
     return (
       <div className={styles.wrapper}>
         <div className={styles.header}>
           <AddCompanyModal
             createCompany={createCompany}
             isCreateLoading={isCreateLoading}
-          /> &nbsp;
-          <Button onClick={this.clickPeople} color="success" disabled>
-            Download All People
+          />
+        </div>
+        <p>
+          Note: Download counter of '0' will download the first 10,000.
+          Incrementing the counter will download the next 10,000.
+        </p>
+        <div className={styles.download}>
+          <Button onClick={this.incrementCounter} color="success">
+            Increment counter: {counter}
           </Button> &nbsp;
-          <Button onClick={this.clickCompany} color="success" disabled>
-            Download All Companies
-          </Button>
+          <a
+            href={`http://webcom-server.herokuapp.com/download/people?counter=${counter}`}
+            target="_blank"
+            className={styles.link}
+          >
+            <Button onClick="" color="success">
+              Download people
+            </Button> &nbsp;
+          </a>
+          <a
+            href={`https://webcom-server.herokuapp.com/download/companies?counter=${counter}`}
+            target="_blank"
+            className={styles.link}
+          >
+            <Button color="success">
+              Download companies
+            </Button>
+          </a>
         </div>
         <div className={styles.search}>
           <form onSubmit={this.handleSearch}>
@@ -139,18 +155,6 @@ const mapDispatchToProps = (dispatch) => ({
   })),
   deleteCompany: (id) => dispatch(actions.deleteRecord('company', 'companies', id)),
   createCompany: (data) => dispatch(actions.createRecord('company', data)),
-  downloadPeople: () => dispatch({
-    type: types.DOWNLOAD,
-    payload: {
-      type: 'people',
-    },
-  }),
-  downloadCompanies: () => dispatch({
-    type: types.DOWNLOAD,
-    payload: {
-      type: 'companies',
-    },
-  }),
 });
 
 CompaniesAll.propTypes = {
@@ -160,8 +164,6 @@ CompaniesAll.propTypes = {
   findCompanies: PropTypes.func,
   createCompany: PropTypes.func,
   deleteCompany: PropTypes.func,
-  downloadPeople: PropTypes.func,
-  downloadCompanies: PropTypes.func,
   isCreateLoading: PropTypes.bool,
   location: PropTypes.object,
 };

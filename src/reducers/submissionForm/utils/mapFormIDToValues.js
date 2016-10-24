@@ -7,6 +7,7 @@ import {
   getCurrentFormPayment,
   getCurrentFormRecipients,
   getCurrentFormBrand,
+  getCurrentFormToggle,
 } from 'selectors/dynamicForm';
 
 export default (formID) => {
@@ -18,6 +19,7 @@ export default (formID) => {
   const fields = getCurrentFormFields(formID)(state);
   const payment = getCurrentFormPayment(formID)(state);
   const recipients = getCurrentFormRecipients(formID)(state);
+  const toggleHeading = getCurrentFormToggle(formID)(state);
 
   return Map({
     recipientOne: recipients.get('recipientOne'),
@@ -28,5 +30,6 @@ export default (formID) => {
     didPublish,
     fields,
     brand,
+    toggleHeading,
   });
 };

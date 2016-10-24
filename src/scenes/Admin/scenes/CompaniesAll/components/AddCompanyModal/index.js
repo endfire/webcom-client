@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import { Button, withModal, ButtonGroup } from 'paintcan';
 import { ModalDialog } from 'components';
+import moment from 'moment';
 
 const AddCompanyModal = withModal(
   ({ isOpen, openModal }) => (
@@ -51,6 +52,7 @@ class AddCompanyDialog extends Component {
       ads: [],
       people: [],
       approved: true,
+      lastUpdated: moment().format('L'),
     });
     closeModal();
   }

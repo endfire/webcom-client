@@ -20,6 +20,7 @@ export default (state = init, action) => {
         .setIn([formID, 'recipientTwo'], values.get('recipientTwo'))
         .setIn([formID, 'recipientThree'], values.get('recipientThree'))
         .setIn([formID, 'name'], values.get('name'))
+        .setIn([formID, 'toggleHeading'], values.get('toggleHeading'))
         .setIn([formID, 'didPublish'], values.get('didPublish'))
         .setIn([formID, 'fields'], values.get('fields'))
         .setIn([formID, 'payment'], values.get('payment'))

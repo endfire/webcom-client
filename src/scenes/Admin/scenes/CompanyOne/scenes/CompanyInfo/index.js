@@ -7,6 +7,7 @@ import { AuthErrorCard } from 'components';
 import * as actions from 'actions/store';
 import withCompanyInfo from './withCompanyInfo';
 import styles from './settings.scss';
+import moment from 'moment';
 
 const CompanyInfo = ({ company, error, approveCompany }) => {
   const CompanyInfoForm = withCompanyInfo(company);
@@ -50,6 +51,7 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   approveCompany: () => dispatch(actions.updateRecord('company', ownProps.params.companyID, {
     approved: true,
+    lastUpdated: moment().format('L'),
   })),
 });
 

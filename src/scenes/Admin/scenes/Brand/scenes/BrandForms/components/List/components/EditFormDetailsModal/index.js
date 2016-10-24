@@ -29,6 +29,7 @@ class EditFormDetailsDialog extends Component {
       recipientTwo: props.form.get('recipientTwo'),
       recipientThree: props.form.get('recipientThree'),
       description: props.form.get('description'),
+      toggleHeading: props.form.get('toggleHeading'),
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -39,7 +40,7 @@ class EditFormDetailsDialog extends Component {
     e.preventDefault();
 
     const { closeModal, form, updateForm, isUpdateLoading } = this.props;
-    const { recipientOne, recipientTwo, recipientThree, description } = this.state;
+    const { recipientOne, recipientTwo, recipientThree, description, toggleHeading } = this.state;
 
     if (isUpdateLoading) return;
 
@@ -48,6 +49,7 @@ class EditFormDetailsDialog extends Component {
       recipientTwo,
       recipientThree,
       description,
+      toggleHeading,
     });
 
     closeModal();
@@ -109,6 +111,18 @@ class EditFormDetailsDialog extends Component {
               value={this.state.description}
               placeholder="Description"
             />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="toggleHeading">Toggle Heading</label>
+            <select
+              id="toggleHeading"
+              name="toggleHeading"
+              onChange={handleChange}
+              value={this.state.toggleHeading || '1'}
+            >
+              <option value="1">Yes</option>
+              <option value="0">No</option>
+            </select>
           </fieldset>
           <fieldset>
             <ButtonGroup spaced>

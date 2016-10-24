@@ -36,7 +36,7 @@ function* submitCompanyInfoForm(action) {
       url: fields.getIn(['url', 'value']),
       email: fields.getIn(['email', 'value']),
       description: fields.getIn(['description', 'value']),
-      lastUpdated: moment().format('dddd, MMMM Do YYYY'),
+      lastUpdated: moment().format('L'),
       country: fields.getIn(['country', 'value']),
       fax: fields.getIn(['fax', 'value']),
       lastContacted: fields.getIn(['lastContacted', 'value']),

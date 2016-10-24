@@ -105,8 +105,6 @@ class FormSubmission extends Component {
 
     const payment = submissionForm.get('payment');
 
-    console.log();
-
     return (
       <PaymentAndItems
         payment={payment}
@@ -126,21 +124,19 @@ class FormSubmission extends Component {
 
     return (
       <div className={styles.wrapper}>
-        <h2>
-          {submissionForm
-            ? submissionForm.get('name')
-            : renderSpinner()
-          }
-        </h2>
-        <div className={styles.headImage}>
-          {submissionForm
-            ? <img
-              src={submissionForm.getIn(['brand', 'image'])}
-              alt={submissionForm.getIn(['brand', 'name'])}
-            />
-            : renderSpinner()
-          }
-        </div>
+        {submissionForm && (submissionForm.get('toggleHeading') === '1') &&
+          <div>
+            <h2>
+              {submissionForm.get('name')}
+            </h2>
+            <div className={styles.headImage}>
+              <img
+                src={submissionForm.getIn(['brand', 'image'])}
+                alt={submissionForm.getIn(['brand', 'name'])}
+              />
+            </div>
+          </div>
+        }
         <form onSubmit={handleSubmission}>
           {renderPaymentAndItems()}
           {renderFields()}

@@ -38,7 +38,7 @@ class Company extends Component {
                 </Link>
               </li>
               <li className={styles.navbarItem}>
-                <Link className={styles.navbarLink} to="/company/listings">Add listings</Link>
+                <Link className={styles.navbarLink} to="/company/listings">Add brands</Link>
               </li>
               <li className={styles.navbarItem}>
                 <Link className={styles.navbarLink} to="/company/people">Add key people</Link>

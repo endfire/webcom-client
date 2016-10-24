@@ -75,7 +75,7 @@ class EditListingDialog extends Component {
       >
         <form onSubmit={handleSubmit}>
           <fieldset>
-            <label htmlFor="name">Remove or add categories for this listing</label><br />
+            <label htmlFor="name">Remove or add categories for this brand</label><br />
             <Select
               name="categories"
               value={this.state.categories}

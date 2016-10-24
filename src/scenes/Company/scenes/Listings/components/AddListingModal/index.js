@@ -1,4 +1,5 @@
 import React, { PropTypes, Component } from 'react';
+import { browserHistory } from 'react-router';
 import { Button, withModal, ButtonGroup } from 'paintcan';
 import Select from 'react-select';
 import { ModalDialog } from 'components';
@@ -6,7 +7,7 @@ import { ModalDialog } from 'components';
 const AddListingModal = withModal(
   ({ isOpen, openModal }) => (
     <Button active={isOpen} onClick={openModal} color="primary">
-      Add a new listing
+      Add a new brand
     </Button>
   ),
   ({ closeModal,
@@ -54,6 +55,7 @@ class AddListingDialog extends Component {
 
     createListing({ brand, brandId, categories, companyID });
     closeModal();
+    browserHistory.push('/company/settings');
   }
 
   handleMultiChange(value) {

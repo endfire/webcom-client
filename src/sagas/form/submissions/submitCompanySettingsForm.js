@@ -56,13 +56,13 @@ function* submitCompanySettingsForm(action) {
       oldEmail: fields.getIn(['oldEmail', 'value']),
       oldDescription: fields.getIn(['oldDescription', 'value']),
       approved: false,
-      lastUpdated: moment().format('dddd, MMMM Do YYYY'),
+      lastUpdated: moment().format('L'),
     });
 
     yield put(syncStore('company', updatedRecord));
     yield put(submitFormSuccess(form));
 
-    browserHistory.push('/company/listings');
+    browserHistory.push('/company/people');
   } catch (e) {
     yield put(submitFormError(form, e));
   }

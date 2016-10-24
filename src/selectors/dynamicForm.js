@@ -51,6 +51,13 @@ export const getCurrentFormName = (formID) => (
   )
 );
 
+export const getCurrentFormToggle = (formID) => (
+  createSelector(
+    [getForms],
+    (forms) => forms.getIn([formID, 'toggleHeading'])
+  )
+);
+
 export const getCurrentFormDidPublish = (formID) => (
   createSelector(
     [getForms],
