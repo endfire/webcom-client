@@ -14,36 +14,36 @@ class People extends Component {
     this.state = {
       jobSelectOptions: [
         {
-          label: 'Admin/HR/Legal',
-          value: 'Admin/HR/Legal',
+          label: 'ADMIN/HR/LEGAL',
+          value: 'ADMIN/HR/LEGAL',
         },
         {
-          label: 'Finance/Purchasing',
-          value: 'Finance/Purchasing',
+          label: 'FIN/PURCH',
+          value: 'FIN/PURCH',
         },
         {
-          label: 'Gen/Corp Management',
-          value: 'Gen/Corp Management',
+          label: 'GEN/CORP MGMT',
+          value: 'GEN/CORP MGMT',
         },
         {
           label: 'IT/MIS',
           value: 'IT/MIS',
         },
         {
-          label: 'Nurse/NP',
-          value: 'Nurse/NP',
+          label: 'NURSE/NP',
+          value: 'NURSE/NP',
         },
         {
-          label: 'Physician/MP',
-          value: 'Physician/MP',
+          label: 'PHYSICIAN/MP',
+          value: 'PHYSICIAN/MP',
         },
         {
-          label: 'RD/Engineering/Tech',
-          value: 'RD/Engineering/Tech',
+          label: 'RD/ENGRG/TECH',
+          value: 'RD/ENGRG/TECH',
         },
         {
-          label: 'Sales/Marketing/Customer Service',
-          value: 'Sales/Marketing/Customer Service',
+          label: 'SALES/MKTG/CUS SVC',
+          value: 'SALES/MKTG/CUS SVC',
         },
       ],
     };

@@ -95,17 +95,17 @@ class EditPersonDialog extends Component {
             />
           </fieldset>
           <fieldset>
-            <label htmlFor="job">Job Title</label><br />
+            <label htmlFor="job">Job Functions</label><br />
             <select id="job" name="job" onChange={handleChange} value={this.state.job}>
-              <option value="Admin/HR/Legal">Admin/HR/Legal</option>
-              <option value="Finance/Purchasing">Finance/Purchasing</option>
-              <option value="Gen/Corp Management">Gen/Corp Management</option>
+              <option value="ADMIN/HR/LEGAL">ADMIN/HR/LEGAL</option>
+              <option value="FIN/PURCH">FIN/PURCH</option>
+              <option value="GEN/CORP MGMT">GEN/CORP MGMT</option>
               <option value="IT/MIS">IT/MIS</option>
-              <option value="Nurse/NP">Nurse/NP</option>
-              <option value="Physician/MP">Physician/MP</option>
-              <option value="RD/Engineering/Tech">RD/Engineering/Tech</option>
-              <option value="Sales/Marketing/Customer Service">
-                Sales/Marketing/Customer Service
+              <option value="NURSE/NP">NURSE/NP</option>
+              <option value="PHYSICIAN/MP">PHYSICIAN/MP</option>
+              <option value="RD/ENGRG/TECH">RD/ENGRG/TECH</option>
+              <option value="SALES/MKTG/CUS SVC">
+                SALES/MKTG/CUS SVC
               </option>
             </select>
           </fieldset>

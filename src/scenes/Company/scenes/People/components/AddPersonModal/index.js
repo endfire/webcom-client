@@ -102,13 +102,13 @@ class AddPersonDialog extends Component {
             />
           </fieldset>
           <fieldset>
-            <label htmlFor="job">Job Title</label><br />
+            <label htmlFor="job">Job Functions</label><br />
             <Select
               name="job"
               value={this.state.job}
               options={jobSelectOptions}
               onChange={handleSelectChange}
-              placeholder="Please select a job title"
+              placeholder="Please select job functions"
             />
           </fieldset>
           <fieldset>
