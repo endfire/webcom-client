@@ -116,13 +116,16 @@ const mapDispatchToProps = (dispatch) => ({
   findPeople: (companyID) => dispatch(
     actions.fetchRelated('company', companyID, 'people', 'person')
   ),
-  createPerson: (name, email, phone, job, companyID) => dispatch(actions.createRecord('person', {
-    name,
-    email,
-    phone,
-    job,
-    company: companyID,
-  })),
+  createPerson: (name, email, phone, job, title, companyID) => dispatch(
+    actions.createRecord('person', {
+      name,
+      email,
+      phone,
+      job,
+      title,
+      company: companyID,
+    })
+  ),
 });
 
 People.propTypes = {

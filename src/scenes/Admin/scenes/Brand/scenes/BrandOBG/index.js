@@ -86,8 +86,8 @@ class BrandOBG extends Component {
           <Button onClick={uninitializeOBG} color="success">Uninitialize OBG</Button>
         </div>
         <p>
-          Note: Download counter of '0' will download the first 1,500.
-          Incrementing the counter will download the next 1,500.
+          Note: Download counter of '0' will download the first 1,000.
+          Incrementing the counter will download the next 1,000.
         </p>
         <div className={styles.download}>
           <Button onClick={incrementCounter} color="success">
