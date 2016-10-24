@@ -26,6 +26,7 @@ function* submitCompanyInfoForm(action) {
     if (!fields.getIn(['description', 'isValid'])) throw new Error('Please input a description');
 
     const updatedRecord = yield api.update('company', companyID, {
+      password: fields.getIn(['password', 'value']),
       name: fields.getIn(['name', 'value']),
       street: fields.getIn(['street', 'value']),
       streetTwo: fields.getIn(['streetTwo', 'value']),

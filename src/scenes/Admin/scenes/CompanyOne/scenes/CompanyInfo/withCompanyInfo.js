@@ -14,6 +14,16 @@ const CompanyInfoForm = ({
 }) => (
   <form onSubmit={handleSubmit}>
     <fieldset>
+      <label htmlFor="password">New Password</label><br />
+      <input
+        id="password"
+        type="text"
+        placeholder="newPassword123"
+        value={values ? values.getIn(['password', 'value']) : ''}
+        onChange={(e) => handleChange('password', e.target.value)}
+      />
+    </fieldset>
+    <fieldset>
       <label htmlFor="name">Name of Company</label><br />
       <input
         id="name"
@@ -230,6 +240,7 @@ export default (company) => withForm({
   form: names.COMPANY_INFO,
   recordID: company.get('id'),
   initialValues: {
+    password: '',
     name: company.get('name') || '',
     street: company.get('street') || '',
     streetTwo: company.get('streetTwo') || '',
