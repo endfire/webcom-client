@@ -22,13 +22,13 @@ class PaymentAndItems extends Component {
   }
 
   render() {
-    const { payment, handleEditFormPayment } = this.props;
+    const { payment, handleEditFormPayment, paymentId } = this.props;
 
     return (
       <div>
         {this.renderItems()}
         <h3>Payment Information</h3>
-        <Payment payment={payment} onChange={handleEditFormPayment} />
+        <Payment payment={payment} onChange={handleEditFormPayment} paymentId={paymentId} />
       </div>
     );
   }
@@ -37,6 +37,7 @@ class PaymentAndItems extends Component {
 PaymentAndItems.propTypes = {
   payment: PropTypes.object,
   formID: PropTypes.string,
+  paymentId: PropTypes.string,
   submissionForm: PropTypes.object,
   initializeSubmissionFormItems: PropTypes.func,
   handleEditFormPayment: PropTypes.func,

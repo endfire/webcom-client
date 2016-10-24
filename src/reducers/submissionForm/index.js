@@ -23,6 +23,7 @@ export default (state = init, action) => {
         .setIn([formID, 'toggleHeading'], values.get('toggleHeading'))
         .setIn([formID, 'didPublish'], values.get('didPublish'))
         .setIn([formID, 'fields'], values.get('fields'))
+        .setIn([formID, 'paymentId'], values.get('paymentId'))
         .setIn([formID, 'payment'], values.get('payment'))
         .setIn([formID, 'form'], formID)
         .setIn([formID, 'brand'], values.get('brand'));

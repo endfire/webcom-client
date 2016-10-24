@@ -71,6 +71,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   updateForm: (id, data) => dispatch(actions.updateRecord('form', id, data)),
   createForm: (name) => dispatch(actions.createRecord('form', {
     name,
+    toggleHeading: '1',
     didPublish: false,
     recipientOne: 'marcv@webcomcommunications.com',
     recipientTwo: 'marshag@webcomcommunications.com',

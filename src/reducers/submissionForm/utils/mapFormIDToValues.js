@@ -26,6 +26,7 @@ export default (formID) => {
     recipientTwo: recipients.get('recipientTwo'),
     recipientThree: recipients.get('recipientThree'),
     payment: payment.set('country', 'United States'),
+    paymentId: Object.keys(payment.toJS())[0],
     name,
     didPublish,
     fields,

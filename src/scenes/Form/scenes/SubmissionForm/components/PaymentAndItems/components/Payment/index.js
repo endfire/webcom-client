@@ -11,7 +11,7 @@ const statesArray = ['', 'Not applicable', ...keys(states), ...canadianProvinces
 const countriesObject = countries.getNames('en');
 const countriesArray = keys(countriesObject).map(country => countriesObject[country]);
 
-const Payment = ({ payment, onChange }) => {
+const Payment = ({ payment, onChange, paymentId }) => {
   const firstName = payment.get('firstName');
   const lastName = payment.get('lastName');
   const company = payment.get('company');
@@ -26,6 +26,9 @@ const Payment = ({ payment, onChange }) => {
   const cardCvc = payment.get('cardCvc');
   const expMonth = payment.get('expMonth');
   const expYear = payment.get('expYear');
+  const billLaterSelected = payment.get('billLaterSelected') || '0';
+
+  const billLater = payment.getIn([paymentId, 'billLater']);
 
   return (
     <div>
@@ -155,62 +158,82 @@ const Payment = ({ payment, onChange }) => {
           )}
         </select>
       </fieldset>
-      <fieldset>
-        <label htmlFor="cardNumber">Credit Card Number</label>
-        <input
-          type="text"
-          id="cardNumber"
-          name="cardNumber"
-          maxLength="19"
-          size="19"
-          placeholder="1234123412341234"
-          onChange={onChange}
-          value={cardNumber}
-          required
-        />
-      </fieldset>
-      <fieldset>
-        <label htmlFor="cardCvc">CVV/CVC Number</label>
-        <input
-          type="text"
-          id="cardCvc"
-          name="cardCvc"
-          maxLength="4"
-          size="4"
-          placeholder="1234"
-          onChange={onChange}
-          value={cardCvc}
-          required
-        />
-      </fieldset>
-      <fieldset>
-        <label htmlFor="expMonth">Expiration Month</label>
-        <input
-          type="text"
-          id="expMonth"
-          name="expMonth"
-          maxLength="2"
-          size="2"
-          placeholder="MM"
-          onChange={onChange}
-          value={expMonth}
-          required
-        />
-      </fieldset>
-      <fieldset>
-        <label htmlFor="expYear">Expiration Year</label>
-        <input
-          type="text"
-          id="expYear"
-          name="expYear"
-          maxLength="2"
-          size="2"
-          placeholder="YY"
-          onChange={onChange}
-          value={expYear}
-          required
-        />
-      </fieldset>
+      {billLater &&
+        <fieldset>
+          <label htmlFor="billLaterSelected">Bill me later?</label>
+          <select
+            id="billLaterSelected"
+            name="billLaterSelected"
+            onChange={onChange}
+            value={billLaterSelected}
+            required
+          >
+            <option value="">Please select</option>
+            <option value="0">No</option>
+            <option value="1">Yes</option>
+          </select>
+        </fieldset>
+      }
+      {billLaterSelected === '0' &&
+        <div>
+          <fieldset>
+            <label htmlFor="cardNumber">Credit Card Number</label>
+            <input
+              type="text"
+              id="cardNumber"
+              name="cardNumber"
+              maxLength="19"
+              size="19"
+              placeholder="1234123412341234"
+              onChange={onChange}
+              value={cardNumber}
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="cardCvc">CVV/CVC Number</label>
+            <input
+              type="text"
+              id="cardCvc"
+              name="cardCvc"
+              maxLength="4"
+              size="4"
+              placeholder="1234"
+              onChange={onChange}
+              value={cardCvc}
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="expMonth">Expiration Month</label>
+            <input
+              type="text"
+              id="expMonth"
+              name="expMonth"
+              maxLength="2"
+              size="2"
+              placeholder="MM"
+              onChange={onChange}
+              value={expMonth}
+              required
+            />
+          </fieldset>
+          <fieldset>
+            <label htmlFor="expYear">Expiration Year</label>
+            <input
+              type="text"
+              id="expYear"
+              name="expYear"
+              maxLength="2"
+              size="2"
+              placeholder="YY"
+              onChange={onChange}
+              value={expYear}
+              required
+            />
+          </fieldset>
+        </div>
+      }
     </div>
   );
 };
@@ -218,6 +241,7 @@ const Payment = ({ payment, onChange }) => {
 Payment.propTypes = {
   payment: PropTypes.object,
   onChange: PropTypes.func,
+  paymentId: PropTypes.string,
 };
 
 export default Payment;

@@ -104,12 +104,14 @@ class FormSubmission extends Component {
     if (keys(submissionForm.get('payment').toJS()).length === 1) return null;
 
     const payment = submissionForm.get('payment');
+    const paymentId = submissionForm.get('paymentId');
 
     return (
       <PaymentAndItems
         payment={payment}
         submissionForm={submissionForm}
         formID={submissionFormID}
+        paymentId={paymentId}
         initializeSubmissionFormItems={initializeSubmissionFormItems}
         handleEditFormPayment={this.handleEditFormPayment}
         handleEditFormItem={this.handleEditFormItem}

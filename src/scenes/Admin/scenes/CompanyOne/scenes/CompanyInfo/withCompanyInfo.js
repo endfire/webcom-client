@@ -198,8 +198,6 @@ const CompanyInfoForm = ({
       <label htmlFor="businessOwnership">Business Ownership</label><br />
       <select
         id="businessOwnership"
-        type="text"
-        placeholder="Business Ownership."
         value={values ? values.getIn(['businessOwnership', 'value']) : ''}
         onChange={(e) => handleChange('businessOwnership', e.target.value)}
       >

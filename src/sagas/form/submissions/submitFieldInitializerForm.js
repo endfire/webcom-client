@@ -48,6 +48,7 @@ function* submitFieldInitializerForm(action) {
     if (payment) {
       const createdPayment = yield api.create('payment', {
         form: id,
+        billLater: payment.billLater,
         items: [],
       });
 
