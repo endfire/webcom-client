@@ -21,6 +21,7 @@ class BrandOBG extends Component {
     this.incrementCounter = this.incrementCounter.bind(this);
     this.obgUninitialized = this.obgUninitialized.bind(this);
     this.obgInitialized = this.obgInitialized.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   incrementCounter() {
