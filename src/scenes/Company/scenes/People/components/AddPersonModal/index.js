@@ -6,7 +6,7 @@ import { ModalDialog } from 'components';
 const AddPersonModal = withModal(
   ({ isOpen, openModal }) => (
     <Button active={isOpen} onClick={openModal} color="primary">
-      Add a new person
+      Add key people
     </Button>
   ),
   ({ closeModal, createPerson, isCreateLoading, companyID, jobSelectOptions }) => (

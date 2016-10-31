@@ -78,7 +78,7 @@ class AddListingDialog extends Component {
     if (this.state.brand) {
       return (
         <fieldset>
-          <label htmlFor="name">Select a all categories for this listing</label><br />
+          <label htmlFor="name">Select all categories for this listing</label><br />
           <Select
             name="categories"
             value={this.state.categories}

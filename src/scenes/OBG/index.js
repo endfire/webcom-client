@@ -1,7 +1,5 @@
 import React, { PropTypes, Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import { Button } from 'paintcan';
 import * as actions from 'actions/store';
 import { ObgContent } from './components';
 import {
@@ -32,32 +30,6 @@ class OBG extends Component {
 
     const renderOBG = () => (
       <div className={styles.wrapper}>
-        <div className={styles.header}>
-          <h3>{`${brand.get('name')} OBG`}</h3>
-        </div>
-        <div className={styles.headImage}>
-          <img
-            src={brand.get('image')}
-            alt={brand.get('name')}
-          />
-        </div>
-        <div className={styles.header}>
-          <div className={styles.nav}>
-            <Link to="/signup">
-              <Button color="primary">
-                Submit a free listing
-              </Button>
-            </Link> &nbsp; &nbsp;
-            <Link to="/company-login">
-              <Button color="primary">
-                Login
-              </Button>
-            </Link><br />
-          </div>
-          <p>
-            {brand.get('obgDescription')}
-          </p>
-        </div>
         <div className={styles.header}>
           <ObgContent
             brand={brand}

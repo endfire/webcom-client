@@ -26,7 +26,7 @@ class BrandOBG extends Component {
 
   incrementCounter() {
     let { counter } = this.state;
-    counter += 1500;
+    counter += 1000;
     this.setState({ counter });
   }
 
