@@ -169,7 +169,7 @@ const Payment = ({ payment, onChange, paymentId }) => {
             required
           >
             <option value="">Please select</option>
-            <option value="0">No</option>
+            <option value="0">No-Pay With Credit Card Now</option>
             <option value="1">Yes</option>
           </select>
         </fieldset>

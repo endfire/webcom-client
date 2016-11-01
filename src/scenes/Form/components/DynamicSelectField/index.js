@@ -7,6 +7,26 @@ const DynamicSelectField = ({ field, onChange }) => {
   const options = field.get('options');
   const id = field.get('id');
 
+  if (isRequired === 'false') {
+    return (
+      <fieldset>
+        <label htmlFor={id}>{label}</label>
+        <select
+          id={id}
+          name={id}
+          onChange={onChange}
+          value={value}
+        >
+          {options.toArray().map(option => (
+            <option key={option} value={option}>
+              {option}
+            </option>)
+          )}
+        </select>
+      </fieldset>
+    );
+  }
+
   return (
     <fieldset>
       <label htmlFor={id}>{label}</label>
@@ -15,7 +35,7 @@ const DynamicSelectField = ({ field, onChange }) => {
         name={id}
         onChange={onChange}
         value={value}
-        required={isRequired}
+        required
       >
         {options.toArray().map(option => (
           <option key={option} value={option}>

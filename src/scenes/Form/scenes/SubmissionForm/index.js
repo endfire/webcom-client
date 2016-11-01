@@ -122,7 +122,7 @@ class FormSubmission extends Component {
 
   render() {
     const { error, submissionForm } = this.props;
-    const { handleSubmission, renderFields, renderPaymentAndItems, renderSpinner } = this;
+    const { handleSubmission, renderFields, renderPaymentAndItems } = this;
 
     return (
       <div className={styles.wrapper}>
@@ -143,7 +143,7 @@ class FormSubmission extends Component {
           {renderPaymentAndItems()}
           {renderFields()}
           <Button type="submit" size="md" color="primary">
-            Submit Form
+            Submit form
           </Button>
           {error && <AuthErrorCard message={error.message} />}
         </form>

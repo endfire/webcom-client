@@ -7,6 +7,23 @@ const DynamicTextareaField = ({ field, onChange }) => {
   const placeholder = field.get('placeholder');
   const id = field.get('id');
 
+  if (isRequired === 'false') {
+    return (
+      <fieldset>
+        <label htmlFor={id}>{label}</label>
+        <div>
+          <textarea
+            id={id}
+            name={id}
+            placeholder={placeholder}
+            onChange={onChange}
+            value={value}
+          />
+        </div>
+      </fieldset>
+    );
+  }
+
   return (
     <fieldset>
       <label htmlFor={id}>{label}</label>
@@ -17,7 +34,7 @@ const DynamicTextareaField = ({ field, onChange }) => {
           placeholder={placeholder}
           onChange={onChange}
           value={value}
-          required={isRequired}
+          required
         />
       </div>
     </fieldset>

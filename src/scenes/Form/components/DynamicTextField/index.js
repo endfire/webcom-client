@@ -7,6 +7,22 @@ const DynamicTextField = ({ field, onChange }) => {
   const placeholder = field.get('placeholder');
   const id = field.get('id');
 
+  if (isRequired === 'false') {
+    return (
+      <fieldset>
+        <label htmlFor={id}>{label}</label>
+        <input
+          type="text"
+          id={id}
+          name={id}
+          placeholder={placeholder}
+          onChange={onChange}
+          value={value}
+        />
+      </fieldset>
+    );
+  }
+
   return (
     <fieldset>
       <label htmlFor={id}>{label}</label>
@@ -17,7 +33,7 @@ const DynamicTextField = ({ field, onChange }) => {
         placeholder={placeholder}
         onChange={onChange}
         value={value}
-        required={isRequired}
+        required
       />
     </fieldset>
   );
