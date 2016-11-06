@@ -55,7 +55,7 @@ class AddFieldDialog extends Component {
 
     let data = {
       form: formID,
-      isRequired: true,
+      isRequired: 'true',
       label,
       priority: Number(priority),
       type,

@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import styles from './styles.scss';
 
 const DynamicTextareaField = ({ field, onChange }) => {
   const label = field.get('label');
@@ -18,6 +19,7 @@ const DynamicTextareaField = ({ field, onChange }) => {
             placeholder={placeholder}
             onChange={onChange}
             value={value}
+            className={styles.textarea}
           />
         </div>
       </fieldset>
@@ -35,6 +37,7 @@ const DynamicTextareaField = ({ field, onChange }) => {
           onChange={onChange}
           value={value}
           required
+          className={styles.textarea}
         />
       </div>
     </fieldset>

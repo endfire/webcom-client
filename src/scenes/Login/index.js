@@ -84,6 +84,12 @@ const Login = ({
             </Button>
           </fieldset>
         </form>
+        <p className={styles.heading}>
+          If you need to recover your login email or password please email your request to
+          &nbsp; <a href="mailto:circulation@webcomcommunications.com">
+            circulation@webcomcommunications.com
+          </a>
+        </p>
       </div>
     </div>
   );
